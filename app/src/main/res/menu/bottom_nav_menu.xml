@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home_icon"
+        android:title="Home"
+        android:icon="@drawable/ic_home_foreground"/>
+    <item
+        android:id="@+id/medrec_icon"
+        android:title="Result"
+        android:icon="@drawable/ic_medrec_foreground"/>
+    <item
+        android:id="@+id/person_icon"
+        android:title="Profile"
+        android:icon="@drawable/ic_person_foreground"/>
+</menu>

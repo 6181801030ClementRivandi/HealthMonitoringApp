@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">HealthMonitoringWSN</string>
+    <string name="openDrawer">opendrawer</string>
+    <string name="closeDrawer">closedrawer</string>
+</resources>
