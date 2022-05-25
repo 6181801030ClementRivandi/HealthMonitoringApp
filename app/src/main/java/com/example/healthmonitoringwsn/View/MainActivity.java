@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
     private MainFragment mainFragment;
     private ProfileFragment profileFragment;
     private MedrecFragment medrecFragment;
+    private MedrecDetailsFragment medrecDetailsFragment;
 
     private FragmentManager fragmentManager;
     private FragmentTransaction ft;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         this.mainFragment = MainFragment.newInstance();
         this.profileFragment = ProfileFragment.newInstance();
         this.medrecFragment = MedrecFragment.newInstance();
+        this.medrecDetailsFragment = MedrecDetailsFragment.newInstance();
 
         this.fragmentManager = this.getSupportFragmentManager();
         this.toolbar = findViewById(R.id.toolbar);
@@ -77,9 +79,9 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         else if (page == 4) {
             ft.replace(R.id.fragment_container, this.medrecFragment).addToBackStack(null);
         }
-//        else if (page == 4) {
-//            ft.replace(R.id.fragment_container, this.settingFragment).addToBackStack(null);
-//        }
+        else if (page == 5) {
+            ft.replace(R.id.fragment_container, this.medrecDetailsFragment).addToBackStack(null);
+        }
 
         this.drawer.closeDrawers();
         this.ft.commit();
@@ -114,13 +116,13 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         this.profileFragment.setArguments(bundle);
     }
 
-//    public void psMedrec(MedrecDetails medrecDetails) {
-//        this.ft = this.fragmentManager.beginTransaction();
-//        Bundle bundle = new Bundle();
-//        bundle.putParcelable("medrecDetails", incidentDetails);
-//        this.reportsDetail.setArguments(bundle);
-//        changePage(2);
-//    }
+    public void psMedrec(MedrecDetails medrecDetails) {
+        this.ft = this.fragmentManager.beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("medrecDetails", medrecDetails);
+        this.medrecDetailsFragment.setArguments(bundle);
+        changePage(5);
+    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

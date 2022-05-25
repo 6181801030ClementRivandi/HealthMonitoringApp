@@ -47,14 +47,14 @@ public class MedrecDetailsFragment extends Fragment implements View.OnClickListe
         Bundle bundle = getArguments();
         if ( bundle != null){
             this.medrecDetails = bundle.getParcelable("medrecDetails");
-            this.tvIdPeriksa.setText(medrecDetails.getIdPeriksa());
+            this.tvIdPeriksa.setText(String.valueOf(medrecDetails.getIdPeriksa()));
             this.tvTanggal.setText(medrecDetails.getTanggal());
             this.tvSuhu.setText(String.valueOf(medrecDetails.getSuhuTubuh()));
-            this.tvDetak.setText(medrecDetails.getDetakJantung());
-            this.tvTekanan.setText(medrecDetails.getTekananDarah());
+            this.tvDetak.setText(String.valueOf(medrecDetails.getDetakJantung()));
+            this.tvTekanan.setText(String.valueOf(medrecDetails.getTekananDarah()));
             this.tvSaturasi.setText(String.valueOf(medrecDetails.getSaturasiOksigen()));
-            this.tvIdPetugas.setText(medrecDetails.getIdPetugas());
-            this.tvIdNode.setText(medrecDetails.getIdNode());
+            this.tvIdPetugas.setText(String.valueOf(medrecDetails.getIdPetugas()));
+            this.tvIdNode.setText(String.valueOf(medrecDetails.getIdNode()));
         }
 
         return view;

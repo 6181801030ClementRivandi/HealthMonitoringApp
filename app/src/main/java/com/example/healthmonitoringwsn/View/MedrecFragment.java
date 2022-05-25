@@ -47,7 +47,7 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
         hasilMedrec = new ArrayList<>();
 
         this.medrecList = view.findViewById(R.id.list_medrec);
-        this.presenter = new MedrecPresenter((MedrecPresenter.IMainActivity) this);
+        this.presenter = new MedrecPresenter(this);
 
         this.adapter = new MedrecListAdapter((requireActivity()));
         //this.presenter.loadData();
@@ -57,8 +57,8 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MainActivity main = (MainActivity) getActivity();
-                MedrecDetails incidentDetailsATM = (MedrecDetails) adapter.getItem(position);
-                //main.psIncident(incidentDetailsATM);
+                MedrecDetails currentMedrec = (MedrecDetails) adapter.getItem(position);
+                main.psMedrec(currentMedrec);
             }
         });
 
