@@ -47,7 +47,7 @@ public class MedrecDetailsFragment extends Fragment implements View.OnClickListe
         Bundle bundle = getArguments();
         if ( bundle != null){
             this.medrecDetails = bundle.getParcelable("medrecDetails");
-            this.tvIdPeriksa.setText(String.valueOf(medrecDetails.getIdPeriksa()));
+            this.tvIdPeriksa.setText("id pemeriksaan : " + String.valueOf(medrecDetails.getIdPeriksa()));
             this.tvTanggal.setText(medrecDetails.getTanggal());
             this.tvSuhu.setText(String.valueOf(medrecDetails.getSuhuTubuh()));
             this.tvDetak.setText(String.valueOf(medrecDetails.getDetakJantung()));
@@ -82,9 +82,4 @@ public class MedrecDetailsFragment extends Fragment implements View.OnClickListe
             this.listener.changePage(4);
         }
     }
-//
-//    @Override
-//    public void hasil(MedrecDetails hasilAkses) {
-//        this.tvIdPeriksa.setText(hasilAkses.getIdPeriksa());
-//    }
 }

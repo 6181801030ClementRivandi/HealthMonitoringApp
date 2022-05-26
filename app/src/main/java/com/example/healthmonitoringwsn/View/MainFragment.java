@@ -2,6 +2,7 @@ package com.example.healthmonitoringwsn.View;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.healthmonitoringwsn.Model.Profile;
 import com.example.healthmonitoringwsn.Presenter.ProfilePresenter;
@@ -24,6 +26,8 @@ public class MainFragment extends Fragment implements View.OnClickListener{
     private FragmentListener listener;
     private Button btnProfile;
     private Sqlite sqlite;
+    SwipeRefreshLayout refreshLayout;
+
     public MainFragment(){}
 
     @Override
@@ -38,6 +42,22 @@ public class MainFragment extends Fragment implements View.OnClickListener{
                 }
             }
             return false;
+        });
+
+        refreshLayout = view.findViewById(R.id.swipe_to_refresh_layout);
+        refreshLayout.setColorSchemeResources(
+                android.R.color.holo_green_dark, android.R.color.holo_blue_dark,
+                android.R.color.holo_orange_dark, android.R.color.holo_red_dark);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshLayout.setRefreshing(false);
+                    }
+                }, 1000);
+            }
         });
 
         //this.sqlite = new Sqlite(this.getActivity());
