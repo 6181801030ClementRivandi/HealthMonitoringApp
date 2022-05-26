@@ -66,4 +66,8 @@ public class LoginPresenter implements ILoginPresenter, PostCalculateTask.ILogin
     @Override
     public void hasil(MedrecDetails medrecDetails) {
     }
+
+//    public interface passUserId{
+//        void pass(String userId);
+//    }
 }

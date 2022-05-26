@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         this.ft = this.fragmentManager.beginTransaction();
         Bundle bundle = new Bundle();
         bundle.putString("idUsr", id);
+        this.medrecFragment.setArguments(bundle);
         this.profileFragment.setArguments(bundle);
     }
 

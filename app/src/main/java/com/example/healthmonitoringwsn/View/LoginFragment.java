@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.healthmonitoringwsn.Model.MedrecDetails;
 import com.example.healthmonitoringwsn.Model.Profile;
 import com.example.healthmonitoringwsn.Presenter.ILoginPresenter;
 import com.example.healthmonitoringwsn.Presenter.LoginPresenter;

@@ -45,7 +45,6 @@ public class ProfileFragment extends Fragment{
         if(bundle != null){
             this.idUser = bundle.getString("idUsr");
         }
-        Log.d("test id user", idUser);
         this.profile = this.sqlite.getContact(Integer.parseInt(idUser));
         this.tvNamaUser.setText(profile.getNamaUser());
         this.tvUsiaUser.setText(profile.getUsiaUser());

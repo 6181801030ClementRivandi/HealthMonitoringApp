@@ -1,16 +1,20 @@
 package com.example.healthmonitoringwsn.View;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkCapabilities;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -25,10 +29,13 @@ import com.example.healthmonitoringwsn.R;
 
 import org.json.JSONException;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
-public class MedrecFragment extends Fragment implements PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, MedrecPresenter.IMainActivity{
+public class MedrecFragment extends Fragment implements PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, MedrecPresenter.IMainActivity, View.OnClickListener{
 
     private ListView medrecList;
     private MedrecPresenter presenter;
@@ -36,6 +43,11 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
     private FragmentListener listener;
     private Activity activity;
     private ArrayList<MedrecDetails> hasilMedrec;
+    private DatePickerDialog datePickerDialog;
+    private SimpleDateFormat dateFormatter;
+    private Context context;
+    Button filter;
+    String idUser;
     PostCalculateTask postCalculateTask;
 
     public MedrecFragment() {
@@ -44,10 +56,17 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_medrec, container, false);
 
+        Bundle bundle = getArguments();
+        if(bundle != null){
+            this.idUser = bundle.getString("idUsr");
+        }
+
         hasilMedrec = new ArrayList<>();
 
         this.medrecList = view.findViewById(R.id.list_medrec);
         this.presenter = new MedrecPresenter(this);
+
+        dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
         this.adapter = new MedrecListAdapter((requireActivity()));
         //this.presenter.loadData();
@@ -63,14 +82,19 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
         });
 
         this.postCalculateTask = new PostCalculateTask(getContext(), this, this);//, (PostCalculateTask.ILoginActivity) this, this);
+
         String[] apicall = new String[2];
         apicall[0] = "medrec";
-        apicall[1] = "1";
+        apicall[1] = idUser;
         try {
             postCalculateTask.callVolley(apicall);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        this.filter = view.findViewById(R.id.btn_filter);
+
+        this.filter.setOnClickListener(this);
 
         presenter.refresh();
 
@@ -110,6 +134,33 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
 
     }
 
+    @Override
+    public void onClick(View view) {
+        if(view == this.filter){
+            Calendar newCalendar = Calendar.getInstance();
+
+            datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    Calendar newDate = Calendar.getInstance();
+                    newDate.set(year, monthOfYear, dayOfMonth);
+                    String[] apicallFilter = new String[3];
+                    apicallFilter[0] = "medrecFilter";
+                    apicallFilter[1] = idUser;
+                    apicallFilter[2] = dateFormatter.format(newDate.getTime());
+                    try {
+                        postCalculateTask.callVolley(apicallFilter);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+            datePickerDialog.show();
+            presenter.refresh();
+        }
+    }
+
 //    @Override
 //    public void updateList(List<MedrecDetails> medrecDetailsUP) {
 //        this.adapter.updateArray(medrecDetailsUP);
@@ -121,4 +172,3 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
 //        presenter.addList(tester.getTitle(), tester.getDescription(), tester.getAddress());
 //    }
 }
-
