@@ -102,6 +102,7 @@ public class PostCalculateTask {
                         return params;
                     }
                 };
+                BASE_URL = "http://172.20.10.2/Api.php?apicall=";
                 break;
             case "medrec":
                 BASE_URL += "medrec";
@@ -155,11 +156,12 @@ public class PostCalculateTask {
                         return params;
                     }
                 };
+                BASE_URL = "http://172.20.10.2/Api.php?apicall=";
                 break;
-            case "medrecFilter":
-                BASE_URL += "medrecFilter";
+            case "medrecSort":
+                BASE_URL += "medrecSort";
                 idPsn = apicall[1];
-                String tanggal = apicall[2];
+                String tgl = apicall[2];
                 jsonObjRequest = new StringRequest(Request.Method.POST,BASE_URL, new Response.Listener<String>() {
 
                     String tanggal;
@@ -206,10 +208,11 @@ public class PostCalculateTask {
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> params = new HashMap<String, String>();
                         params.put("idPasien", idPsn);
-                        params.put("tanggal", tanggal);
+                        params.put("tanggal", tgl);
                         return params;
                     }
                 };
+                BASE_URL = "http://172.20.10.2/Api.php?apicall=";
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + apicall[0]);

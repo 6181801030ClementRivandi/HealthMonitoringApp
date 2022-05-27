@@ -46,8 +46,10 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
     private DatePickerDialog datePickerDialog;
     private SimpleDateFormat dateFormatter;
     private Context context;
-    Button filter;
+    Button filter, delFilter;
     String idUser;
+    String[] temp;
+    Boolean state;
     PostCalculateTask postCalculateTask;
 
     public MedrecFragment() {
@@ -83,18 +85,30 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
 
         this.postCalculateTask = new PostCalculateTask(getContext(), this, this);//, (PostCalculateTask.ILoginActivity) this, this);
 
-        String[] apicall = new String[2];
-        apicall[0] = "medrec";
-        apicall[1] = idUser;
-        try {
-            postCalculateTask.callVolley(apicall);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if ( temp != null && state == true){
+            try {
+                postCalculateTask.callVolley(temp);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }else{
+            String[] apicall = new String[2];
+            apicall[0] = "medrec";
+            apicall[1] = idUser;
+            try {
+                postCalculateTask.callVolley(apicall);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
         this.filter = view.findViewById(R.id.btn_filter);
 
         this.filter.setOnClickListener(this);
+
+        this.delFilter = view.findViewById(R.id.btn_delFilter);
+
+        this.delFilter.setOnClickListener(this);
 
         presenter.refresh();
 
@@ -144,12 +158,14 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
                 public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                     Calendar newDate = Calendar.getInstance();
                     newDate.set(year, monthOfYear, dayOfMonth);
-                    String[] apicallFilter = new String[3];
-                    apicallFilter[0] = "medrecFilter";
-                    apicallFilter[1] = idUser;
-                    apicallFilter[2] = dateFormatter.format(newDate.getTime());
+                    String[] apicallSort = new String[3];
+                    apicallSort[0] = "medrecSort";
+                    apicallSort[1] = idUser;
+                    apicallSort[2] = dateFormatter.format(newDate.getTime());
+                    temp = apicallSort;
+                    state = true;
                     try {
-                        postCalculateTask.callVolley(apicallFilter);
+                        postCalculateTask.callVolley(apicallSort);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -157,6 +173,18 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
 
             },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
             datePickerDialog.show();
+            presenter.refresh();
+        }else{
+            temp = null;
+            state = false;
+            String[] apicall = new String[2];
+            apicall[0] = "medrec";
+            apicall[1] = idUser;
+            try {
+                postCalculateTask.callVolley(apicall);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             presenter.refresh();
         }
     }
