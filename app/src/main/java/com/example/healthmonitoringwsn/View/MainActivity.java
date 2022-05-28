@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         Bundle bundle = new Bundle();
         bundle.putParcelable("pasienDetails", pasienDetails);
         this.pasienDetailsFragment.setArguments(bundle);
-        changePage(6);
+        changePage(7);
     }
 
     @Override

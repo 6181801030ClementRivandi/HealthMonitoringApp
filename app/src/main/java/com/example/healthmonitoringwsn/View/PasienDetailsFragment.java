@@ -44,7 +44,7 @@ public class PasienDetailsFragment extends Fragment implements View.OnClickListe
         if ( bundle != null){
             this.pasienDetails = bundle.getParcelable("pasienDetails");
             this.tvNama.setText("nama pasien : " + String.valueOf(pasienDetails.getNama()));
-            this.tvNIK.setText(pasienDetails.getNIK());
+            this.tvNIK.setText(String.valueOf(pasienDetails.getNIK()));
             this.tvUsia.setText(String.valueOf(pasienDetails.getUsia()));
             this.tvTanggalLahir.setText(String.valueOf(pasienDetails.getTanggalLahir()));
             this.tvIdPasien.setText(String.valueOf(pasienDetails.getIdPasien()));
