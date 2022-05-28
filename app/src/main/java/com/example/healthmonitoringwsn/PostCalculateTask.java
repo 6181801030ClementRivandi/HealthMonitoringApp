@@ -3,6 +3,7 @@ package com.example.healthmonitoringwsn;
 import android.content.Context;
 import android.icu.lang.UProperty;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -30,15 +31,17 @@ public class PostCalculateTask {
     ILoginActivity uiLog;
     IMainActivity uiMedrec;
     IMainActivityPsn uiPasien;
+    IMainActivityAddPsn uiAddPasien;
 
     String nama, tanggalLahir, usia, nomorHP, email, tanggalDaftar, namaKlinik;
     int NIK, idPasien;
 
-    public PostCalculateTask(Context context, ILoginActivity uiLog, IMainActivity uiMedrec, IMainActivityPsn uiPasien) {
+    public PostCalculateTask(Context context, ILoginActivity uiLog, IMainActivity uiMedrec, IMainActivityPsn uiPasien, IMainActivityAddPsn uiAddPasien) {
         this.context = context;
         this.uiLog = uiLog;
         this.uiMedrec = uiMedrec;
         this.uiPasien = uiPasien;
+        this.uiAddPasien = uiAddPasien;
     }
 
     public void callVolley(String[] apicall) throws JsonIOException, JSONException {
@@ -279,6 +282,50 @@ public class PostCalculateTask {
                 };
                 BASE_URL = "http://172.20.10.2/Api.php?apicall=";
                 break;
+            case "addPasien":
+                BASE_URL += "addPasien";
+                jsonObjRequest = new StringRequest(
+
+                        Request.Method.POST,BASE_URL,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONObject result = new JSONObject(response);
+                                    String res = "";
+                                    String checker = result.get("message").toString();
+                                    if(checker.equals("add successful")) {
+                                        res = "add successful";
+                                    }else{
+                                        res = "add failed";
+                                    }
+                                    uiAddPasien.result(res);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                VolleyLog.d("volley", "Error: " + error.getMessage());
+                                error.printStackTrace();
+                            }
+                        }) {
+
+                    @Override
+                    public String getBodyContentType() {
+                        return "application/x-www-form-urlencoded; charset=UTF-8";
+                    }
+
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+                        return params;
+                    }
+                };
+                BASE_URL = "http://172.20.10.2/Api.php?apicall=";
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + apicall[0]);
         }
@@ -300,6 +347,10 @@ public class PostCalculateTask {
 
     public interface IMainActivityPsn{
         void hasil(PasienDetails pasienDetails);
+    }
+
+    public interface IMainActivityAddPsn{
+        void result(String message);
     }
 }
 

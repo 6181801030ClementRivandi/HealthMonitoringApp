@@ -31,7 +31,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class PasienFragment extends Fragment implements PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.IMainActivityPsn, PasienPresenter.IMainActivity, View.OnClickListener{
+public class PasienFragment extends Fragment implements PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.IMainActivityPsn, PasienPresenter.IMainActivity, PostCalculateTask.IMainActivityAddPsn, View.OnClickListener{
 
     private ListView pasienList;
     private PasienPresenter presenter;
@@ -72,7 +72,7 @@ public class PasienFragment extends Fragment implements PostCalculateTask.IMainA
             }
         });
 
-        this.postCalculateTask = new PostCalculateTask(getContext(), this, this, this);//, (PostCalculateTask.ILoginActivity) this, this);
+        this.postCalculateTask = new PostCalculateTask(getContext(), this, this, this, this);//, (PostCalculateTask.ILoginActivity) this, this);
 
         String[] apicall = new String[1];
         apicall[0] = "pasien";
@@ -143,6 +143,11 @@ public class PasienFragment extends Fragment implements PostCalculateTask.IMainA
     public void hasil(PasienDetails pasienDetails) {
         PasienDetails pasien = pasienDetails;
         presenter.addList(pasien.getNama(), pasien.getNIK(), pasien.getUsia(), pasien.getTanggalLahir(), pasien.getIdPasien(), pasien.getNomorHP(), pasien.getEmail(), pasien.getPassword(), pasien.getTanggalDaftar(), pasien.getIdKlinik(), pasien.getNamaKlinik());
+    }
+
+    @Override
+    public void result(String message) {
+
     }
 
 //    @Override

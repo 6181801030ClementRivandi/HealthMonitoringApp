@@ -11,27 +11,35 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.healthmonitoringwsn.Model.MedrecDetails;
+import com.example.healthmonitoringwsn.Model.PasienDetails;
+import com.example.healthmonitoringwsn.Model.Profile;
+import com.example.healthmonitoringwsn.PostCalculateTask;
 import com.example.healthmonitoringwsn.R;
 import com.example.healthmonitoringwsn.Sqlite;
+
+import org.json.JSONException;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class AddPasienFragment extends Fragment implements View.OnClickListener{
+public class AddPasienFragment extends Fragment implements PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, View.OnClickListener{
     private FragmentManager fragmentManager;
     private FragmentListener listener;
     private SimpleDateFormat dateFormatter;
 
     private TextView etNama, etNIK, etUsia, etTanggalLahir, etId, etNomorHP, etEmail, etPassword, etIdKlinik;
     private Button btnAdd;
-    private Sqlite sqlite;
+    private PostCalculateTask postCalculateTask;
     private String namaPasien, usiaPasien, tanggalLahirPasien, nomorHPPasien, emailPasien, passwordPasien, tanggalDaftarPasien, NIKPasien, idPasien, idKlinik;
+    private String result;
 
     public AddPasienFragment(){}
 
@@ -41,7 +49,7 @@ public class AddPasienFragment extends Fragment implements View.OnClickListener{
 
         dateFormatter = new SimpleDateFormat("yyyy-MM-dd H:m:s", Locale.US);
 
-        this.sqlite = new Sqlite(this.getActivity());
+        this.postCalculateTask = new PostCalculateTask(getContext(), this, this, this, this);
 
         this.etNama = view.findViewById(R.id.ETNamaPasien);
         this.etNIK = view.findViewById(R.id.ETNIKPasien);
@@ -113,6 +121,14 @@ public class AddPasienFragment extends Fragment implements View.OnClickListener{
             etEmail.setText(null);
             etPassword.setText(null);
             etIdKlinik.setText(null);
+
+            try {
+                postCalculateTask.callVolley(apicall);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -124,5 +140,25 @@ public class AddPasienFragment extends Fragment implements View.OnClickListener{
             view = new View(activity);
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    @Override
+    public void logResult(Profile profile) {
+
+    }
+
+    @Override
+    public void hasil(MedrecDetails medrecDetails) {
+
+    }
+
+    @Override
+    public void hasil(PasienDetails pasienDetails) {
+
+    }
+
+    @Override
+    public void result(String message) {
+        result = message;
     }
 }
