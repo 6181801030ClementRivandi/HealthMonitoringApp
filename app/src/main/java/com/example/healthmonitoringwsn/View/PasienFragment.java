@@ -142,7 +142,7 @@ public class PasienFragment extends Fragment implements PostCalculateTask.IMainA
     @Override
     public void hasil(PasienDetails pasienDetails) {
         PasienDetails pasien = pasienDetails;
-        presenter.addList(pasien.getNama(), pasien.getNIK(), pasien.getUsia(), pasien.getTanggalLahir(), pasien.getIdPasien(), pasien.getNamaKlinik());
+        presenter.addList(pasien.getNama(), pasien.getNIK(), pasien.getUsia(), pasien.getTanggalLahir(), pasien.getIdPasien(), pasien.getNomorHP(), pasien.getEmail(), pasien.getPassword(), pasien.getTanggalDaftar(), pasien.getIdKlinik(), pasien.getNamaKlinik());
     }
 
 //    @Override

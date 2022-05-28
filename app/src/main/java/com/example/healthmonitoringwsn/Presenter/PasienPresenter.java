@@ -32,8 +32,8 @@ public class PasienPresenter {
         return pasien.size();
     }
 
-    public void addList(String nama, int NIK, String usia, String tanggalLahir, int idPasien, String namaKlinik){
-        this.pasien.add(new PasienDetails(nama, NIK, usia, tanggalLahir, idPasien, namaKlinik));
+    public void addList(String nama, int NIK, String usia, String tanggalLahir, int idPasien, String nomorHP, String email, String password, String tanggalDaftar, int idKlinik, String namaKlinik){
+        this.pasien.add(new PasienDetails(nama, NIK, usia, tanggalLahir, idPasien, nomorHP, email, password, tanggalDaftar, idKlinik, namaKlinik));
         this.ui.updateList(this.pasien);
     }
 

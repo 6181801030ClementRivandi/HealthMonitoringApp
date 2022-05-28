@@ -19,7 +19,7 @@ public class PasienDetailsFragment extends Fragment implements View.OnClickListe
     {
     private FragmentListener listener;
     FloatingActionButton btnEdit;
-    TextView tvNama, tvNIK, tvUsia, tvTanggalLahir, tvIdPasien, tvNamaKlinik;
+    TextView tvNama, tvNIK, tvUsia, tvTanggalLahir, tvIdPasien, tvNomorHP, tvEmail, tvPassword, tvTanggalDaftar, tvIdKlinik, tvNamaKlinik;
 
     private PasienDetails pasienDetails;
 
@@ -35,6 +35,11 @@ public class PasienDetailsFragment extends Fragment implements View.OnClickListe
         this.tvUsia = view.findViewById(R.id.details_usia);
         this.tvTanggalLahir = view.findViewById(R.id.details_tanggalLahir);
         this.tvIdPasien = view.findViewById(R.id.details_idPasien);
+        this.tvNomorHP = view.findViewById(R.id.details_nomorHP);
+        this.tvEmail = view.findViewById(R.id.details_email);
+        this.tvPassword = view.findViewById(R.id.details_password);
+        this.tvTanggalDaftar = view.findViewById(R.id.details_tanggalDaftar);
+        this.tvIdKlinik = view.findViewById(R.id.details_idKlinik);
         this.tvNamaKlinik = view.findViewById(R.id.details_klinik);
 
         this.btnEdit = view.findViewById(R.id.fab_edit);
@@ -43,11 +48,16 @@ public class PasienDetailsFragment extends Fragment implements View.OnClickListe
         Bundle bundle = getArguments();
         if ( bundle != null){
             this.pasienDetails = bundle.getParcelable("pasienDetails");
-            this.tvNama.setText("nama pasien : " + String.valueOf(pasienDetails.getNama()));
+            this.tvNama.setText("nama pasien : " + pasienDetails.getNama());
             this.tvNIK.setText(String.valueOf(pasienDetails.getNIK()));
             this.tvUsia.setText(String.valueOf(pasienDetails.getUsia()));
             this.tvTanggalLahir.setText(String.valueOf(pasienDetails.getTanggalLahir()));
             this.tvIdPasien.setText(String.valueOf(pasienDetails.getIdPasien()));
+            this.tvNomorHP.setText(String.valueOf(pasienDetails.getNomorHP()));
+            this.tvEmail.setText(String.valueOf(pasienDetails.getEmail()));
+            this.tvPassword.setText(String.valueOf(pasienDetails.getPassword()));
+            this.tvTanggalDaftar.setText(String.valueOf(pasienDetails.getTanggalDaftar()));
+            this.tvIdKlinik.setText(String.valueOf(pasienDetails.getIdKlinik()));
             this.tvNamaKlinik.setText(String.valueOf(pasienDetails.getNamaKlinik()));
         }
 

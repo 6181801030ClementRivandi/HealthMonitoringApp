@@ -231,8 +231,8 @@ public class PostCalculateTask {
 
                         Request.Method.POST,BASE_URL,
                         new Response.Listener<String>() {
-                            String nama, usia, tanggalLahir, namaKlinik;
-                            int NIK,idPasien;
+                            String nama, usia, tanggalLahir, nomorHP, email, password, tanggalDaftar, namaKlinik;
+                            int NIK, idPasien, idKlinik;
                             @Override
                             public void onResponse(String response) {
                                 try {
@@ -243,8 +243,13 @@ public class PostCalculateTask {
                                         usia = (String) result.getJSONArray("user").getJSONObject(x).get("usia");
                                         tanggalLahir = (String) result.getJSONArray("user").getJSONObject(x).get("tanggalLahir");
                                         idPasien = (Integer) result.getJSONArray("user").getJSONObject(x).get("idPasien");
+                                        nomorHP = (String) result.getJSONArray("user").getJSONObject(x).get("nomorHP");
+                                        email = (String) result.getJSONArray("user").getJSONObject(x).get("email");
+                                        password = (String) result.getJSONArray("user").getJSONObject(x).get("password");
+                                        tanggalDaftar = (String) result.getJSONArray("user").getJSONObject(x).get("tanggalDaftar");
+                                        idKlinik = (Integer) result.getJSONArray("user").getJSONObject(x).get("idKlinik");
                                         namaKlinik = (String) result.getJSONArray("user").getJSONObject(x).get("namaKlinik");
-                                        PasienDetails pasienDetails = new PasienDetails(this.nama, this.NIK, this.usia, this.tanggalLahir, idPasien, this.namaKlinik);
+                                        PasienDetails pasienDetails = new PasienDetails(this.nama, this.NIK, this.usia, this.tanggalLahir, this.idPasien, this.nomorHP, this.email, this.password, this.tanggalDaftar, this.idKlinik, this.namaKlinik);
                                         uiPasien.hasil(pasienDetails);
                                     }
                                 } catch (JSONException e) {
