@@ -125,17 +125,7 @@ public class PasienFragment extends Fragment implements PostCalculateTask.IMainA
     @Override
     public void onClick(View view) {
         if(view == this.add){
-//            temp = null;
-//            state = false;
-//            String[] apicall = new String[2];
-//            apicall[0] = "medrec";
-//            apicall[1] = idUser;
-//            try {
-//                postCalculateTask.callVolley(apicall);
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//            presenter.refresh();
+            this.listener.changePage(8);
         }
     }
 

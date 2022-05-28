@@ -284,6 +284,18 @@ public class PostCalculateTask {
                 break;
             case "addPasien":
                 BASE_URL += "addPasien";
+                String nama, usia, tanggallahir, nomorHP, email, password, tanggaldaftar, nik, idpasien, idklinik;
+                nama = apicall[1];
+                nik = apicall[2];
+                usia = apicall[3];
+                tanggallahir = apicall[4];
+                idpasien = apicall[5];
+                nomorHP = apicall[6];
+                email = apicall[7];
+                password = apicall[8];
+                tanggaldaftar = apicall[9];
+                idklinik = apicall[10];
+
                 jsonObjRequest = new StringRequest(
 
                         Request.Method.POST,BASE_URL,
@@ -321,6 +333,16 @@ public class PostCalculateTask {
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> params = new HashMap<String, String>();
+                            params.put("NIK", nik);
+                            params.put("nama", nama);
+                            params.put("usia", usia);
+                            params.put("tanggalLahir", tanggallahir);
+                            params.put("nomorHP", nomorHP);
+                            params.put("email", email);
+                            params.put("password", password);
+                            params.put("idPasien", idpasien);
+                            params.put("tanggalDaftar", tanggaldaftar);
+                            params.put("idKlinik", idklinik);
                         return params;
                     }
                 };

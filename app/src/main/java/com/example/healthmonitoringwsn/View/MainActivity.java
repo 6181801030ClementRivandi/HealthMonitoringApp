@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
     private MedrecDetailsFragment medrecDetailsFragment;
     private PasienFragment pasienFragment;
     private PasienDetailsFragment pasienDetailsFragment;
+    private AddPasienFragment addPasienFragment;
 
     private FragmentManager fragmentManager;
     private FragmentTransaction ft;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         this.medrecDetailsFragment = MedrecDetailsFragment.newInstance();
         this.pasienFragment = PasienFragment.newInstance();
         this.pasienDetailsFragment = PasienDetailsFragment.newInstance();
+        this.addPasienFragment = AddPasienFragment.newInstance();
 
         this.fragmentManager = this.getSupportFragmentManager();
         this.toolbar = findViewById(R.id.toolbar);
@@ -92,6 +94,9 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         }
         else if (page == 7) {
             ft.replace(R.id.fragment_container, this.pasienDetailsFragment).addToBackStack(null);
+        }
+        else if (page == 8) {
+            ft.replace(R.id.fragment_container, this.addPasienFragment).addToBackStack(null);
         }
 
         this.drawer.closeDrawers();

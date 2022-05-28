@@ -111,7 +111,6 @@ public class AddPasienFragment extends Fragment implements PostCalculateTask.IMa
             apicall[9] = tanggalDaftarPasien;
             apicall[10] = idKlinik;
             this.hideKeyboard(getActivity());
-            listener.changePage(6);
             etNama.setText(null);
             etNIK.setText(null);
             etUsia.setText(null);
@@ -127,8 +126,6 @@ public class AddPasienFragment extends Fragment implements PostCalculateTask.IMa
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-            Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -160,5 +157,11 @@ public class AddPasienFragment extends Fragment implements PostCalculateTask.IMa
     @Override
     public void result(String message) {
         result = message;
+        if(result.equals("add successful")){
+            Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
+            this.listener.changePage(6);
+        }else{
+            Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
+        }
     }
 }
