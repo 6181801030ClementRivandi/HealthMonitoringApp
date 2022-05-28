@@ -23,7 +23,7 @@ public class ProfileFragment extends Fragment{
     private Profile profile;
     ProfilePresenter profilePresenter;
 
-    public TextView tvNamaUser, tvUsiaUser, tvTanggalLahirUser, tvIdUser;
+    public TextView tvNIKUser, tvNamaUser, tvUsiaUser, tvTanggalLahirUser, tvNomorHPUser, tvEmailUser, tvTanggalDaftarUser, tvNamaKlinikUser, tvIdUser;
 
     String idUser;
 
@@ -34,9 +34,14 @@ public class ProfileFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
+        this.tvNIKUser = view.findViewById(R.id.NIK_user);
         this.tvNamaUser = view.findViewById(R.id.nama_user);
         this.tvUsiaUser = view.findViewById(R.id.usia_user);
         this.tvTanggalLahirUser = view.findViewById(R.id.tanggalLahir_user);
+        this.tvNomorHPUser = view.findViewById(R.id.nomorHP_user);
+        this.tvEmailUser = view.findViewById(R.id.email_user);
+        this.tvTanggalDaftarUser = view.findViewById(R.id.tanggalDaftar_user);
+        this.tvNamaKlinikUser = view.findViewById(R.id.namaKlinik_user);
         this.tvIdUser = view.findViewById(R.id.id_user);
 
         this.sqlite = new Sqlite(this.getActivity());
@@ -46,9 +51,14 @@ public class ProfileFragment extends Fragment{
             this.idUser = bundle.getString("idUsr");
         }
         this.profile = this.sqlite.getContact(Integer.parseInt(idUser));
+        this.tvNIKUser.setText(String.valueOf(profile.getNIK()));
         this.tvNamaUser.setText(profile.getNamaUser());
         this.tvUsiaUser.setText(profile.getUsiaUser());
         this.tvTanggalLahirUser.setText(profile.getTanggalLahirUser());
+        this.tvNomorHPUser.setText(profile.getNomorHP());
+        this.tvEmailUser.setText(profile.getEmail());
+        this.tvTanggalDaftarUser.setText(profile.getTanggalDaftar());
+        this.tvNamaKlinikUser.setText(profile.getNamaKlinik());
         this.tvIdUser.setText(idUser);
         return view;
     }

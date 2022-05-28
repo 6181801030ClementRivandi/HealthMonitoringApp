@@ -31,10 +31,8 @@ public class PostCalculateTask {
     IMainActivity uiMedrec;
     IMainActivityPsn uiPasien;
 
-    String nama, tanggalLahir, usia;
-    int idPasien;
-
-    Profile profile;
+    String nama, tanggalLahir, usia, nomorHP, email, tanggalDaftar, namaKlinik;
+    int NIK, idPasien;
 
     public PostCalculateTask(Context context, ILoginActivity uiLog, IMainActivity uiMedrec, IMainActivityPsn uiPasien) {
         this.context = context;
@@ -64,19 +62,29 @@ public class PostCalculateTask {
                                     JSONObject result = new JSONObject(response);
                                     String checker = result.get("message").toString();
                                     if(checker.equals("invalid idPasien or password")){
+                                        NIK = 0;
                                         nama = "";
                                         usia = "";
                                         tanggalLahir = "";
+                                        nomorHP = "";
+                                        email = "";
+                                        tanggalDaftar = "";
+                                        namaKlinik = "";
                                         idPasien = 0;
                                     }else {
                                         for (int x = 0; x < result.getJSONObject("user").length(); x++) {
                                             nama = (String) result.getJSONObject("user").get("nama");
                                             usia = (String) result.getJSONObject("user").get("usia");
                                             tanggalLahir = (String) result.getJSONObject("user").get("tanggalLahir");
+                                            nomorHP = (String) result.getJSONObject("user").get("nomorHP");
+                                            email = (String) result.getJSONObject("user").get("email");
+                                            tanggalDaftar = (String) result.getJSONObject("user").get("tanggalDaftar");
+                                            namaKlinik = (String) result.getJSONObject("user").get("namaKlinik");
+                                            NIK = (Integer) result.getJSONObject("user").get("NIK");
                                             idPasien = (Integer) result.getJSONObject("user").get("idPasien");
                                         }
                                     }
-                                    profile = new Profile(nama, usia, tanggalLahir, idPasien);
+                                    Profile profile = new Profile(NIK, nama, usia, tanggalLahir, nomorHP, email, tanggalDaftar, namaKlinik, idPasien);
                                     uiLog.logResult(profile);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -112,32 +120,32 @@ public class PostCalculateTask {
                 idPsn = apicall[1];
                 jsonObjRequest = new StringRequest(Request.Method.POST,BASE_URL, new Response.Listener<String>() {
 
-                            String tanggal;
-                            int idPeriksa, detakJantung, tekananDarah, idPasien, idPetugas, idNode;
-                            double suhuTubuh, saturasiOksigen;
-                            @Override
-                            public void onResponse(String response) {
-                                try {
-                                    JSONObject result = new JSONObject(response);
-                                    for (int x = 0; x < result.getJSONArray("periksa").length(); x++) {
-                                        tanggal = (String)result.getJSONArray("periksa").getJSONObject(x).get("tanggal");
-                                        idPeriksa = (Integer)result.getJSONArray("periksa").getJSONObject(x).get("idPeriksa");
-                                        suhuTubuh = (Double) result.getJSONArray("periksa").getJSONObject(x).get("suhuTubuh");
-                                        detakJantung = (Integer)result.getJSONArray("periksa").getJSONObject(x).get("detakJantung");
-                                        tekananDarah = (Integer)result.getJSONArray("periksa").getJSONObject(x).get("tekananDarah");
-                                        //saturasiOksigen = (Double)result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen");
-                                        saturasiOksigen = 0.0;
-                                        idPasien = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idPasien");
-                                        idPetugas = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idPetugas");
-                                        idNode = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idNode");
-                                        MedrecDetails medrecDetails = new MedrecDetails(this.tanggal, this.idPeriksa, this.suhuTubuh, this.detakJantung, this.tekananDarah, this.saturasiOksigen, this.idPasien, this.idPetugas, this.idNode);
-                                        uiMedrec.hasil(medrecDetails);
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+                    String tanggal;
+                    int idPeriksa, detakJantung, tekananDarah, idPasien, idPetugas, idNode;
+                    double suhuTubuh, saturasiOksigen;
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject result = new JSONObject(response);
+                            for (int x = 0; x < result.getJSONArray("periksa").length(); x++) {
+                                tanggal = (String)result.getJSONArray("periksa").getJSONObject(x).get("tanggal");
+                                idPeriksa = (Integer)result.getJSONArray("periksa").getJSONObject(x).get("idPeriksa");
+                                suhuTubuh = (Double) result.getJSONArray("periksa").getJSONObject(x).get("suhuTubuh");
+                                detakJantung = (Integer)result.getJSONArray("periksa").getJSONObject(x).get("detakJantung");
+                                tekananDarah = (Integer)result.getJSONArray("periksa").getJSONObject(x).get("tekananDarah");
+                                //saturasiOksigen = (Double)result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen");
+                                saturasiOksigen = 0.0;
+                                idPasien = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idPasien");
+                                idPetugas = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idPetugas");
+                                idNode = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idNode");
+                                MedrecDetails medrecDetails = new MedrecDetails(this.tanggal, this.idPeriksa, this.suhuTubuh, this.detakJantung, this.tekananDarah, this.saturasiOksigen, this.idPasien, this.idPetugas, this.idNode);
+                                uiMedrec.hasil(medrecDetails);
                             }
-                        },
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
                         new Response.ErrorListener() {
 
                             @Override

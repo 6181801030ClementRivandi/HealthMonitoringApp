@@ -26,8 +26,8 @@ public class ProfilePresenter {
         //this.ui.updateList(this.profile);
     }
 
-    public void addList(String NamaUser, String UsiaUser, String TanggalLahirUser, Integer IdUser){
-        this.profile.add(new Profile(NamaUser, UsiaUser, TanggalLahirUser, IdUser));
+    public void addList(Integer NIKUser, String NamaUser, String UsiaUser, String TanggalLahirUser, Integer IdUser, String nomorHPUser, String emailUser, String tanggalDaftarUser, String namaKlinikUser){
+        this.profile.add(new Profile(NIKUser,NamaUser, UsiaUser, TanggalLahirUser, nomorHPUser, emailUser, tanggalDaftarUser, namaKlinikUser, IdUser));
         this.ui.updateList(this.profile);
     }
 
