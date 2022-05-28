@@ -62,7 +62,7 @@
             android:text="Tanggal Lahir" />
 
         <EditText
-            android:id="@+id/EDTanggalLahirPasien"
+            android:id="@+id/ETTanggalLahirPasien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tanggalLahirPasien"
@@ -72,7 +72,7 @@
             android:id="@+id/idPasien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/EDTanggalLahirPasien"
+            android:layout_below="@id/ETTanggalLahirPasien"
             android:paddingLeft="10px"
             android:text="Id" />
 
