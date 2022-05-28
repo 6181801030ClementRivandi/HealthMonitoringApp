@@ -13,6 +13,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.healthmonitoringwsn.Model.MedrecDetails;
+import com.example.healthmonitoringwsn.Model.PasienDetails;
 import com.example.healthmonitoringwsn.Model.Profile;
 import com.google.gson.JsonIOException;
 
@@ -28,16 +29,18 @@ public class PostCalculateTask {
     Context context;
     ILoginActivity uiLog;
     IMainActivity uiMedrec;
+    IMainActivityPsn uiPasien;
 
     String nama, tanggalLahir, usia;
     int idPasien;
 
     Profile profile;
 
-    public PostCalculateTask(Context context, ILoginActivity uiLog, IMainActivity uiMedrec) {
+    public PostCalculateTask(Context context, ILoginActivity uiLog, IMainActivity uiMedrec, IMainActivityPsn uiPasien) {
         this.context = context;
         this.uiLog = uiLog;
         this.uiMedrec = uiMedrec;
+        this.uiPasien = uiPasien;
     }
 
     public void callVolley(String[] apicall) throws JsonIOException, JSONException {
@@ -214,6 +217,55 @@ public class PostCalculateTask {
                 };
                 BASE_URL = "http://172.20.10.2/Api.php?apicall=";
                 break;
+            case "pasien":
+                BASE_URL += "pasien";
+                jsonObjRequest = new StringRequest(
+
+                        Request.Method.POST,BASE_URL,
+                        new Response.Listener<String>() {
+                            String nama, usia, tanggalLahir, namaKlinik;
+                            int NIK,idPasien;
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONObject result = new JSONObject(response);
+                                    for (int x = 0; x < result.getJSONArray("user").length(); x++) {
+                                        nama = (String) result.getJSONArray("user").getJSONObject(x).get("nama");
+                                        NIK = (Integer) result.getJSONArray("user").getJSONObject(x).get("NIK");
+                                        usia = (String) result.getJSONArray("user").getJSONObject(x).get("usia");
+                                        tanggalLahir = (String) result.getJSONArray("user").getJSONObject(x).get("tanggalLahir");
+                                        idPasien = (Integer) result.getJSONArray("user").getJSONObject(x).get("idPasien");
+                                        namaKlinik = (String) result.getJSONArray("user").getJSONObject(x).get("namaKlinik");
+                                        PasienDetails pasienDetails = new PasienDetails(this.nama, this.NIK, this.usia, this.tanggalLahir, idPasien, this.namaKlinik);
+                                        uiPasien.hasil(pasienDetails);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                VolleyLog.d("volley", "Error: " + error.getMessage());
+                                error.printStackTrace();
+                            }
+                        }) {
+
+                    @Override
+                    public String getBodyContentType() {
+                        return "application/x-www-form-urlencoded; charset=UTF-8";
+                    }
+
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+                        return params;
+                    }
+                };
+                BASE_URL = "http://172.20.10.2/Api.php?apicall=";
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + apicall[0]);
         }
@@ -231,6 +283,10 @@ public class PostCalculateTask {
 
     public interface IMainActivity{
         void hasil(MedrecDetails medrecDetails);
+    }
+
+    public interface IMainActivityPsn{
+        void hasil(PasienDetails pasienDetails);
     }
 }
 

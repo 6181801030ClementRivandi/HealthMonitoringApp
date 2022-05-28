@@ -22,6 +22,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.example.healthmonitoringwsn.Model.MedrecDetails;
+import com.example.healthmonitoringwsn.Model.PasienDetails;
 import com.example.healthmonitoringwsn.Model.Profile;
 import com.example.healthmonitoringwsn.PostCalculateTask;
 import com.example.healthmonitoringwsn.Presenter.MedrecPresenter;
@@ -35,7 +36,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class MedrecFragment extends Fragment implements PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, MedrecPresenter.IMainActivity, View.OnClickListener{
+public class MedrecFragment extends Fragment implements PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.IMainActivityPsn, MedrecPresenter.IMainActivity, View.OnClickListener{
 
     private ListView medrecList;
     private MedrecPresenter presenter;
@@ -83,7 +84,7 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
             }
         });
 
-        this.postCalculateTask = new PostCalculateTask(getContext(), this, this);//, (PostCalculateTask.ILoginActivity) this, this);
+        this.postCalculateTask = new PostCalculateTask(getContext(), this, this, this);//, (PostCalculateTask.ILoginActivity) this, this);
 
         if ( temp != null && state == true){
             try {
@@ -187,6 +188,11 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
             }
             presenter.refresh();
         }
+    }
+
+    @Override
+    public void hasil(PasienDetails pasienDetails) {
+
     }
 
 //    @Override

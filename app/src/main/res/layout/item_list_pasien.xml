@@ -7,10 +7,10 @@
     android:id="@+id/menu_list">
 
     <TextView
-        android:id="@+id/medrec_pasien"
+        android:id="@+id/name_pasien"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:textAlignment="textStart"
-        android:padding="10px"/>
+        android:padding="50px"/>
 </LinearLayout>

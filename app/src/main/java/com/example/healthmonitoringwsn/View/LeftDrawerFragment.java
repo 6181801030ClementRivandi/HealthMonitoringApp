@@ -62,7 +62,7 @@ public class LeftDrawerFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View v) {
         if (v == btnProfile) {
-            this.listener.changePage(2);
+            this.listener.changePage(6);
         }else if (v == btnExit){
             this.listener.closeApplication();
         }

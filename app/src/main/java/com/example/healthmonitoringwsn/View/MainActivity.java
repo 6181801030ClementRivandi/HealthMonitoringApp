@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.healthmonitoringwsn.Model.MedrecDetails;
+import com.example.healthmonitoringwsn.Model.PasienDetails;
 import com.example.healthmonitoringwsn.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -23,6 +24,8 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
     private ProfileFragment profileFragment;
     private MedrecFragment medrecFragment;
     private MedrecDetailsFragment medrecDetailsFragment;
+    private PasienFragment pasienFragment;
+    private PasienDetailsFragment pasienDetailsFragment;
 
     private FragmentManager fragmentManager;
     private FragmentTransaction ft;
@@ -45,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         this.profileFragment = ProfileFragment.newInstance();
         this.medrecFragment = MedrecFragment.newInstance();
         this.medrecDetailsFragment = MedrecDetailsFragment.newInstance();
+        this.pasienFragment = PasienFragment.newInstance();
+        this.pasienDetailsFragment = PasienDetailsFragment.newInstance();
 
         this.fragmentManager = this.getSupportFragmentManager();
         this.toolbar = findViewById(R.id.toolbar);
@@ -81,6 +86,12 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         }
         else if (page == 5) {
             ft.replace(R.id.fragment_container, this.medrecDetailsFragment).addToBackStack(null);
+        }
+        else if (page == 6) {
+            ft.replace(R.id.fragment_container, this.pasienFragment).addToBackStack(null);
+        }
+        else if (page == 7) {
+            ft.replace(R.id.fragment_container, this.pasienDetailsFragment).addToBackStack(null);
         }
 
         this.drawer.closeDrawers();
@@ -123,6 +134,14 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         bundle.putParcelable("medrecDetails", medrecDetails);
         this.medrecDetailsFragment.setArguments(bundle);
         changePage(5);
+    }
+
+    public void psPasien(PasienDetails pasienDetails) {
+        this.ft = this.fragmentManager.beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("pasienDetails", pasienDetails);
+        this.pasienDetailsFragment.setArguments(bundle);
+        changePage(6);
     }
 
     @Override
