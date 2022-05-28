@@ -18,7 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class PasienDetailsFragment extends Fragment implements View.OnClickListener//, PostCalculateTask.IMainActivity1 {
     {
     private FragmentListener listener;
-    FloatingActionButton btnEdit;
+    FloatingActionButton fabEdit;
     TextView tvNama, tvNIK, tvUsia, tvTanggalLahir, tvIdPasien, tvNomorHP, tvEmail, tvPassword, tvTanggalDaftar, tvIdKlinik, tvNamaKlinik;
 
     private PasienDetails pasienDetails;
@@ -42,8 +42,8 @@ public class PasienDetailsFragment extends Fragment implements View.OnClickListe
         this.tvIdKlinik = view.findViewById(R.id.details_idKlinik);
         this.tvNamaKlinik = view.findViewById(R.id.details_klinik);
 
-        this.btnEdit = view.findViewById(R.id.fab_edit);
-        this.btnEdit.setOnClickListener(this);
+        this.fabEdit = view.findViewById(R.id.fab_edit);
+        this.fabEdit.setOnClickListener(this);
 
         Bundle bundle = getArguments();
         if ( bundle != null){
@@ -82,8 +82,9 @@ public class PasienDetailsFragment extends Fragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (btnEdit == v) {
-            //this.listener.changePage(4);
+        if (v.getId() == this.fabEdit.getId()) {
+            MainActivity mnl = (MainActivity)getActivity();
+            mnl.psEdit(this.pasienDetails);
         }
     }
 }

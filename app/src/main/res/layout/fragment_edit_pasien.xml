@@ -16,7 +16,7 @@
             android:text="Nama" />
 
         <EditText
-            android:id="@+id/ETNamaPasien"
+            android:id="@+id/ETEditNamaPasien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/namaPasien"
@@ -26,12 +26,12 @@
             android:id="@+id/NIKPasien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ETNamaPasien"
+            android:layout_below="@+id/ETEditNamaPasien"
             android:paddingLeft="10px"
             android:text="NIK" />
 
         <EditText
-            android:id="@+id/ETNIKPasien"
+            android:id="@+id/ETEditNIKPasien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/NIKPasien"
@@ -41,12 +41,12 @@
             android:id="@+id/usiaPasien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ETNIKPasien"
+            android:layout_below="@id/ETEditNIKPasien"
             android:paddingLeft="10px"
             android:text="Usia" />
 
         <EditText
-            android:id="@+id/ETUsiaPasien"
+            android:id="@+id/ETEditUsiaPasien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/usiaPasien"
@@ -56,12 +56,12 @@
             android:id="@+id/tanggalLahirPasien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/ETUsiaPasien"
+            android:layout_below="@+id/ETEditUsiaPasien"
             android:paddingLeft="10px"
             android:text="Tanggal Lahir" />
 
         <EditText
-            android:id="@+id/ETTanggalLahirPasien"
+            android:id="@+id/ETEditTanggalLahirPasien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tanggalLahirPasien"
@@ -72,12 +72,12 @@
             android:id="@+id/idPasien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ETTanggalLahirPasien"
+            android:layout_below="@id/ETEditTanggalLahirPasien"
             android:paddingLeft="10px"
             android:text="Id" />
 
         <EditText
-            android:id="@+id/ETIdPasien"
+            android:id="@+id/ETEditIdPasien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/idPasien"
@@ -87,12 +87,12 @@
             android:id="@+id/nomorHPPasien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ETIdPasien"
+            android:layout_below="@id/ETEditIdPasien"
             android:paddingLeft="10px"
             android:text="Nomor HP" />
 
         <EditText
-            android:id="@+id/ETNomorHP"
+            android:id="@+id/ETEditNomorHP"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/nomorHPPasien"
@@ -102,12 +102,12 @@
             android:id="@+id/emailPasien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ETNomorHP"
+            android:layout_below="@id/ETEditNomorHP"
             android:paddingLeft="10px"
             android:text="Email" />
 
         <EditText
-            android:id="@+id/ETEmail"
+            android:id="@+id/ETEditEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/emailPasien"
@@ -117,12 +117,12 @@
             android:id="@+id/passwordPasien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ETEmail"
+            android:layout_below="@id/ETEditEmail"
             android:paddingLeft="10px"
             android:text="Password" />
 
         <EditText
-            android:id="@+id/ETPassword"
+            android:id="@+id/ETEditPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/passwordPasien"
@@ -132,24 +132,32 @@
             android:id="@+id/idKlinikPasien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ETPassword"
+            android:layout_below="@id/ETEditPassword"
             android:paddingLeft="10px"
             android:text="Id Klinik" />
 
         <EditText
-            android:id="@+id/ETIdKlinik"
+            android:id="@+id/ETEditIdKlinik"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/idKlinikPasien"
             android:layout_marginBottom="10sp" />
 
         <Button
-            android:id="@+id/btnAddPasien"
+            android:id="@+id/btn_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ETIdKlinik"
+            android:layout_below="@id/ETEditIdKlinik"
             android:layout_margin="10dp"
-            android:text="Tambah Pasien" />
+            android:text="Edit" />
+
+        <Button
+            android:id="@+id/btn_hapus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_edit"
+            android:layout_margin="10dp"
+            android:text="Hapus" />
 
     </RelativeLayout>
 </ScrollView>

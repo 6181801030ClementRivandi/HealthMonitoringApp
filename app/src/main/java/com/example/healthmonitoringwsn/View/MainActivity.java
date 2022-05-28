@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
     private PasienFragment pasienFragment;
     private PasienDetailsFragment pasienDetailsFragment;
     private AddPasienFragment addPasienFragment;
+    private EditPasienFragment editPasienFragment;
 
     private FragmentManager fragmentManager;
     private FragmentTransaction ft;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         this.pasienFragment = PasienFragment.newInstance();
         this.pasienDetailsFragment = PasienDetailsFragment.newInstance();
         this.addPasienFragment = AddPasienFragment.newInstance();
+        this.editPasienFragment = EditPasienFragment.newInstance();
 
         this.fragmentManager = this.getSupportFragmentManager();
         this.toolbar = findViewById(R.id.toolbar);
@@ -98,7 +100,9 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         else if (page == 8) {
             ft.replace(R.id.fragment_container, this.addPasienFragment).addToBackStack(null);
         }
-
+        else if (page == 9) {
+            ft.replace(R.id.fragment_container, this.editPasienFragment).addToBackStack(null);
+        }
         this.drawer.closeDrawers();
         this.ft.commit();
     }
@@ -118,13 +122,6 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
     }
 
-//    public void psIncident(IncidentDetails incidentDetails) {
-//        this.ft = this.fragmentManager.beginTransaction();
-//        Bundle bundle = new Bundle();
-//        bundle.putParcelable("incidentDetails", incidentDetails);
-//        this.reportsDetail.setArguments(bundle);
-//        changePage(2);
-//    }
     public void passId(String id){
         this.ft = this.fragmentManager.beginTransaction();
         Bundle bundle = new Bundle();
@@ -147,6 +144,14 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         bundle.putParcelable("pasienDetails", pasienDetails);
         this.pasienDetailsFragment.setArguments(bundle);
         changePage(7);
+    }
+
+    public void psEdit(PasienDetails pasienDetails) {
+        this.ft = this.fragmentManager.beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("editPasienDetails", pasienDetails);
+        this.editPasienFragment.setArguments(bundle);
+        changePage(9);
     }
 
     @Override
