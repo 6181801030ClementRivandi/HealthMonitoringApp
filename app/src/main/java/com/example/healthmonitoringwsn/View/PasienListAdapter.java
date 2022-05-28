@@ -61,7 +61,7 @@ public class PasienListAdapter extends BaseAdapter {
         View convertView = LayoutInflater.from(this.activity).inflate(R.layout.item_list_pasien, parent, false);
         PasienDetails currentPasien = (PasienDetails) this.getItem(i);
         ViewHolder viewHolder = new ViewHolder(convertView);
-        viewHolder.nama.setText(String.valueOf(currentPasien.getNama()));
+        viewHolder.nama.setText("Nama pasien : " + String.valueOf(currentPasien.getNama()));
         return convertView;
     }
 }
