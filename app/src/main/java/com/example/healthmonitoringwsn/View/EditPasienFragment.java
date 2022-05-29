@@ -193,7 +193,7 @@ public class EditPasienFragment extends Fragment implements PostCalculateTask.IL
                     });
 
             dialog1.setNegativeButton(
-                    "batalkan",
+                    "batal",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
