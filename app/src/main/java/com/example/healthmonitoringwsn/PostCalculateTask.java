@@ -32,16 +32,20 @@ public class PostCalculateTask {
     IMainActivity uiMedrec;
     IMainActivityPsn uiPasien;
     IMainActivityAddPsn uiAddPasien;
+    IMainActivityEditPsn uiEditPasien;
+    IMainActivityDelPsn uiDeletePasien;
 
     String nama, tanggalLahir, usia, nomorHP, email, tanggalDaftar, namaKlinik;
     int NIK, idPasien;
 
-    public PostCalculateTask(Context context, ILoginActivity uiLog, IMainActivity uiMedrec, IMainActivityPsn uiPasien, IMainActivityAddPsn uiAddPasien) {
+    public PostCalculateTask(Context context, ILoginActivity uiLog, IMainActivity uiMedrec, IMainActivityPsn uiPasien, IMainActivityAddPsn uiAddPasien, IMainActivityEditPsn uiEditPasien, IMainActivityDelPsn uiDeletePasien) {
         this.context = context;
         this.uiLog = uiLog;
         this.uiMedrec = uiMedrec;
         this.uiPasien = uiPasien;
         this.uiAddPasien = uiAddPasien;
+        this.uiEditPasien = uiEditPasien;
+        this.uiDeletePasien = uiDeletePasien;
     }
 
     public void callVolley(String[] apicall) throws JsonIOException, JSONException {
@@ -348,6 +352,119 @@ public class PostCalculateTask {
                 };
                 BASE_URL = "http://172.20.10.2/Api.php?apicall=";
                 break;
+            case "editPasien":
+                BASE_URL += "editPasien";
+                String namaEdit, usiaEdit, tanggallahirEdit, nomorHPEdit, emailEdit, passwordEdit, tanggaldaftarEdit, nikEdit, idpasienEdit, idklinikEdit;
+                namaEdit = apicall[1];
+                nikEdit = apicall[2];
+                usiaEdit = apicall[3];
+                tanggallahirEdit = apicall[4];
+                idpasienEdit = apicall[5];
+                nomorHPEdit = apicall[6];
+                emailEdit = apicall[7];
+                passwordEdit = apicall[8];
+                tanggaldaftarEdit = apicall[9];
+                idklinikEdit = apicall[10];
+
+                jsonObjRequest = new StringRequest(
+
+                        Request.Method.POST,BASE_URL,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONObject result = new JSONObject(response);
+                                    String res = "";
+                                    String checker = result.get("message").toString();
+                                    if(checker.equals("edit successful")) {
+                                        res = "edit successful";
+                                    }else{
+                                        res = "edit failed";
+                                    }
+                                    uiEditPasien.result(res);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                VolleyLog.d("volley", "Error: " + error.getMessage());
+                                error.printStackTrace();
+                            }
+                        }) {
+
+                    @Override
+                    public String getBodyContentType() {
+                        return "application/x-www-form-urlencoded; charset=UTF-8";
+                    }
+
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("NIK", nikEdit);
+                        params.put("nama", namaEdit);
+                        params.put("usia", usiaEdit);
+                        params.put("tanggalLahir", tanggallahirEdit);
+                        params.put("nomorHP", nomorHPEdit);
+                        params.put("email", emailEdit);
+                        params.put("password", passwordEdit);
+                        params.put("idPasien", idpasienEdit);
+                        params.put("tanggalDaftar", tanggaldaftarEdit);
+                        params.put("idKlinik", idklinikEdit);
+                        return params;
+                    }
+                };
+                BASE_URL = "http://172.20.10.2/Api.php?apicall=";
+                break;
+            case "deletePasien":
+                BASE_URL += "deletePasien";
+                String idpasienDelete = apicall[1];
+
+                jsonObjRequest = new StringRequest(
+
+                        Request.Method.POST,BASE_URL,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONObject result = new JSONObject(response);
+                                    String res = "";
+                                    String checker = result.get("message").toString();
+                                    if(checker.equals("delete successful")) {
+                                        res = "delete successful";
+                                    }else{
+                                        res = "delete failed";
+                                    }
+                                    uiDeletePasien.result(res);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                VolleyLog.d("volley", "Error: " + error.getMessage());
+                                error.printStackTrace();
+                            }
+                        }) {
+
+                    @Override
+                    public String getBodyContentType() {
+                        return "application/x-www-form-urlencoded; charset=UTF-8";
+                    }
+
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("idPasien", idpasienDelete);
+                        return params;
+                    }
+                };
+                BASE_URL = "http://172.20.10.2/Api.php?apicall=";
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + apicall[0]);
         }
@@ -372,6 +489,14 @@ public class PostCalculateTask {
     }
 
     public interface IMainActivityAddPsn{
+        void result(String message);
+    }
+
+    public interface IMainActivityEditPsn{
+        void result(String message);
+    }
+
+    public interface IMainActivityDelPsn{
         void result(String message);
     }
 }

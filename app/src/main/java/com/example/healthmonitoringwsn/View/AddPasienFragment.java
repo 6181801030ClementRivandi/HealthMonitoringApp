@@ -30,7 +30,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class AddPasienFragment extends Fragment implements PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, View.OnClickListener{
+public class AddPasienFragment extends Fragment implements PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn, View.OnClickListener{
     private FragmentManager fragmentManager;
     private FragmentListener listener;
     private SimpleDateFormat dateFormatter;
@@ -49,7 +49,7 @@ public class AddPasienFragment extends Fragment implements PostCalculateTask.IMa
 
         dateFormatter = new SimpleDateFormat("yyyy-MM-dd H:m:s", Locale.US);
 
-        this.postCalculateTask = new PostCalculateTask(getContext(), this, this, this, this);
+        this.postCalculateTask = new PostCalculateTask(getContext(), this, this, this, this, this, this);
 
         this.etNama = view.findViewById(R.id.ETNamaPasien);
         this.etNIK = view.findViewById(R.id.ETNIKPasien);

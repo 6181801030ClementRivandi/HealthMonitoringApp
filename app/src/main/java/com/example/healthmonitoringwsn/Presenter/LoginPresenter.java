@@ -14,7 +14,7 @@ import com.example.healthmonitoringwsn.View.ILoginView;
 
 import org.json.JSONException;
 
-public class LoginPresenter implements ILoginPresenter, PostCalculateTask.ILoginActivity, PostCalculateTask.IMainActivity, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn{
+public class LoginPresenter implements ILoginPresenter, PostCalculateTask.ILoginActivity, PostCalculateTask.IMainActivity, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn{
 
     ILoginView loginView;
     PostCalculateTask postCalculateTask;
@@ -31,7 +31,7 @@ public class LoginPresenter implements ILoginPresenter, PostCalculateTask.ILogin
     @Override
     public void onLogin(String idPasien, String password) throws JSONException {
         idpasien = idPasien;
-        this.postCalculateTask = new PostCalculateTask(context, this, this, this, this);
+        this.postCalculateTask = new PostCalculateTask(context, this, this, this, this, this, this);
         this.sqlite = new Sqlite(context);
         User user = new User(idPasien, password);
         int loginCode = user.isValidData();

@@ -69,25 +69,10 @@
             android:layout_marginBottom="10sp" />
 
         <TextView
-            android:id="@+id/idPasien"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ETEditTanggalLahirPasien"
-            android:paddingLeft="10px"
-            android:text="Id" />
-
-        <EditText
-            android:id="@+id/ETEditIdPasien"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/idPasien"
-            android:layout_marginBottom="10sp" />
-
-        <TextView
             android:id="@+id/nomorHPPasien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ETEditIdPasien"
+            android:layout_below="@id/ETEditTanggalLahirPasien"
             android:paddingLeft="10px"
             android:text="Nomor HP" />
 

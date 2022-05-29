@@ -1,7 +1,9 @@
 package com.example.healthmonitoringwsn.View;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -28,11 +31,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class EditPasienFragment extends Fragment implements PostCalculateTask.ILoginActivity, PostCalculateTask.IMainActivity, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, View.OnClickListener {
+public class EditPasienFragment extends Fragment implements PostCalculateTask.ILoginActivity, PostCalculateTask.IMainActivity, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn, View.OnClickListener {
 
     private FragmentManager fragmentManager;
 
-    private EditText etNama, etNIK, etUsia, etTanggalLahir, etId, etNomorHP, etEmail, etPassword, etIdKlinik;
+    private EditText etNama, etNIK, etUsia, etTanggalLahir, etNomorHP, etEmail, etPassword, etIdKlinik;
 
     private FragmentListener listener;
     private Button btnEdit,btnHapus;
@@ -50,13 +53,12 @@ public class EditPasienFragment extends Fragment implements PostCalculateTask.IL
 
         dateFormatter = new SimpleDateFormat("yyyy-MM-dd H:m:s", Locale.US);
 
-        this.postCalculateTask = new PostCalculateTask(getContext(), this, this, this, this);
+        this.postCalculateTask = new PostCalculateTask(getContext(), this, this, this, this, this, this);
 
         this.etNama = view.findViewById(R.id.ETEditNamaPasien);
         this.etNIK = view.findViewById(R.id.ETEditNIKPasien);
         this.etUsia = view.findViewById(R.id.ETEditUsiaPasien);
         this.etTanggalLahir = view.findViewById(R.id.ETEditTanggalLahirPasien);
-        this.etId = view.findViewById(R.id.ETEditIdPasien);
         this.etNomorHP = view.findViewById(R.id.ETEditNomorHP);
         this.etEmail = view.findViewById(R.id.ETEditEmail);
         this.etPassword = view.findViewById(R.id.ETEditPassword);
@@ -66,20 +68,29 @@ public class EditPasienFragment extends Fragment implements PostCalculateTask.IL
         this.btnEdit.setOnClickListener(this);
         this.btnHapus.setOnClickListener(this);
 
+        etNama.setText(null);
+        etNIK.setText(null);
+        etUsia.setText(null);
+        etTanggalLahir.setText(null);
+        etNomorHP.setText(null);
+        etEmail.setText(null);
+        etPassword.setText(null);
+        etIdKlinik.setText(null);
+
         Bundle b = getArguments();
 
         if (b != null) {
             PasienDetails pasienDetails = b.getParcelable("editPasienDetails");
 
             this.etNama.setText(pasienDetails.getNama());
-            this.etNIK.setText(pasienDetails.getNIK());
+            this.etNIK.setText(String.valueOf(pasienDetails.getNIK()));
             this.etUsia.setText(pasienDetails.getUsia());
             this.etTanggalLahir.setText(pasienDetails.getTanggalLahir());
-            this.etId.setText(pasienDetails.getIdPasien());
+            this.idPasien = String.valueOf(pasienDetails.getIdPasien());
             this.etNomorHP.setText(pasienDetails.getNomorHP());
             this.etEmail.setText(pasienDetails.getEmail());
             this.etPassword.setText(pasienDetails.getPassword());
-            this.etIdKlinik.setText(pasienDetails.getIdKlinik());
+            this.etIdKlinik.setText(String.valueOf(pasienDetails.getIdKlinik()));
         }
 
         return view;
@@ -119,7 +130,6 @@ public class EditPasienFragment extends Fragment implements PostCalculateTask.IL
             this.NIKPasien = this.etNIK.getText().toString();
             this.usiaPasien = this.etUsia.getText().toString();
             this.tanggalLahirPasien = this.etTanggalLahir.getText().toString();
-            this.idPasien = this.etId.getText().toString();
             this.nomorHPPasien = this.etNomorHP.getText().toString();
             this.emailPasien = this.etEmail.getText().toString();
             this.passwordPasien = this.etPassword.getText().toString();
@@ -143,7 +153,6 @@ public class EditPasienFragment extends Fragment implements PostCalculateTask.IL
             etNIK.setText(null);
             etUsia.setText(null);
             etTanggalLahir.setText(null);
-            etId.setText(null);
             etNomorHP.setText(null);
             etEmail.setText(null);
             etPassword.setText(null);
@@ -156,13 +165,41 @@ public class EditPasienFragment extends Fragment implements PostCalculateTask.IL
             }
         }else if(v == this.btnHapus){
             String[] apicall = new String[2];
-            apicall[0] = "hapusPasien";
+            apicall[0] = "deletePasien";
             apicall[1] = idPasien;
-            try {
-                postCalculateTask.callVolley(apicall);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            AlertDialog.Builder dialog1 = new AlertDialog.Builder(getContext());
+            dialog1.setMessage("Apakah anda yakin ingin menghapus pasien ini?");
+            dialog1.setCancelable(true);
+
+            dialog1.setPositiveButton(
+                    "hapus",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            try {
+                                postCalculateTask.callVolley(apicall);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+            dialog1.setNegativeButton(
+                    "batalkan",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = dialog1.create();
+            alert11.show();
+            etNama.setText(null);
+            etNIK.setText(null);
+            etUsia.setText(null);
+            etTanggalLahir.setText(null);
+            etNomorHP.setText(null);
+            etEmail.setText(null);
+            etPassword.setText(null);
+            etIdKlinik.setText(null);
         }
     }
 
@@ -183,7 +220,16 @@ public class EditPasienFragment extends Fragment implements PostCalculateTask.IL
 
     @Override
     public void result(String message) {
-
+        result = message;
+        if(result.equals("edit successful")){
+            Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
+            this.listener.changePage(6);
+        }else if(result.equals("delete successful")){
+            Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
+            this.listener.changePage(6);
+        }else{
+            Toast.makeText(getContext(), "error", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public static void hideKeyboard(Activity activity) {

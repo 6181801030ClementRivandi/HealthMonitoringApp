@@ -36,7 +36,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class MedrecFragment extends Fragment implements PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.IMainActivityPsn, MedrecPresenter.IMainActivity, PostCalculateTask.IMainActivityAddPsn, View.OnClickListener{
+public class MedrecFragment extends Fragment implements PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.IMainActivityPsn, MedrecPresenter.IMainActivity, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn, View.OnClickListener{
 
     private ListView medrecList;
     private MedrecPresenter presenter;
@@ -84,7 +84,7 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
             }
         });
 
-        this.postCalculateTask = new PostCalculateTask(getContext(), this, this, this, this);//, (PostCalculateTask.ILoginActivity) this, this);
+        this.postCalculateTask = new PostCalculateTask(getContext(), this, this, this, this, this, this);
 
         if ( temp != null && state == true){
             try {
@@ -199,15 +199,4 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
     public void result(String message) {
 
     }
-
-//    @Override
-//    public void updateList(List<MedrecDetails> medrecDetailsUP) {
-//        this.adapter.updateArray(medrecDetailsUP);
-//    }
-//
-//    @Override
-//    public void hasil(IncidentDetails hasilAkses) {
-//        IncidentDetails tester = hasilAkses;
-//        presenter.addList(tester.getTitle(), tester.getDescription(), tester.getAddress());
-//    }
 }
