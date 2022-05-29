@@ -22,7 +22,7 @@ public class MedrecDetailsFragment extends Fragment implements View.OnClickListe
     private FragmentListener listener;
     Button btnBack;
     TextView tvIdPeriksa, tvTanggal, tvSuhu, tvDetak, tvTekanan, tvSaturasi, tvIdPetugas, tvIdNode;
-
+    TextView tvSuhuCond;
     private MedrecDetails medrecDetails;
 
     public MedrecDetailsFragment(){
@@ -40,7 +40,7 @@ public class MedrecDetailsFragment extends Fragment implements View.OnClickListe
         this.tvSaturasi = view.findViewById(R.id.saturasiOksigen_periksa);
         this.tvIdPetugas = view.findViewById(R.id.idPetugas_periksa);
         this.tvIdNode = view.findViewById(R.id.idNode_periksa);
-
+        this.tvSuhuCond = view.findViewById(R.id.suhuTubuh_periksaCondition);
         this.btnBack = view.findViewById(R.id.btn_viewmedrec);
         this.btnBack.setOnClickListener(this);
 
@@ -50,6 +50,11 @@ public class MedrecDetailsFragment extends Fragment implements View.OnClickListe
             this.tvIdPeriksa.setText("id pemeriksaan : " + String.valueOf(medrecDetails.getIdPeriksa()));
             this.tvTanggal.setText(medrecDetails.getTanggal());
             this.tvSuhu.setText(String.valueOf(medrecDetails.getSuhuTubuh()));
+            if (medrecDetails.getSuhuTubuh() <= 36.5 || medrecDetails.getSuhuTubuh() >= 37.5){
+                this.tvSuhuCond.setText("tidak normal");
+            }else{
+                this.tvSuhuCond.setText("normal");
+            }
             this.tvDetak.setText(String.valueOf(medrecDetails.getDetakJantung()));
             this.tvTekanan.setText(String.valueOf(medrecDetails.getTekananDarah()));
             this.tvSaturasi.setText(String.valueOf(medrecDetails.getSaturasiOksigen()));
