@@ -354,7 +354,7 @@ public class PostCalculateTask {
                 break;
             case "editPasien":
                 BASE_URL += "editPasien";
-                String namaEdit, usiaEdit, tanggallahirEdit, nomorHPEdit, emailEdit, passwordEdit, tanggaldaftarEdit, nikEdit, idpasienEdit, idklinikEdit;
+                String namaEdit, usiaEdit, tanggallahirEdit, nomorHPEdit, emailEdit, passwordEdit, nikEdit, idpasienEdit, idklinikEdit;
                 namaEdit = apicall[1];
                 nikEdit = apicall[2];
                 usiaEdit = apicall[3];
@@ -363,8 +363,7 @@ public class PostCalculateTask {
                 nomorHPEdit = apicall[6];
                 emailEdit = apicall[7];
                 passwordEdit = apicall[8];
-                tanggaldaftarEdit = apicall[9];
-                idklinikEdit = apicall[10];
+                idklinikEdit = apicall[9];
 
                 jsonObjRequest = new StringRequest(
 
@@ -411,7 +410,6 @@ public class PostCalculateTask {
                         params.put("email", emailEdit);
                         params.put("password", passwordEdit);
                         params.put("idPasien", idpasienEdit);
-                        params.put("tanggalDaftar", tanggaldaftarEdit);
                         params.put("idKlinik", idklinikEdit);
                         return params;
                     }

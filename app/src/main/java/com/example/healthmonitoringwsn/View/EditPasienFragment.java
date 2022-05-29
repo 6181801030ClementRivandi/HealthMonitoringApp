@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +41,7 @@ public class EditPasienFragment extends Fragment implements PostCalculateTask.IL
     private FragmentListener listener;
     private Button btnEdit,btnHapus;
     private PostCalculateTask postCalculateTask;
-    private String namaPasien, usiaPasien, tanggalLahirPasien, nomorHPPasien, emailPasien, passwordPasien, tanggalDaftarPasien, NIKPasien, idPasien, idKlinik;
+    private String namaPasien, usiaPasien, tanggalLahirPasien, nomorHPPasien, emailPasien, passwordPasien, NIKPasien, idPasien, idKlinik;
     private String result;
 
     private SimpleDateFormat dateFormatter;
@@ -81,7 +82,6 @@ public class EditPasienFragment extends Fragment implements PostCalculateTask.IL
 
         if (b != null) {
             PasienDetails pasienDetails = b.getParcelable("editPasienDetails");
-
             this.etNama.setText(pasienDetails.getNama());
             this.etNIK.setText(String.valueOf(pasienDetails.getNIK()));
             this.etUsia.setText(pasienDetails.getUsia());
@@ -117,51 +117,60 @@ public class EditPasienFragment extends Fragment implements PostCalculateTask.IL
     @Override
     public void onResume() {
         super.onResume();
-
+        Bundle b = getArguments();
+        if (b != null) {
+            PasienDetails pasienDetails = b.getParcelable("editPasienDetails");
+            this.etNama.setText(pasienDetails.getNama());
+            this.etNIK.setText(String.valueOf(pasienDetails.getNIK()));
+            this.etUsia.setText(pasienDetails.getUsia());
+            this.etTanggalLahir.setText(pasienDetails.getTanggalLahir());
+            this.idPasien = String.valueOf(pasienDetails.getIdPasien());
+            this.etNomorHP.setText(pasienDetails.getNomorHP());
+            this.etEmail.setText(pasienDetails.getEmail());
+            this.etPassword.setText(pasienDetails.getPassword());
+            this.etIdKlinik.setText(String.valueOf(pasienDetails.getIdKlinik()));
+        }
     }
 
     @Override
     public void onClick(View v) {
         if (v == this.btnEdit) {
+            if (TextUtils.isEmpty(this.etNama.getText().toString()) ||
+                    TextUtils.isEmpty(this.etNIK.getText().toString()) ||
+                    TextUtils.isEmpty(this.etUsia.getText().toString()) ||
+                    TextUtils.isEmpty(this.etTanggalLahir.getText().toString()) ||
+                    TextUtils.isEmpty(this.etNomorHP.getText().toString()) ||
+                    TextUtils.isEmpty(this.etEmail.getText().toString()) ||
+                    TextUtils.isEmpty(this.etPassword.getText().toString()) ||
+                    TextUtils.isEmpty(this.etIdKlinik.getText().toString())){
+                Toast.makeText(getContext(), "tidak boleh ada baris yang kosong!", Toast.LENGTH_SHORT).show();
+            }else{
+                this.namaPasien = this.etNama.getText().toString();
+                this.NIKPasien = this.etNIK.getText().toString();
+                this.usiaPasien = this.etUsia.getText().toString();
+                this.tanggalLahirPasien = this.etTanggalLahir.getText().toString();
+                this.nomorHPPasien = this.etNomorHP.getText().toString();
+                this.emailPasien = this.etEmail.getText().toString();
+                this.passwordPasien = this.etPassword.getText().toString();
+                this.idKlinik = this.etIdKlinik.getText().toString();
 
-            Date currentTime = Calendar.getInstance().getTime();
-
-            this.namaPasien = this.etNama.getText().toString();
-            this.NIKPasien = this.etNIK.getText().toString();
-            this.usiaPasien = this.etUsia.getText().toString();
-            this.tanggalLahirPasien = this.etTanggalLahir.getText().toString();
-            this.nomorHPPasien = this.etNomorHP.getText().toString();
-            this.emailPasien = this.etEmail.getText().toString();
-            this.passwordPasien = this.etPassword.getText().toString();
-            this.tanggalDaftarPasien = dateFormatter.format(currentTime);
-            this.idKlinik = this.etIdKlinik.getText().toString();
-
-            String[] apicall = new String[11];
-            apicall[0] = "editPasien";
-            apicall[1] = namaPasien;
-            apicall[2] = NIKPasien;
-            apicall[3] = usiaPasien;
-            apicall[4] = tanggalLahirPasien;
-            apicall[5] = idPasien;
-            apicall[6] = nomorHPPasien;
-            apicall[7] = emailPasien;
-            apicall[8] = passwordPasien;
-            apicall[9] = tanggalDaftarPasien;
-            apicall[10] = idKlinik;
-            this.hideKeyboard(getActivity());
-            etNama.setText(null);
-            etNIK.setText(null);
-            etUsia.setText(null);
-            etTanggalLahir.setText(null);
-            etNomorHP.setText(null);
-            etEmail.setText(null);
-            etPassword.setText(null);
-            etIdKlinik.setText(null);
-
-            try {
-                postCalculateTask.callVolley(apicall);
-            } catch (JSONException e) {
-                e.printStackTrace();
+                String[] apicall = new String[10];
+                apicall[0] = "editPasien";
+                apicall[1] = namaPasien;
+                apicall[2] = NIKPasien;
+                apicall[3] = usiaPasien;
+                apicall[4] = tanggalLahirPasien;
+                apicall[5] = idPasien;
+                apicall[6] = nomorHPPasien;
+                apicall[7] = emailPasien;
+                apicall[8] = passwordPasien;
+                apicall[9] = idKlinik;
+                this.hideKeyboard(getActivity());
+                try {
+                    postCalculateTask.callVolley(apicall);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }else if(v == this.btnHapus){
             String[] apicall = new String[2];
@@ -192,14 +201,6 @@ public class EditPasienFragment extends Fragment implements PostCalculateTask.IL
                     });
             AlertDialog alert11 = dialog1.create();
             alert11.show();
-            etNama.setText(null);
-            etNIK.setText(null);
-            etUsia.setText(null);
-            etTanggalLahir.setText(null);
-            etNomorHP.setText(null);
-            etEmail.setText(null);
-            etPassword.setText(null);
-            etIdKlinik.setText(null);
         }
     }
 
@@ -221,12 +222,29 @@ public class EditPasienFragment extends Fragment implements PostCalculateTask.IL
     @Override
     public void result(String message) {
         result = message;
+        Log.d("result", result);
         if(result.equals("edit successful")){
             Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
             this.listener.changePage(6);
+            etNama.setText(null);
+            etNIK.setText(null);
+            etUsia.setText(null);
+            etTanggalLahir.setText(null);
+            etNomorHP.setText(null);
+            etEmail.setText(null);
+            etPassword.setText(null);
+            etIdKlinik.setText(null);
         }else if(result.equals("delete successful")){
             Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
             this.listener.changePage(6);
+            etNama.setText(null);
+            etNIK.setText(null);
+            etUsia.setText(null);
+            etTanggalLahir.setText(null);
+            etNomorHP.setText(null);
+            etEmail.setText(null);
+            etPassword.setText(null);
+            etIdKlinik.setText(null);
         }else{
             Toast.makeText(getContext(), "error", Toast.LENGTH_SHORT).show();
         }

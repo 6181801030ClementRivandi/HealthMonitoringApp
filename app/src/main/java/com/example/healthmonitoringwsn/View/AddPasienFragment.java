@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,50 +85,50 @@ public class AddPasienFragment extends Fragment implements PostCalculateTask.IMa
     @Override
     public void onClick(View view) {
         if(view == this.btnAdd){
-            Date currentTime = Calendar.getInstance().getTime();
+            if (TextUtils.isEmpty(this.etNama.getText().toString()) ||
+                    TextUtils.isEmpty(this.etNIK.getText().toString()) ||
+                    TextUtils.isEmpty(this.etUsia.getText().toString()) ||
+                    TextUtils.isEmpty(this.etTanggalLahir.getText().toString()) ||
+                    TextUtils.isEmpty(this.etId.getText().toString()) ||
+                    TextUtils.isEmpty(this.etNomorHP.getText().toString()) ||
+                    TextUtils.isEmpty(this.etEmail.getText().toString()) ||
+                    TextUtils.isEmpty(this.etPassword.getText().toString()) ||
+                    TextUtils.isEmpty(this.etIdKlinik.getText().toString())){
+                Toast.makeText(getContext(), "tidak boleh ada baris yang kosong!", Toast.LENGTH_SHORT).show();
+            }else{
+                Date currentTime = Calendar.getInstance().getTime();
 
-            this.namaPasien = this.etNama.getText().toString();
-            this.NIKPasien = this.etNIK.getText().toString();
-            this.usiaPasien = this.etUsia.getText().toString();
-            this.tanggalLahirPasien = this.etTanggalLahir.getText().toString();
-            this.idPasien = this.etId.getText().toString();
-            this.nomorHPPasien = this.etNomorHP.getText().toString();
-            this.emailPasien = this.etEmail.getText().toString();
-            this.passwordPasien = this.etPassword.getText().toString();
-            this.tanggalDaftarPasien = dateFormatter.format(currentTime);
-            Log.d("tanggal daftar", tanggalDaftarPasien);
-            this.idKlinik = this.etIdKlinik.getText().toString();
+                this.namaPasien = this.etNama.getText().toString();
+                this.NIKPasien = this.etNIK.getText().toString();
+                this.usiaPasien = this.etUsia.getText().toString();
+                this.tanggalLahirPasien = this.etTanggalLahir.getText().toString();
+                this.idPasien = this.etId.getText().toString();
+                this.nomorHPPasien = this.etNomorHP.getText().toString();
+                this.emailPasien = this.etEmail.getText().toString();
+                this.passwordPasien = this.etPassword.getText().toString();
+                this.tanggalDaftarPasien = dateFormatter.format(currentTime);
+                this.idKlinik = this.etIdKlinik.getText().toString();
 
-            String[] apicall = new String[11];
-            apicall[0] = "addPasien";
-            apicall[1] = namaPasien;
-            apicall[2] = NIKPasien;
-            apicall[3] = usiaPasien;
-            apicall[4] = tanggalLahirPasien;
-            apicall[5] = idPasien;
-            apicall[6] = nomorHPPasien;
-            apicall[7] = emailPasien;
-            apicall[8] = passwordPasien;
-            apicall[9] = tanggalDaftarPasien;
-            apicall[10] = idKlinik;
-            this.hideKeyboard(getActivity());
-            etNama.setText(null);
-            etNIK.setText(null);
-            etUsia.setText(null);
-            etTanggalLahir.setText(null);
-            etId.setText(null);
-            etNomorHP.setText(null);
-            etEmail.setText(null);
-            etPassword.setText(null);
-            etIdKlinik.setText(null);
-
-            try {
-                postCalculateTask.callVolley(apicall);
-            } catch (JSONException e) {
-                e.printStackTrace();
+                String[] apicall = new String[11];
+                apicall[0] = "addPasien";
+                apicall[1] = namaPasien;
+                apicall[2] = NIKPasien;
+                apicall[3] = usiaPasien;
+                apicall[4] = tanggalLahirPasien;
+                apicall[5] = idPasien;
+                apicall[6] = nomorHPPasien;
+                apicall[7] = emailPasien;
+                apicall[8] = passwordPasien;
+                apicall[9] = tanggalDaftarPasien;
+                apicall[10] = idKlinik;
+                this.hideKeyboard(getActivity());
+                try {
+                    postCalculateTask.callVolley(apicall);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }
-
     }
 
     public static void hideKeyboard(Activity activity) {
@@ -160,6 +161,15 @@ public class AddPasienFragment extends Fragment implements PostCalculateTask.IMa
         if(result.equals("add successful")){
             Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
             this.listener.changePage(6);
+            etNama.setText(null);
+            etNIK.setText(null);
+            etUsia.setText(null);
+            etTanggalLahir.setText(null);
+            etId.setText(null);
+            etNomorHP.setText(null);
+            etEmail.setText(null);
+            etPassword.setText(null);
+            etIdKlinik.setText(null);
         }else{
             Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
         }
