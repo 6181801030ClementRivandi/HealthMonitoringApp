@@ -1,12 +1,16 @@
 package com.example.healthmonitoringwsn.View;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -16,7 +20,9 @@ import com.example.healthmonitoringwsn.Presenter.ProfilePresenter;
 import com.example.healthmonitoringwsn.R;
 import com.example.healthmonitoringwsn.Sqlite;
 
-public class ProfileFragment extends Fragment{
+import org.json.JSONException;
+
+public class ProfileFragment extends Fragment implements View.OnClickListener{
     private FragmentManager fragmentManager;
     private FragmentListener listener;
     private Sqlite sqlite;
@@ -26,6 +32,7 @@ public class ProfileFragment extends Fragment{
     public TextView tvNIKUser, tvNamaUser, tvUsiaUser, tvTanggalLahirUser, tvNomorHPUser, tvEmailUser, tvTanggalDaftarUser, tvNamaKlinikUser, tvIdUser;
 
     String idUser;
+    Button btnLogout;
 
     public ProfileFragment() {
     }
@@ -43,7 +50,8 @@ public class ProfileFragment extends Fragment{
         this.tvTanggalDaftarUser = view.findViewById(R.id.tanggalDaftar_user);
         this.tvNamaKlinikUser = view.findViewById(R.id.namaKlinik_user);
         this.tvIdUser = view.findViewById(R.id.id_user);
-
+        this.btnLogout = view.findViewById(R.id.btn_logout);
+        this.btnLogout.setOnClickListener(this);
         this.sqlite = new Sqlite(this.getActivity());
 
         Bundle bundle = getArguments();
@@ -76,5 +84,33 @@ public class ProfileFragment extends Fragment{
     public static ProfileFragment newInstance() {
         ProfileFragment fragment = new ProfileFragment();
         return fragment;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view == btnLogout){
+            AlertDialog.Builder dialog1 = new AlertDialog.Builder(getContext());
+            dialog1.setMessage("Apakah anda yakin ingin keluar?");
+            dialog1.setCancelable(true);
+
+            dialog1.setPositiveButton(
+                    "keluar",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            Toast.makeText(getContext(), "anda berhasil keluar", Toast.LENGTH_SHORT).show();
+                            listener.changePage(1);
+                        }
+                    });
+
+            dialog1.setNegativeButton(
+                    "batal",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = dialog1.create();
+            alert11.show();
+        }
     }
 }

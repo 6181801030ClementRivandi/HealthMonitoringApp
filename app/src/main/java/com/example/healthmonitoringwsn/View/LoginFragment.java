@@ -90,6 +90,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener, ILo
         MainActivity mainActivity = (MainActivity)getActivity();
         mainActivity.passId(id);
         this.listener.changePage(2);
+        eTidPasien.setText(null);
+        eTpassword.setText(null);
     }
 
     @Override
