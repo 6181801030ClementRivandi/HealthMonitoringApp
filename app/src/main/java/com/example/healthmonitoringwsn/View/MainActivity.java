@@ -61,9 +61,9 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
 
         this.drawer = findViewById(R.id.drawer_layout);
 
-        ActionBarDrawerToggle abdt = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.openDrawer, R.string.closeDrawer);
-        drawer.addDrawerListener(abdt);
-        abdt.syncState();
+//        ActionBarDrawerToggle abdt = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.openDrawer, R.string.closeDrawer);
+//        drawer.addDrawerListener(abdt);
+//        abdt.syncState();
 
         this.changePage(1);
     }
@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         bundle.putString("idUsr", id);
         this.medrecFragment.setArguments(bundle);
         this.profileFragment.setArguments(bundle);
+        this.mainFragment.setArguments(bundle);
     }
 
     public void psMedrec(MedrecDetails medrecDetails) {

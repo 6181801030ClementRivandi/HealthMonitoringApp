@@ -463,6 +463,60 @@ public class PostCalculateTask {
                 };
                 BASE_URL = "http://172.20.10.2/Api.php?apicall=";
                 break;
+            case "medrecLatest":
+                BASE_URL += "medrecLatest";
+                idPsn = apicall[1];
+                jsonObjRequest = new StringRequest(Request.Method.POST,BASE_URL, new Response.Listener<String>() {
+
+                    String tanggal;
+                    int idPeriksa, detakJantung, tekananDarah, idPasien, idPetugas, idNode;
+                    double suhuTubuh, saturasiOksigen;
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject result = new JSONObject(response);
+                            for (int x = 0; x < result.getJSONArray("periksa").length(); x++) {
+                                tanggal = (String)result.getJSONArray("periksa").getJSONObject(x).get("tanggal");
+                                idPeriksa = (Integer)result.getJSONArray("periksa").getJSONObject(x).get("idPeriksa");
+                                suhuTubuh = (Double) result.getJSONArray("periksa").getJSONObject(x).get("suhuTubuh");
+                                detakJantung = (Integer)result.getJSONArray("periksa").getJSONObject(x).get("detakJantung");
+                                tekananDarah = (Integer)result.getJSONArray("periksa").getJSONObject(x).get("tekananDarah");
+                                //saturasiOksigen = (Double)result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen");
+                                saturasiOksigen = 0.0;
+                                idPasien = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idPasien");
+                                idPetugas = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idPetugas");
+                                idNode = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idNode");
+                                MedrecDetails medrecDetails = new MedrecDetails(this.tanggal, this.idPeriksa, this.suhuTubuh, this.detakJantung, this.tekananDarah, this.saturasiOksigen, this.idPasien, this.idPetugas, this.idNode);
+                                uiMedrec.hasil(medrecDetails);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                        new Response.ErrorListener() {
+
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                VolleyLog.d("volley", "Error: " + error.getMessage());
+                                error.printStackTrace();
+                            }
+                        }) {
+
+                    @Override
+                    public String getBodyContentType() {
+                        return "application/x-www-form-urlencoded; charset=UTF-8";
+                    }
+
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("idPasien", idPsn);
+                        return params;
+                    }
+                };
+                BASE_URL = "http://172.20.10.2/Api.php?apicall=";
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + apicall[0]);
         }

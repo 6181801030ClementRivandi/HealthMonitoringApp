@@ -1,6 +1,7 @@
 package com.example.healthmonitoringwsn.View;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.KeyEvent;
@@ -8,25 +9,36 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.example.healthmonitoringwsn.Model.MedrecDetails;
+import com.example.healthmonitoringwsn.Model.PasienDetails;
 import com.example.healthmonitoringwsn.Model.Profile;
+import com.example.healthmonitoringwsn.PostCalculateTask;
 import com.example.healthmonitoringwsn.Presenter.ProfilePresenter;
 import com.example.healthmonitoringwsn.Sqlite;
 import com.example.healthmonitoringwsn.R;
 
+import org.json.JSONException;
+
 import java.util.List;
 
-public class MainFragment extends Fragment implements View.OnClickListener{
+public class MainFragment extends Fragment implements PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn {
     private FragmentManager fragmentManager;
     private FragmentListener listener;
-    private Button btnProfile;
-    private Sqlite sqlite;
     SwipeRefreshLayout refreshLayout;
+    PostCalculateTask postCalculateTask;
+    private MedrecDetails medrecDetailsLatest;
+    TextView tvIdPeriksa, tvTanggal, tvSuhu, tvDetak, tvTekanan, tvSaturasi, tvIdPetugas, tvIdNode;
+    TextView tvSuhuCond;
+    String idUsr;
+    private MainFragment mainFragment;
 
     public MainFragment(){}
 
@@ -44,6 +56,34 @@ public class MainFragment extends Fragment implements View.OnClickListener{
             return false;
         });
 
+        this.tvIdPeriksa = view.findViewById(R.id.judul_periksaMain);
+        this.tvTanggal = view.findViewById(R.id.tanggal_periksaMain);
+        this.tvSuhu = view.findViewById(R.id.suhuTubuh_periksaMain);
+        this.tvDetak = view.findViewById(R.id.detakjantung_periksaMain);
+        this.tvTekanan = view.findViewById(R.id.tekananDarah_periksaMain);
+        this.tvSaturasi = view.findViewById(R.id.saturasiOksigen_periksaMain);
+        this.tvIdPetugas = view.findViewById(R.id.idPetugas_periksaMain);
+        this.tvIdNode = view.findViewById(R.id.idNode_periksaMain);
+        this.tvSuhuCond = view.findViewById(R.id.suhuTubuh_periksaConditionMain);
+
+        this.mainFragment = MainFragment.newInstance();
+
+        this.postCalculateTask = new PostCalculateTask(getContext(), this, this, this, this, this, this);
+
+        Bundle bundle = getArguments();
+        if(bundle != null){
+            this.idUsr = bundle.getString("idUsr");
+        }
+
+        String[] apicall = new String[2];
+        apicall[0] = "medrecLatest";
+        apicall[1] = idUsr;
+        try {
+            postCalculateTask.callVolley(apicall);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         refreshLayout = view.findViewById(R.id.swipe_to_refresh_layout);
         refreshLayout.setColorSchemeResources(
                 android.R.color.holo_green_dark, android.R.color.holo_blue_dark,
@@ -55,15 +95,15 @@ public class MainFragment extends Fragment implements View.OnClickListener{
                     @Override
                     public void run() {
                         refreshLayout.setRefreshing(false);
+                        Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+                        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                        fragmentTransaction.detach(currentFragment);
+                        fragmentTransaction.attach(currentFragment);
+                        fragmentTransaction.commit();
                     }
                 }, 1000);
             }
         });
-
-        //this.sqlite = new Sqlite(this.getActivity());
-        this.btnProfile = view.findViewById(R.id.btn_profile);
-
-        this.btnProfile.setOnClickListener(this);
 
         return view;
     }
@@ -85,19 +125,41 @@ public class MainFragment extends Fragment implements View.OnClickListener{
         return fragment;
     }
 
-    @Override
-    public void onClick(View v) {
-        if(v==this.btnProfile){
-            try {
-                listener.changePage(3);
-            } catch (Exception e) {
-            }
-
-        }
-    }
-
     public void callParentMethod(){
         getActivity().onBackPressed();
+    }
+
+    @Override
+    public void hasil(MedrecDetails medrecDetails) {
+        medrecDetailsLatest = medrecDetails;
+        this.tvIdPeriksa.setText("id pemeriksaan : " + String.valueOf(medrecDetailsLatest.getIdPeriksa()));
+        this.tvTanggal.setText(medrecDetailsLatest.getTanggal());
+        this.tvSuhu.setText(String.valueOf(medrecDetailsLatest.getSuhuTubuh()));
+        if (medrecDetailsLatest.getSuhuTubuh() <= 36.5 || medrecDetailsLatest.getSuhuTubuh() >= 37.5){
+            this.tvSuhuCond.setText("tidak normal");
+        }else{
+            this.tvSuhuCond.setText("normal");
+        }
+        this.tvDetak.setText(String.valueOf(medrecDetailsLatest.getDetakJantung()));
+        this.tvTekanan.setText(String.valueOf(medrecDetailsLatest.getTekananDarah()));
+        this.tvSaturasi.setText(String.valueOf(medrecDetailsLatest.getSaturasiOksigen()));
+        this.tvIdPetugas.setText(String.valueOf(medrecDetailsLatest.getIdPetugas()));
+        this.tvIdNode.setText(String.valueOf(medrecDetailsLatest.getIdNode()));
+    }
+
+    @Override
+    public void logResult(Profile profile) {
+
+    }
+
+    @Override
+    public void hasil(PasienDetails pasienDetails) {
+
+    }
+
+    @Override
+    public void result(String message) {
+
     }
 }
 
