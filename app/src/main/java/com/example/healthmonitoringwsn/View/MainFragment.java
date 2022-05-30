@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +39,6 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
     TextView tvIdPeriksa, tvTanggal, tvSuhu, tvDetak, tvTekanan, tvSaturasi, tvIdPetugas, tvIdNode;
     TextView tvSuhuCond;
     String idUsr;
-    private MainFragment mainFragment;
 
     public MainFragment(){}
 
@@ -55,7 +55,6 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
             }
             return false;
         });
-
         this.tvIdPeriksa = view.findViewById(R.id.judul_periksaMain);
         this.tvTanggal = view.findViewById(R.id.tanggal_periksaMain);
         this.tvSuhu = view.findViewById(R.id.suhuTubuh_periksaMain);
@@ -65,8 +64,6 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
         this.tvIdPetugas = view.findViewById(R.id.idPetugas_periksaMain);
         this.tvIdNode = view.findViewById(R.id.idNode_periksaMain);
         this.tvSuhuCond = view.findViewById(R.id.suhuTubuh_periksaConditionMain);
-
-        this.mainFragment = MainFragment.newInstance();
 
         this.postCalculateTask = new PostCalculateTask(getContext(), this, this, this, this, this, this);
 
@@ -95,11 +92,8 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
                     @Override
                     public void run() {
                         refreshLayout.setRefreshing(false);
-                        Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-                        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                        fragmentTransaction.detach(currentFragment);
-                        fragmentTransaction.attach(currentFragment);
-                        fragmentTransaction.commit();
+                        listener.changePage(1);
+                        listener.changePage(2);
                     }
                 }, 1000);
             }
