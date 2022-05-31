@@ -4,16 +4,16 @@ import android.text.TextUtils;
 
 public class User implements IUser {
 
-    String idPasien, password;
+    String idUser, password;
 
-    public User(String idPasien, String password) {
-        this.idPasien = idPasien;
+    public User(String idUser, String password) {
+        this.idUser = idUser;
         this.password = password;
     }
 
     @Override
-    public String getIdPasien() {
-        return idPasien;
+    public String getIdUser() {
+        return idUser;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class User implements IUser {
 
     @Override
     public int isValidData() {
-        if(TextUtils.isEmpty(getIdPasien())) {
+        if(TextUtils.isEmpty(getIdUser())) {
             return 0;
         } else if(getPassword().length() < 6) {
             return 2;

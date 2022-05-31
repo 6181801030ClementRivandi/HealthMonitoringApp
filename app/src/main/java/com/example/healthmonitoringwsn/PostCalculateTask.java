@@ -57,8 +57,8 @@ public class PostCalculateTask {
         switch (apicall[0]){
             case "login":
                 BASE_URL += "login";
-                String idPsn = apicall[1];
-                String passPsn = apicall[2];
+                String idUser = apicall[1];
+                String passUser = apicall[2];
                 jsonObjRequest = new StringRequest(
 
                         Request.Method.POST,BASE_URL,
@@ -68,7 +68,7 @@ public class PostCalculateTask {
                                 try {
                                     JSONObject result = new JSONObject(response);
                                     String checker = result.get("message").toString();
-                                    if(checker.equals("invalid idPasien or password")){
+                                    if(checker.equals("invalid idUser or password")){
                                         NIK = 0;
                                         nama = "";
                                         usia = "";
@@ -115,8 +115,8 @@ public class PostCalculateTask {
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> params = new HashMap<String, String>();
-                        params.put("idPasien", idPsn);
-                        params.put("password", passPsn);
+                        params.put("idUser", idUser);
+                        params.put("password", passUser);
                         return params;
                     }
                 };
@@ -124,7 +124,7 @@ public class PostCalculateTask {
                 break;
             case "medrec":
                 BASE_URL += "medrec";
-                idPsn = apicall[1];
+                idUser = apicall[1];
                 jsonObjRequest = new StringRequest(Request.Method.POST,BASE_URL, new Response.Listener<String>() {
 
                     String tanggal;
@@ -170,7 +170,7 @@ public class PostCalculateTask {
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> params = new HashMap<String, String>();
-                        params.put("idPasien", idPsn);
+                        params.put("idPasien", idUser);
                         return params;
                     }
                 };
@@ -178,7 +178,7 @@ public class PostCalculateTask {
                 break;
             case "medrecSort":
                 BASE_URL += "medrecSort";
-                idPsn = apicall[1];
+                idUser = apicall[1];
                 String tgl = apicall[2];
                 jsonObjRequest = new StringRequest(Request.Method.POST,BASE_URL, new Response.Listener<String>() {
 
@@ -225,7 +225,7 @@ public class PostCalculateTask {
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> params = new HashMap<String, String>();
-                        params.put("idPasien", idPsn);
+                        params.put("idPasien", idUser);
                         params.put("tanggal", tgl);
                         return params;
                     }
@@ -465,7 +465,7 @@ public class PostCalculateTask {
                 break;
             case "medrecLatest":
                 BASE_URL += "medrecLatest";
-                idPsn = apicall[1];
+                idUser = apicall[1];
                 jsonObjRequest = new StringRequest(Request.Method.POST,BASE_URL, new Response.Listener<String>() {
 
                     String tanggal;
@@ -511,7 +511,7 @@ public class PostCalculateTask {
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> params = new HashMap<String, String>();
-                        params.put("idPasien", idPsn);
+                        params.put("idPasien", idUser);
                         return params;
                     }
                 };

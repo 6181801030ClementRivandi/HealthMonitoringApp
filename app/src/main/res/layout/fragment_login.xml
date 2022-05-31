@@ -19,7 +19,7 @@
             android:layout_gravity="center">
 
             <EditText
-                android:id="@+id/et_idPasien"
+                android:id="@+id/et_idUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Id User"

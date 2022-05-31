@@ -21,7 +21,7 @@ public class LoginPresenter implements ILoginPresenter, PostCalculateTask.ILogin
     Context context;
     ProfilePresenter presenter;
     Sqlite sqlite;
-    String idpasien;
+    String iduser;
 
     public LoginPresenter(ILoginView loginView, Context context){
         this.loginView = loginView;
@@ -29,23 +29,32 @@ public class LoginPresenter implements ILoginPresenter, PostCalculateTask.ILogin
     }
 
     @Override
-    public void onLogin(String idPasien, String password) throws JSONException {
-        idpasien = idPasien;
+    public void onLogin(String idUser, String password) throws JSONException {
+        iduser = idUser;
         this.postCalculateTask = new PostCalculateTask(context, this, this, this, this, this, this);
         this.sqlite = new Sqlite(context);
-        User user = new User(idPasien, password);
+        User user = new User(idUser, password);
         int loginCode = user.isValidData();
 
         if(loginCode == 0) {
-            loginView.onLoginError("Id pasien tidak boleh kosong");
+            loginView.onLoginError("Id user tidak boleh kosong");
         } else if(loginCode == 2) {
             loginView.onLoginError("Password harus terdiri dari 6 digit gabungan huruf dan angka");
         } else {
-            String[] apicall = new String[3];
-            apicall[0] = "login";
-            apicall[1] = idPasien;
-            apicall[2] = password;
-            postCalculateTask.callVolley(apicall);
+            if(idUser.indexOf("924") == -1){
+                String[] apicall = new String[3];
+                apicall[0] = "login";
+                apicall[1] = idUser;
+                apicall[2] = password;
+                postCalculateTask.callVolley(apicall);
+            }else{
+                String[] apicall = new String[3];
+                apicall[0] = "loginAdmin";
+                apicall[1] = idUser;
+                apicall[2] = password;
+                postCalculateTask.callVolley(apicall);
+            }
+
         }
     }
 
@@ -53,11 +62,11 @@ public class LoginPresenter implements ILoginPresenter, PostCalculateTask.ILogin
     public void logResult(Profile profile) {
         Profile prof = profile;
         if (prof.getIdUser() == 0){
-            loginView.onLoginError("Id Pasien atau password salah");
+            loginView.onLoginError("Id user atau password salah");
         }else{
             loginView.onLoginSuccess("Login berhasil", String.valueOf(prof.getIdUser()));
             Profile profile1 = new Profile();
-            profile1 = sqlite.getContact(Integer.parseInt(idpasien));
+            profile1 = sqlite.getContact(Integer.parseInt(iduser));
             if (profile1.getIdUser() == 0) {
                 sqlite.addRecord(prof);
             }

@@ -25,11 +25,11 @@ import org.json.JSONException;
 
 public class LoginFragment extends Fragment implements View.OnClickListener, ILoginView {
 
-    EditText eTidPasien, eTpassword;
+    EditText eTidUser, eTpassword;
     Button btnLogin;
     ILoginPresenter loginPresenter;
     Sqlite sqlite;
-    String idPasien;
+    String idUser;
     String password;
 
     public LoginFragment(){}
@@ -48,7 +48,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, ILo
 
         this.sqlite = new Sqlite(this.getActivity());
 
-        this.eTidPasien = view.findViewById(R.id.et_idPasien);
+        this.eTidUser = view.findViewById(R.id.et_idUser);
         this.eTpassword = view.findViewById(R.id.et_password);
         this.btnLogin = view.findViewById(R.id.btn_login);
         this.btnLogin.setOnClickListener(this);
@@ -74,10 +74,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener, ILo
 
     @Override
     public void onClick(View v) {
-        idPasien = eTidPasien.getText().toString();
+        idUser = eTidUser.getText().toString();
         password = eTpassword.getText().toString();
         try {
-            loginPresenter.onLogin(idPasien, password);
+            loginPresenter.onLogin(idUser, password);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -90,7 +90,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener, ILo
         MainActivity mainActivity = (MainActivity)getActivity();
         mainActivity.passId(id);
         this.listener.changePage(2);
-        eTidPasien.setText(null);
+        eTidUser.setText(null);
         eTpassword.setText(null);
     }
 
