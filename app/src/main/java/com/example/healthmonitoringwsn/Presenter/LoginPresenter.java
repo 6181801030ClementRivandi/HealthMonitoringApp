@@ -95,8 +95,9 @@ public class LoginPresenter implements ILoginPresenter, PostCalculateTask.ILogin
     @Override
     public void logResult(ProfileStaff profileStaff) {
         ProfileStaff profStaff = profileStaff;
+        Log.d("Test", String.valueOf(profStaff.getIdStaff()));
         if (profStaff.getIdStaff() == 0){
-            loginView.onLoginError("Id user atau password salah");
+            loginView.onLoginError("Id staff atau password salah");
         }else{
             loginView.onLoginSuccess("Login berhasil", String.valueOf(profStaff.getIdStaff()));
             ProfileStaff profileStaff1 = new ProfileStaff();

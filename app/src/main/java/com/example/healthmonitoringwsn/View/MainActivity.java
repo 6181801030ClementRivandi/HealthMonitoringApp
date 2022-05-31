@@ -1,6 +1,7 @@
 package com.example.healthmonitoringwsn.View;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -34,6 +35,9 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
     private FragmentTransaction ft;
     Toolbar toolbar;
     DrawerLayout drawer;
+
+    String idUser = "";
+    String idStaff = "";
 
     BottomNavigationView bottomNavigationView;
 
@@ -80,7 +84,11 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         }
         else if (page == 2) {
             ft.replace(R.id.fragment_container, this.mainFragment).addToBackStack(null);
-            unlockDrawer();
+            if (idStaff.equals("") && !idUser.equals("")){
+            }else if(!idStaff.equals("") && idUser.equals("")){
+                unlockDrawer();
+            }
+
             bottomNavigationView.setVisibility(View.VISIBLE);
         }
         else if (page == 3) {
@@ -125,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
     }
 
     public void passId(String id){
+        this.idUser = id;
         this.ft = this.fragmentManager.beginTransaction();
         Bundle bundle = new Bundle();
         bundle.putString("idUsr", id);
@@ -134,6 +143,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
     }
 
     public void passIdStaff(String idStaff){
+        this.idStaff = idStaff;
         this.ft = this.fragmentManager.beginTransaction();
         Bundle bundle = new Bundle();
         bundle.putString("idStff", idStaff);
