@@ -79,6 +79,22 @@ public class LoginPresenter implements ILoginPresenter, PostCalculateTask.ILogin
     }
 
     @Override
+    public void logResult(ProfileStaff profileStaff) {
+        ProfileStaff profStaff = profileStaff;
+        if (profStaff.getIdStaff() == 0){
+            loginView.onLoginError("Id user atau password salah");
+        }else{
+            loginView.onLoginSuccess("Login berhasil", String.valueOf(profStaff.getIdStaff()));
+            ProfileStaff profileStaff1 = new ProfileStaff();
+            Log.d("test", String.valueOf(profileStaff1.getIdStaff()));
+            profileStaff1 = sqliteStaff.getContact(Integer.parseInt(iduser));
+            if (profileStaff1.getIdStaff() == 0) {
+                sqliteStaff.addRecord(profStaff);
+            }
+        }
+    }
+
+    @Override
     public void hasil(MedrecDetails medrecDetails) {
     }
 
@@ -90,22 +106,6 @@ public class LoginPresenter implements ILoginPresenter, PostCalculateTask.ILogin
     @Override
     public void result(String message) {
 
-    }
-
-    @Override
-    public void logResult(ProfileStaff profileStaff) {
-        ProfileStaff profStaff = profileStaff;
-        Log.d("Test", String.valueOf(profStaff.getIdStaff()));
-        if (profStaff.getIdStaff() == 0){
-            loginView.onLoginError("Id staff atau password salah");
-        }else{
-            loginView.onLoginSuccess("Login berhasil", String.valueOf(profStaff.getIdStaff()));
-            ProfileStaff profileStaff1 = new ProfileStaff();
-            profileStaff1 = sqliteStaff.getContact(Integer.parseInt(iduser));
-            if (profileStaff1.getIdStaff() == 0) {
-                sqliteStaff.addRecord(profileStaff1);
-            }
-        }
     }
 
 //    public interface passUserId{

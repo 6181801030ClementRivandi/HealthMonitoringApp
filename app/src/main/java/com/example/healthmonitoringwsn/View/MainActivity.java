@@ -85,14 +85,21 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         else if (page == 2) {
             ft.replace(R.id.fragment_container, this.mainFragment).addToBackStack(null);
             if (idStaff.equals("") && !idUser.equals("")){
+                lockDrawer();
             }else if(!idStaff.equals("") && idUser.equals("")){
                 unlockDrawer();
             }
-
             bottomNavigationView.setVisibility(View.VISIBLE);
         }
         else if (page == 3) {
-            ft.replace(R.id.fragment_container, this.profileFragment).addToBackStack(null);
+            if (idStaff.equals("") && !idUser.equals("")){
+                ft.replace(R.id.fragment_container, this.profileFragment).addToBackStack(null);
+                lockDrawer();
+            }else if(!idStaff.equals("") && idUser.equals("")){
+                ft.replace(R.id.fragment_container, this.profileStaffFragment).addToBackStack(null);
+                unlockDrawer();
+            }
+
             unlockDrawer();
         }
         else if (page == 4) {
@@ -191,8 +198,13 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
                 return true;
 
             case R.id.person_icon:
-                ft.replace(R.id.fragment_container, this.profileFragment).addToBackStack(null);
-                unlockDrawer();
+                if (idStaff.equals("") && !idUser.equals("")){
+                    ft.replace(R.id.fragment_container, this.profileFragment).addToBackStack(null);
+                    lockDrawer();
+                }else if(!idStaff.equals("") && idUser.equals("")){
+                    ft.replace(R.id.fragment_container, this.profileStaffFragment).addToBackStack(null);
+                    unlockDrawer();
+                }
                 ft.commit();
                 return true;
 //

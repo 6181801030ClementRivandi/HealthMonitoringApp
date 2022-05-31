@@ -175,7 +175,7 @@ public class PostCalculateTask {
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> params = new HashMap<String, String>();
-                        params.put("idStaff", String.valueOf(idStaff));
+                        params.put("idStaff", idStaff);
                         params.put("password", passStaff);
                         return params;
                     }
