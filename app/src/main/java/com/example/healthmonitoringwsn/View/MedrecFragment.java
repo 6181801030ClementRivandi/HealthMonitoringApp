@@ -24,6 +24,7 @@ import androidx.fragment.app.Fragment;
 import com.example.healthmonitoringwsn.Model.MedrecDetails;
 import com.example.healthmonitoringwsn.Model.PasienDetails;
 import com.example.healthmonitoringwsn.Model.Profile;
+import com.example.healthmonitoringwsn.Model.ProfileStaff;
 import com.example.healthmonitoringwsn.PostCalculateTask;
 import com.example.healthmonitoringwsn.Presenter.MedrecPresenter;
 import com.example.healthmonitoringwsn.R;
@@ -36,7 +37,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class MedrecFragment extends Fragment implements PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.IMainActivityPsn, MedrecPresenter.IMainActivity, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn, View.OnClickListener{
+public class MedrecFragment extends Fragment implements PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.ILoginActivityStaff, PostCalculateTask.IMainActivityPsn, MedrecPresenter.IMainActivity, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn, View.OnClickListener{
 
     private ListView medrecList;
     private MedrecPresenter presenter;
@@ -84,7 +85,7 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
             }
         });
 
-        this.postCalculateTask = new PostCalculateTask(getContext(), this, this, this, this, this, this);
+        this.postCalculateTask = new PostCalculateTask(getContext(), this, this, this, this, this, this, this);
 
         if ( temp != null && state == true){
             try {
@@ -197,6 +198,11 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
 
     @Override
     public void result(String message) {
+
+    }
+
+    @Override
+    public void logResult(ProfileStaff profileStaff) {
 
     }
 }

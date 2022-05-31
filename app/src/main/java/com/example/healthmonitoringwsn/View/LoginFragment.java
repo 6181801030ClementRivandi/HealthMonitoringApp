@@ -86,9 +86,13 @@ public class LoginFragment extends Fragment implements View.OnClickListener, ILo
     @Override
     public void onLoginSuccess(String message, String id) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-        this.hideKeyboard(getActivity());
         MainActivity mainActivity = (MainActivity)getActivity();
-        mainActivity.passId(id);
+        this.hideKeyboard(getActivity());
+        if(id.indexOf("924") == -1){
+            mainActivity.passId(id);
+        }else{
+            mainActivity.passIdStaff(id);
+        }
         this.listener.changePage(2);
         eTidUser.setText(null);
         eTpassword.setText(null);

@@ -20,6 +20,7 @@ import androidx.fragment.app.FragmentManager;
 import com.example.healthmonitoringwsn.Model.MedrecDetails;
 import com.example.healthmonitoringwsn.Model.PasienDetails;
 import com.example.healthmonitoringwsn.Model.Profile;
+import com.example.healthmonitoringwsn.Model.ProfileStaff;
 import com.example.healthmonitoringwsn.PostCalculateTask;
 import com.example.healthmonitoringwsn.R;
 import com.example.healthmonitoringwsn.Sqlite;
@@ -31,7 +32,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class AddPasienFragment extends Fragment implements PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn, View.OnClickListener{
+public class AddPasienFragment extends Fragment implements PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.ILoginActivityStaff, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn, View.OnClickListener{
     private FragmentManager fragmentManager;
     private FragmentListener listener;
     private SimpleDateFormat dateFormatter;
@@ -50,7 +51,7 @@ public class AddPasienFragment extends Fragment implements PostCalculateTask.IMa
 
         dateFormatter = new SimpleDateFormat("yyyy-MM-dd H:m:s", Locale.US);
 
-        this.postCalculateTask = new PostCalculateTask(getContext(), this, this, this, this, this, this);
+        this.postCalculateTask = new PostCalculateTask(getContext(), this, this, this, this, this, this, this);
 
         this.etNama = view.findViewById(R.id.ETNamaPasien);
         this.etNIK = view.findViewById(R.id.ETNIKPasien);
@@ -173,5 +174,10 @@ public class AddPasienFragment extends Fragment implements PostCalculateTask.IMa
         }else{
             Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void logResult(ProfileStaff profileStaff) {
+
     }
 }

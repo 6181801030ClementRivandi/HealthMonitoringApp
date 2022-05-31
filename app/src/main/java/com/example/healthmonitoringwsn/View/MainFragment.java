@@ -22,6 +22,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.healthmonitoringwsn.Model.MedrecDetails;
 import com.example.healthmonitoringwsn.Model.PasienDetails;
 import com.example.healthmonitoringwsn.Model.Profile;
+import com.example.healthmonitoringwsn.Model.ProfileStaff;
 import com.example.healthmonitoringwsn.PostCalculateTask;
 import com.example.healthmonitoringwsn.Presenter.ProfilePresenter;
 import com.example.healthmonitoringwsn.Sqlite;
@@ -31,7 +32,7 @@ import org.json.JSONException;
 
 import java.util.List;
 
-public class MainFragment extends Fragment implements PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn {
+public class MainFragment extends Fragment implements PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.ILoginActivityStaff, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn {
     private FragmentManager fragmentManager;
     private FragmentListener listener;
     SwipeRefreshLayout refreshLayout;
@@ -66,7 +67,7 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
         this.tvIdNode = view.findViewById(R.id.idNode_periksaMain);
         this.tvSuhuCond = view.findViewById(R.id.suhuTubuh_periksaConditionMain);
 
-        this.postCalculateTask = new PostCalculateTask(getContext(), this, this, this, this, this, this);
+        this.postCalculateTask = new PostCalculateTask(getContext(), this, this, this, this, this, this, this);
 
         Bundle bundle = getArguments();
         if(bundle != null){
@@ -154,6 +155,11 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
 
     @Override
     public void result(String message) {
+
+    }
+
+    @Override
+    public void logResult(ProfileStaff profileStaff) {
 
     }
 }

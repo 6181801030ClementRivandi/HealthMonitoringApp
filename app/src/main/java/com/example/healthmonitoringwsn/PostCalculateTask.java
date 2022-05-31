@@ -16,6 +16,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.healthmonitoringwsn.Model.MedrecDetails;
 import com.example.healthmonitoringwsn.Model.PasienDetails;
 import com.example.healthmonitoringwsn.Model.Profile;
+import com.example.healthmonitoringwsn.Model.ProfileStaff;
 import com.google.gson.JsonIOException;
 
 import org.json.JSONException;
@@ -34,11 +35,14 @@ public class PostCalculateTask {
     IMainActivityAddPsn uiAddPasien;
     IMainActivityEditPsn uiEditPasien;
     IMainActivityDelPsn uiDeletePasien;
+    ILoginActivityStaff uiLogStaff;
 
     String nama, tanggalLahir, usia, nomorHP, email, tanggalDaftar, namaKlinik;
+    String namaStaff, namaKlinikStaff;
     int NIK, idPasien;
+    int IdStaff;
 
-    public PostCalculateTask(Context context, ILoginActivity uiLog, IMainActivity uiMedrec, IMainActivityPsn uiPasien, IMainActivityAddPsn uiAddPasien, IMainActivityEditPsn uiEditPasien, IMainActivityDelPsn uiDeletePasien) {
+    public PostCalculateTask(Context context, ILoginActivity uiLog, ILoginActivityStaff uiLogStaff, IMainActivity uiMedrec, IMainActivityPsn uiPasien, IMainActivityAddPsn uiAddPasien, IMainActivityEditPsn uiEditPasien, IMainActivityDelPsn uiDeletePasien) {
         this.context = context;
         this.uiLog = uiLog;
         this.uiMedrec = uiMedrec;
@@ -46,6 +50,7 @@ public class PostCalculateTask {
         this.uiAddPasien = uiAddPasien;
         this.uiEditPasien = uiEditPasien;
         this.uiDeletePasien = uiDeletePasien;
+        this.uiLogStaff = uiLogStaff;
     }
 
     public void callVolley(String[] apicall) throws JsonIOException, JSONException {
@@ -117,6 +122,61 @@ public class PostCalculateTask {
                         Map<String, String> params = new HashMap<String, String>();
                         params.put("idUser", idUser);
                         params.put("password", passUser);
+                        return params;
+                    }
+                };
+                BASE_URL = "http://172.20.10.2/Api.php?apicall=";
+                break;
+            case "loginStaff":
+                BASE_URL += "loginStaff";
+                String idStaff = apicall[1];
+                String passStaff = apicall[2];
+                jsonObjRequest = new StringRequest(
+
+                        Request.Method.POST,BASE_URL,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONObject result = new JSONObject(response);
+                                    String checker = result.get("message").toString();
+                                    if(checker.equals("invalid idStaff or password")){
+                                        namaStaff = "";
+                                        namaKlinikStaff = "";
+                                        IdStaff = 0;
+                                    }else {
+                                        for (int x = 0; x < result.getJSONObject("user").length(); x++) {
+                                            namaStaff = (String) result.getJSONObject("user").get("namaPetugas");
+                                            namaKlinikStaff = (String) result.getJSONObject("user").get("namaKlinik");
+                                            IdStaff = (Integer) result.getJSONObject("user").get("idPetugas");
+                                        }
+                                    }
+                                    ProfileStaff profileStaff = new ProfileStaff(namaStaff, namaKlinikStaff, IdStaff);
+                                    uiLogStaff.logResult(profileStaff);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                VolleyLog.d("volley", "Error: " + error.getMessage());
+                                error.printStackTrace();
+                            }
+                        }) {
+
+                    @Override
+                    public String getBodyContentType() {
+                        return "application/x-www-form-urlencoded; charset=UTF-8";
+                    }
+
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("idUser", String.valueOf(IdStaff));
+                        params.put("password", passStaff);
                         return params;
                     }
                 };
@@ -526,6 +586,10 @@ public class PostCalculateTask {
 
     public interface ILoginActivity{
         void logResult(Profile profile);
+    }
+
+    public interface ILoginActivityStaff{
+        void logResult(ProfileStaff profileStaff);
     }
 
     public void processResult(MedrecDetails medrecDetails){

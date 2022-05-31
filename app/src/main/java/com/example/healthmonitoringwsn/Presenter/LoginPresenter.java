@@ -6,21 +6,25 @@ import android.util.Log;
 import com.example.healthmonitoringwsn.Model.MedrecDetails;
 import com.example.healthmonitoringwsn.Model.PasienDetails;
 import com.example.healthmonitoringwsn.Model.Profile;
+import com.example.healthmonitoringwsn.Model.ProfileStaff;
 import com.example.healthmonitoringwsn.Model.User;
 import com.example.healthmonitoringwsn.PostCalculateTask;
 import com.example.healthmonitoringwsn.Sqlite;
+import com.example.healthmonitoringwsn.SqliteStaff;
 import com.example.healthmonitoringwsn.View.FragmentListener;
 import com.example.healthmonitoringwsn.View.ILoginView;
+import com.example.healthmonitoringwsn.View.ProfileStaffFragment;
 
 import org.json.JSONException;
 
-public class LoginPresenter implements ILoginPresenter, PostCalculateTask.ILoginActivity, PostCalculateTask.IMainActivity, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn{
+public class LoginPresenter implements ILoginPresenter, PostCalculateTask.ILoginActivity, PostCalculateTask.ILoginActivityStaff, PostCalculateTask.IMainActivity, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn{
 
     ILoginView loginView;
     PostCalculateTask postCalculateTask;
     Context context;
     ProfilePresenter presenter;
     Sqlite sqlite;
+    SqliteStaff sqliteStaff;
     String iduser;
 
     public LoginPresenter(ILoginView loginView, Context context){
@@ -31,8 +35,9 @@ public class LoginPresenter implements ILoginPresenter, PostCalculateTask.ILogin
     @Override
     public void onLogin(String idUser, String password) throws JSONException {
         iduser = idUser;
-        this.postCalculateTask = new PostCalculateTask(context, this, this, this, this, this, this);
+        this.postCalculateTask = new PostCalculateTask(context, this, this, this, this, this, this, this);
         this.sqlite = new Sqlite(context);
+        this.sqliteStaff = new SqliteStaff(context);
         User user = new User(idUser, password);
         int loginCode = user.isValidData();
 
@@ -49,7 +54,7 @@ public class LoginPresenter implements ILoginPresenter, PostCalculateTask.ILogin
                 postCalculateTask.callVolley(apicall);
             }else{
                 String[] apicall = new String[3];
-                apicall[0] = "loginAdmin";
+                apicall[0] = "loginStaff";
                 apicall[1] = idUser;
                 apicall[2] = password;
                 postCalculateTask.callVolley(apicall);
@@ -85,6 +90,21 @@ public class LoginPresenter implements ILoginPresenter, PostCalculateTask.ILogin
     @Override
     public void result(String message) {
 
+    }
+
+    @Override
+    public void logResult(ProfileStaff profileStaff) {
+        ProfileStaff profStaff = profileStaff;
+        if (profStaff.getIdStaff() == 0){
+            loginView.onLoginError("Id user atau password salah");
+        }else{
+            loginView.onLoginSuccess("Login berhasil", String.valueOf(profStaff.getIdStaff()));
+            ProfileStaff profileStaff1 = new ProfileStaff();
+            profileStaff1 = sqliteStaff.getContact(Integer.parseInt(iduser));
+            if (profileStaff1.getIdStaff() == 0) {
+                sqliteStaff.addRecord(profileStaff1);
+            }
+        }
     }
 
 //    public interface passUserId{

@@ -22,6 +22,7 @@ import androidx.fragment.app.FragmentManager;
 import com.example.healthmonitoringwsn.Model.MedrecDetails;
 import com.example.healthmonitoringwsn.Model.PasienDetails;
 import com.example.healthmonitoringwsn.Model.Profile;
+import com.example.healthmonitoringwsn.Model.ProfileStaff;
 import com.example.healthmonitoringwsn.PostCalculateTask;
 import com.example.healthmonitoringwsn.R;
 
@@ -32,7 +33,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class EditPasienFragment extends Fragment implements PostCalculateTask.ILoginActivity, PostCalculateTask.IMainActivity, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn, View.OnClickListener {
+public class EditPasienFragment extends Fragment implements PostCalculateTask.ILoginActivity, PostCalculateTask.ILoginActivityStaff, PostCalculateTask.IMainActivity, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn, View.OnClickListener {
 
     private FragmentManager fragmentManager;
 
@@ -54,7 +55,7 @@ public class EditPasienFragment extends Fragment implements PostCalculateTask.IL
 
         dateFormatter = new SimpleDateFormat("yyyy-MM-dd H:m:s", Locale.US);
 
-        this.postCalculateTask = new PostCalculateTask(getContext(), this, this, this, this, this, this);
+        this.postCalculateTask = new PostCalculateTask(getContext(), this, this, this, this, this, this, this);
 
         this.etNama = view.findViewById(R.id.ETEditNamaPasien);
         this.etNIK = view.findViewById(R.id.ETEditNIKPasien);
@@ -257,5 +258,10 @@ public class EditPasienFragment extends Fragment implements PostCalculateTask.IL
             view = new View(activity);
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    @Override
+    public void logResult(ProfileStaff profileStaff) {
+
     }
 }

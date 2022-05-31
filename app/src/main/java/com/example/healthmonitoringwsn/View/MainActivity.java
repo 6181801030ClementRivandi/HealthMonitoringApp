@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
     private PasienDetailsFragment pasienDetailsFragment;
     private AddPasienFragment addPasienFragment;
     private EditPasienFragment editPasienFragment;
+    private ProfileStaffFragment profileStaffFragment;
 
     private FragmentManager fragmentManager;
     private FragmentTransaction ft;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         this.pasienDetailsFragment = PasienDetailsFragment.newInstance();
         this.addPasienFragment = AddPasienFragment.newInstance();
         this.editPasienFragment = EditPasienFragment.newInstance();
+        this.profileStaffFragment = ProfileStaffFragment.newInstance();
 
         this.fragmentManager = this.getSupportFragmentManager();
         this.toolbar = findViewById(R.id.toolbar);
@@ -129,6 +131,13 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         this.medrecFragment.setArguments(bundle);
         this.profileFragment.setArguments(bundle);
         this.mainFragment.setArguments(bundle);
+    }
+
+    public void passIdStaff(String idStaff){
+        this.ft = this.fragmentManager.beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putString("idStff", idStaff);
+        this.profileStaffFragment.setArguments(bundle);
     }
 
     public void psMedrec(MedrecDetails medrecDetails) {
