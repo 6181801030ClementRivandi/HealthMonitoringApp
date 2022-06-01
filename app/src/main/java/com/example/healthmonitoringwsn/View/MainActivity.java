@@ -80,6 +80,9 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         if (page == 1) {
             ft.replace(R.id.fragment_container, this.loginFragment);
             lockDrawer();
+            bottomNavigationView.setVisibility(View.INVISIBLE);
+            idUser = "";
+            idStaff = "";
         }
         else if (page == 2) {
             ft.replace(R.id.fragment_container, this.mainFragment).addToBackStack(null);
@@ -88,7 +91,8 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
             }else if(!idStaff.equals("") && idUser.equals("")){
                 unlockDrawer();
             }
-            bottomNavigationView.setVisibility(View.VISIBLE); }
+            bottomNavigationView.setVisibility(View.VISIBLE);
+        }
         else if (page == 3) {
             if (idStaff.equals("") && !idUser.equals("")){
                 ft.replace(R.id.fragment_container, this.profileFragment).addToBackStack(null);
@@ -124,6 +128,11 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         else if (page == 10) {
             ft.replace(R.id.fragment_container, this.assignFragment).addToBackStack(null);
             bottomNavigationView.setVisibility(View.VISIBLE);
+            if (idStaff.equals("") && !idUser.equals("")){
+                lockDrawer();
+            }else if(!idStaff.equals("") && idUser.equals("")){
+                unlockDrawer();
+            }
     }
         this.drawer.closeDrawers();
         this.ft.commit();

@@ -89,8 +89,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         if (view == btnLogout){
-            MainActivity main = (MainActivity) getActivity();
-            main.bottomNavigationView.setSelectedItemId(R.id.home_icon);
             AlertDialog.Builder dialog1 = new AlertDialog.Builder(getContext());
             dialog1.setMessage("Apakah anda yakin ingin keluar?");
             dialog1.setCancelable(true);
@@ -100,6 +98,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             Toast.makeText(getContext(), "anda berhasil keluar", Toast.LENGTH_SHORT).show();
+                            MainActivity main = (MainActivity) getActivity();
+                            main.bottomNavigationView.setSelectedItemId(R.id.home_icon);
                             listener.changePage(1);
                         }
                     });

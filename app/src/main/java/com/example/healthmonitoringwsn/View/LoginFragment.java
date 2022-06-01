@@ -39,8 +39,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener, ILo
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        BottomNavigationView navBar = getActivity().findViewById(R.id.bottomNavigationView);
-        navBar.setVisibility(View.GONE);
+//        BottomNavigationView navBar = getActivity().findViewById(R.id.bottomNavigationView);
+//        navBar.setVisibility(View.GONE);
 
         View view = inflater.inflate(R.layout.fragment_login,container,false);
 
