@@ -68,11 +68,9 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         //this.setSupportActionBar(toolbar);
 
         this.drawer = findViewById(R.id.drawer_layout);
-
 //        ActionBarDrawerToggle abdt = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.openDrawer, R.string.closeDrawer);
 //        drawer.addDrawerListener(abdt);
 //        abdt.syncState();
-
         this.changePage(1);
     }
 
@@ -91,8 +89,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
             }else if(!idStaff.equals("") && idUser.equals("")){
                 unlockDrawer();
             }
-            bottomNavigationView.setVisibility(View.VISIBLE);
-        }
+            bottomNavigationView.setVisibility(View.VISIBLE); }
         else if (page == 3) {
             if (idStaff.equals("") && !idUser.equals("")){
                 ft.replace(R.id.fragment_container, this.profileFragment).addToBackStack(null);
@@ -104,6 +101,11 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         }
         else if (page == 4) {
             ft.replace(R.id.fragment_container, this.medrecFragment).addToBackStack(null);
+            if (idStaff.equals("") && !idUser.equals("")){
+                lockDrawer();
+            }else if(!idStaff.equals("") && idUser.equals("")){
+                unlockDrawer();
+            }
         }
         else if (page == 5) {
             ft.replace(R.id.fragment_container, this.medrecDetailsFragment).addToBackStack(null);
@@ -122,7 +124,8 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         }
         else if (page == 10) {
             ft.replace(R.id.fragment_container, this.assignFragment).addToBackStack(null);
-        }
+            bottomNavigationView.setVisibility(View.VISIBLE);
+    }
         this.drawer.closeDrawers();
         this.ft.commit();
     }
@@ -189,14 +192,23 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         this.ft = this.fragmentManager.beginTransaction();
         switch (item.getItemId()) {
             case R.id.home_icon:
-                ft.replace(R.id.fragment_container, this.mainFragment).addToBackStack(null);
-                unlockDrawer();
+                if (idStaff.equals("") && !idUser.equals("")){
+                    ft.replace(R.id.fragment_container, this.mainFragment).addToBackStack(null);
+                    lockDrawer();
+                }else if(!idStaff.equals("") && idUser.equals("")){
+                    ft.replace(R.id.fragment_container, this.assignFragment).addToBackStack(null);
+                    unlockDrawer();
+                }
                 ft.commit();
                 return true;
 
             case R.id.medrec_icon:
                 ft.replace(R.id.fragment_container, this.medrecFragment).addToBackStack(null);
-                unlockDrawer();
+                if (idStaff.equals("") && !idUser.equals("")){
+                    lockDrawer();
+                }else if(!idStaff.equals("") && idUser.equals("")){
+                    unlockDrawer();
+                }
                 ft.commit();
                 return true;
 
@@ -210,10 +222,6 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
                 }
                 ft.commit();
                 return true;
-//
-//            case R.id.settings:
-//                getSupportFragmentManager().beginTransaction().replace(R.id.container, thirdFragment).commit();
-//                return true;
         }
         return false;
     }
