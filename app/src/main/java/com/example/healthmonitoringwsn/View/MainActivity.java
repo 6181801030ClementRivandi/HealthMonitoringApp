@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
 
     String idUser = "";
     String idStaff = "";
+    String idPsn = "";
 
     BottomNavigationView bottomNavigationView;
 
@@ -83,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
             bottomNavigationView.setVisibility(View.INVISIBLE);
             idUser = "";
             idStaff = "";
+            idPsn = "";
         }
         else if (page == 2) {
             ft.replace(R.id.fragment_container, this.mainFragment).addToBackStack(null);
@@ -165,10 +167,17 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
 
     public void passIdStaff(String idStaff){
         this.idStaff = idStaff;
-        this.ft = this.fragmentManager.beginTransaction();
         Bundle bundle = new Bundle();
         bundle.putString("idStff", idStaff);
         this.profileStaffFragment.setArguments(bundle);
+        this.mainFragment.setArguments(bundle);
+    }
+
+    public void passIdAssign(String idPsn){
+        this.idPsn = idPsn;
+        Bundle bundle = new Bundle();
+        bundle.putString("idPsn", idPsn);
+        this.mainFragment.setArguments(bundle);
     }
 
     public void psMedrec(MedrecDetails medrecDetails) {

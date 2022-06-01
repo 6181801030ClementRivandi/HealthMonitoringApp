@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.healthmonitoringwsn.Model.MedrecDetails;
 import com.example.healthmonitoringwsn.PostCalculateTask;
 import com.example.healthmonitoringwsn.Presenter.ILoginPresenter;
 import com.example.healthmonitoringwsn.Presenter.LoginPresenter;
@@ -93,6 +94,8 @@ public class AssignFragment extends Fragment implements View.OnClickListener {
                 e.printStackTrace();
             }
             this.hideKeyboard(getActivity());
+            MainActivity main = (MainActivity) getActivity();
+            main.passIdAssign(idPasien);
         }
     }
 

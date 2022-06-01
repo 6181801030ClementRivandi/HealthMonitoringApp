@@ -40,7 +40,7 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
     private MedrecDetails medrecDetailsLatest;
     TextView tvIdPeriksa, tvTanggal, tvSuhu, tvDetak, tvTekanan, tvSaturasi, tvIdPetugas, tvIdNode;
     TextView tvSuhuCond;
-    String idUsr;
+    String idUsr = "", idStff = "";
 
     public MainFragment(){}
 
@@ -71,16 +71,24 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
 
         Bundle bundle = getArguments();
         if(bundle != null){
+            this.idStff = bundle.getString("idStff");
             this.idUsr = bundle.getString("idUsr");
-        }
-
-        String[] apicall = new String[2];
-        apicall[0] = "medrecLatest";
-        apicall[1] = idUsr;
-        try {
-            postCalculateTask.callVolley(apicall);
-        } catch (JSONException e) {
-            e.printStackTrace();
+            String[] apicall;
+            if ( idStff.equals("")){
+                apicall = new String[2];
+                apicall[0] = "medrecLatest";
+                apicall[1] = idUsr;
+            }else{
+                this.idUsr = bundle.getString("idPsn");
+                apicall = new String[2];
+                apicall[0] = "medrecLatest";
+                apicall[1] = idUsr;
+            }
+            try {
+                postCalculateTask.callVolley(apicall);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
         refreshLayout = view.findViewById(R.id.swipe_to_refresh_layout);
