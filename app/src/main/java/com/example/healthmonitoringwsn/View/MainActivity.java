@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         setContentView(R.layout.activity_main);
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
-
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
         this.loginFragment = LoginFragment.newInstance();
