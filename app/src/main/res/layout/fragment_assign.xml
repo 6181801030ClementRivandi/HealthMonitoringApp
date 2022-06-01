@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/design_default_color_on_primary">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/tv_assign"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Silahkan alokasi pasien ke node yang tersedia sebelum melakukan pemeriksaan."
+                android:textSize="20dp"
+                android:layout_marginBottom="20dp"
+                android:textAlignment="center"/>
+
+            <EditText
+                android:id="@+id/assign_idPasien"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Id Pasien"
+                android:inputType="number"/>
+
+            <EditText
+                android:id="@+id/assign_idNode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Id Node"
+                android:inputType="number"/>
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submit"
+                style="@style/Widget.AppCompat.Button.Colored"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

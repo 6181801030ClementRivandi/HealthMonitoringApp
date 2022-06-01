@@ -90,10 +90,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener, ILo
         this.hideKeyboard(getActivity());
         if(id.indexOf("924") == -1){
             mainActivity.passId(id);
+            this.listener.changePage(2);
         }else{
             mainActivity.passIdStaff(id);
+            this.listener.changePage(10);
         }
-        this.listener.changePage(2);
         eTidUser.setText(null);
         eTpassword.setText(null);
     }

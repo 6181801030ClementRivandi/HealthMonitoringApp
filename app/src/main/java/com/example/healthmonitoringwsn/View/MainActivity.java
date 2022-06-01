@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
     private AddPasienFragment addPasienFragment;
     private EditPasienFragment editPasienFragment;
     private ProfileStaffFragment profileStaffFragment;
+    private AssignFragment assignFragment;
 
     private FragmentManager fragmentManager;
     private FragmentTransaction ft;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         this.addPasienFragment = AddPasienFragment.newInstance();
         this.editPasienFragment = EditPasienFragment.newInstance();
         this.profileStaffFragment = ProfileStaffFragment.newInstance();
+        this.assignFragment = AssignFragment.newInstance();
 
         this.fragmentManager = this.getSupportFragmentManager();
         this.toolbar = findViewById(R.id.toolbar);
@@ -117,6 +119,9 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         }
         else if (page == 9) {
             ft.replace(R.id.fragment_container, this.editPasienFragment).addToBackStack(null);
+        }
+        else if (page == 10) {
+            ft.replace(R.id.fragment_container, this.assignFragment).addToBackStack(null);
         }
         this.drawer.closeDrawers();
         this.ft.commit();
