@@ -99,8 +99,6 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
                 ft.replace(R.id.fragment_container, this.profileStaffFragment).addToBackStack(null);
                 unlockDrawer();
             }
-
-            unlockDrawer();
         }
         else if (page == 4) {
             ft.replace(R.id.fragment_container, this.medrecFragment).addToBackStack(null);

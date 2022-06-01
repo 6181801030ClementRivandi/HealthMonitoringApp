@@ -60,7 +60,7 @@ public class MedrecListAdapter extends BaseAdapter {
         View convertView = LayoutInflater.from(this.activity).inflate(R.layout.item_list_medrec, parent, false);
         MedrecDetails currentMedrec = (MedrecDetails) this.getItem(i);
         ViewHolder viewHolder = new ViewHolder(convertView);
-        viewHolder.title.setText("id pemeriksaan : " + String.valueOf(currentMedrec.getIdPeriksa()));
+        viewHolder.title.setText("tanggal pemeriksaan : " + String.valueOf(currentMedrec.getTanggal()));
         return convertView;
     }
 }
