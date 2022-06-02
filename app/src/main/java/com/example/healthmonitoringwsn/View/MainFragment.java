@@ -32,7 +32,7 @@ import org.json.JSONException;
 
 import java.util.List;
 
-public class MainFragment extends Fragment implements PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.ILoginActivityStaff, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn {
+public class MainFragment extends Fragment implements PostCalculateTask.IMainActivityAssignNode, PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.ILoginActivityStaff, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn {
     private FragmentManager fragmentManager;
     private FragmentListener listener;
     SwipeRefreshLayout refreshLayout;
@@ -67,7 +67,7 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
         this.tvIdNode = view.findViewById(R.id.idNode_periksaMain);
         this.tvSuhuCond = view.findViewById(R.id.suhuTubuh_periksaConditionMain);
 
-        this.postCalculateTask = new PostCalculateTask(getContext(), this, this, this, this, this, this, this);
+        this.postCalculateTask = new PostCalculateTask(getContext(), this,this, this, this, this, this, this, this);
 
         Bundle bundle = getArguments();
         if(bundle != null){
@@ -168,6 +168,11 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
 
     @Override
     public void logResult(ProfileStaff profileStaff) {
+
+    }
+
+    @Override
+    public void resultAssign(String message) {
 
     }
 }

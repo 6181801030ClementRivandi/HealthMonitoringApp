@@ -36,13 +36,14 @@ public class PostCalculateTask {
     IMainActivityEditPsn uiEditPasien;
     IMainActivityDelPsn uiDeletePasien;
     ILoginActivityStaff uiLogStaff;
+    IMainActivityAssignNode uiAssignNode;
 
     String nama, tanggalLahir, usia, nomorHP, email, tanggalDaftar, namaKlinik;
     String namaStaff, namaKlinikStaff;
     int NIK, idPasien;
     int IdStaff;
 
-    public PostCalculateTask(Context context, ILoginActivity uiLog, ILoginActivityStaff uiLogStaff, IMainActivity uiMedrec, IMainActivityPsn uiPasien, IMainActivityAddPsn uiAddPasien, IMainActivityEditPsn uiEditPasien, IMainActivityDelPsn uiDeletePasien) {
+    public PostCalculateTask(Context context, ILoginActivity uiLog, ILoginActivityStaff uiLogStaff, IMainActivity uiMedrec, IMainActivityPsn uiPasien, IMainActivityAddPsn uiAddPasien, IMainActivityEditPsn uiEditPasien, IMainActivityDelPsn uiDeletePasien, IMainActivityAssignNode uiAssignNode) {
         this.context = context;
         this.uiLog = uiLog;
         this.uiMedrec = uiMedrec;
@@ -51,6 +52,7 @@ public class PostCalculateTask {
         this.uiEditPasien = uiEditPasien;
         this.uiDeletePasien = uiDeletePasien;
         this.uiLogStaff = uiLogStaff;
+        this.uiAssignNode = uiAssignNode;
     }
 
     public void callVolley(String[] apicall) throws JsonIOException, JSONException {
@@ -577,6 +579,58 @@ public class PostCalculateTask {
                 };
                 BASE_URL = "http://172.20.10.2/Api.php?apicall=";
                 break;
+            case "assignNode":
+                BASE_URL += "assignNode";
+                String idPetugasAssign = apicall[1];
+                String idNodeAssign = apicall[2];
+                String idPasienAssign = apicall[3];
+                String status = apicall[4];
+                jsonObjRequest = new StringRequest(
+
+                        Request.Method.POST,BASE_URL,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONObject result = new JSONObject(response);
+                                    String res = "";
+                                    String checker = result.get("message").toString();
+                                    if(checker.equals("assign successful")) {
+                                        res = "assign successful";
+                                    }else{
+                                        res = "assign failed";
+                                    }
+                                    uiAssignNode.resultAssign(res);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                VolleyLog.d("volley", "Error: " + error.getMessage());
+                                error.printStackTrace();
+                            }
+                        }) {
+
+                    @Override
+                    public String getBodyContentType() {
+                        return "application/x-www-form-urlencoded; charset=UTF-8";
+                    }
+
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("idPetugas", idPetugasAssign);
+                        params.put("idNode", idNodeAssign);
+                        params.put("idPasien", idPasienAssign);
+                        params.put("status", status);
+                        return params;
+                    }
+                };
+                BASE_URL = "http://172.20.10.2/Api.php?apicall=";
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + apicall[0]);
         }
@@ -614,6 +668,10 @@ public class PostCalculateTask {
 
     public interface IMainActivityDelPsn{
         void result(String message);
+    }
+
+    public interface IMainActivityAssignNode{
+        void resultAssign(String message);
     }
 }
 

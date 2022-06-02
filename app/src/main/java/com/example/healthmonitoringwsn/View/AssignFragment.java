@@ -16,6 +16,9 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.example.healthmonitoringwsn.Model.MedrecDetails;
+import com.example.healthmonitoringwsn.Model.PasienDetails;
+import com.example.healthmonitoringwsn.Model.Profile;
+import com.example.healthmonitoringwsn.Model.ProfileStaff;
 import com.example.healthmonitoringwsn.PostCalculateTask;
 import com.example.healthmonitoringwsn.Presenter.ILoginPresenter;
 import com.example.healthmonitoringwsn.Presenter.LoginPresenter;
@@ -25,7 +28,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
 
-public class AssignFragment extends Fragment implements View.OnClickListener {
+public class AssignFragment extends Fragment implements PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.ILoginActivityStaff, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn, PostCalculateTask.IMainActivityAssignNode, View.OnClickListener {
 
     EditText eTidPasien, eTidNode;
     Button btnSubmit;
@@ -64,7 +67,7 @@ public class AssignFragment extends Fragment implements View.OnClickListener {
         this.btnSubmit = view.findViewById(R.id.btn_submit);
         this.btnSubmit.setOnClickListener(this);
 
-        //this.postCalculateTask = new PostCalculateTask(getContext(), this, this, this, this, this, this, this);
+        this.postCalculateTask = new PostCalculateTask(getContext(), this,this, this, this, this, this, this, this);
 
         return view;
     }
@@ -91,19 +94,21 @@ public class AssignFragment extends Fragment implements View.OnClickListener {
         if( v == btnSubmit){
             idPasien = eTidPasien.getText().toString();
             idNode = eTidNode.getText().toString();
-//            String[] apicall = new String[3];
-//            apicall[0] = "assign";
-//            apicall[1] = idPasien;
-//            apicall[2] = idNode;
-//            try {
-//                postCalculateTask.callVolley(apicall);
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
+            String status = "1";
+            String[] apicall = new String[5];
+            apicall[0] = "assignNode";
+            apicall[1] = idStaff;
+            apicall[2] = idNode;
+            apicall[3] = idPasien;
+            apicall[4] = status;
+            try {
+                postCalculateTask.callVolley(apicall);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             this.hideKeyboard(getActivity());
             MainActivity main = (MainActivity) getActivity();
             main.passIdAssign(idPasien, idStaff);
-            listener.changePage(2);
         }
     }
 
@@ -114,5 +119,41 @@ public class AssignFragment extends Fragment implements View.OnClickListener {
             view = new View(activity);
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    @Override
+    public void logResult(Profile profile) {
+
+    }
+
+    @Override
+    public void logResult(ProfileStaff profileStaff) {
+
+    }
+
+    @Override
+    public void hasil(MedrecDetails medrecDetails) {
+
+    }
+
+    @Override
+    public void hasil(PasienDetails pasienDetails) {
+
+    }
+
+    @Override
+    public void result(String message) {
+
+    }
+
+    @Override
+    public void resultAssign(String message) {
+        String result = message;
+        if(result.equals("assign successful")){
+            Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
+            listener.changePage(2);
+        }else{
+            Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
+        }
     }
 }
