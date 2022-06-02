@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
     private EditPasienFragment editPasienFragment;
     private ProfileStaffFragment profileStaffFragment;
     private AssignFragment assignFragment;
+    LeftDrawerFragment leftDrawerFragment;
 
     private FragmentManager fragmentManager;
     private FragmentTransaction ft;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         this.editPasienFragment = EditPasienFragment.newInstance();
         this.profileStaffFragment = ProfileStaffFragment.newInstance();
         this.assignFragment = AssignFragment.newInstance();
+        this.leftDrawerFragment = LeftDrawerFragment.newInstance("leftDrawer");
 
         this.fragmentManager = this.getSupportFragmentManager();
         this.toolbar = findViewById(R.id.toolbar);
@@ -87,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
             idPsn = "";
         }
         else if (page == 2) {
-            ft.replace(R.id.fragment_container, this.mainFragment).addToBackStack(null);
+            ft.replace(R.id.fragment_container, this.mainFragment, "fragmentMain").addToBackStack(null);
             if (idStaff.equals("") && !idUser.equals("")){
                 lockDrawer();
             }else if(!idStaff.equals("") && idUser.equals("")){
@@ -203,6 +205,13 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         bundle.putParcelable("editPasienDetails", pasienDetails);
         this.editPasienFragment.setArguments(bundle);
         changePage(9);
+    }
+
+    public void passBtnAssign(String check){
+        this.ft = this.fragmentManager.beginTransaction();
+        Bundle bundle = new Bundle();
+        bundle.putString("btnAssign", check);
+        this.leftDrawerFragment.setArguments(bundle);
     }
 
     @Override

@@ -21,20 +21,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-<!--    <Button-->
-<!--        android:id="@+id/drawer_setting"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="1dp"-->
-<!--        android:background="@drawable/button_background"-->
-<!--        android:paddingTop="18dp"-->
-<!--        android:paddingBottom="18dp"-->
-<!--        android:text="@string/btn_setting"-->
-<!--        android:textSize="17sp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.0"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/drawer_reports" />-->
+    <Button
+        android:id="@+id/drawer_pemeriksaan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/button_background"
+        android:paddingTop="18dp"
+        android:paddingBottom="18dp"
+        android:text="pemeriksaan"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/drawer_pasien" />
 
 <!--    <Button-->
 <!--        android:id="@+id/drawer_exit"-->

@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.healthmonitoringwsn.Model.MedrecDetails;
 import com.example.healthmonitoringwsn.Model.PasienDetails;
@@ -46,7 +48,6 @@ public class AssignFragment extends Fragment implements PostCalculateTask.IMainA
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_assign,container,false);
-
         view.setFocusableInTouchMode(true);
         view.requestFocus();
         view.setOnKeyListener((view1, i, keyEvent) -> {
@@ -97,7 +98,6 @@ public class AssignFragment extends Fragment implements PostCalculateTask.IMainA
         if( v == btnSubmit){
             idPasien = eTidPasien.getText().toString();
             idNode = eTidNode.getText().toString();
-            Log.d("test iddd", idPasien);
             if (idPasien.equals("") || idNode.equals("")){
                 Toast.makeText(getContext(), "data tidak boleh kosong", Toast.LENGTH_SHORT).show();
 
@@ -182,6 +182,8 @@ public class AssignFragment extends Fragment implements PostCalculateTask.IMainA
             reset = false;
             MainActivity main = (MainActivity) getActivity();
             main.bottomNavigationView.getMenu().findItem(R.id.home_icon).setCheckable(false);
+            main.leftDrawerFragment.btnPemeriksaan.setVisibility(View.VISIBLE);
+            main.passBtnAssign("on");
         }
     }
 }

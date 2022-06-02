@@ -16,7 +16,7 @@ public class LeftDrawerFragment extends Fragment implements View.OnClickListener
 
     public LeftDrawerFragment(){}
 
-    Button btnPasien;
+    Button btnPasien, btnPemeriksaan;
 
     FragmentListener listener;
 
@@ -27,6 +27,19 @@ public class LeftDrawerFragment extends Fragment implements View.OnClickListener
 
         this.btnPasien = view.findViewById(R.id.drawer_pasien);
         btnPasien.setOnClickListener(this);
+
+        this.btnPemeriksaan = view.findViewById(R.id.drawer_pemeriksaan);
+        btnPemeriksaan.setOnClickListener(this);
+
+        Bundle bundle  = getArguments();
+        if ( bundle == null){
+            btnPemeriksaan.setVisibility(View.INVISIBLE);
+        }else{
+            String check = bundle.getString("btnAssign");
+            if(check.equals("on")){
+                btnPemeriksaan.setVisibility(View.VISIBLE);
+            }
+        }
 //
 //        this.btnSetting = view.findViewById(R.id.drawer_setting);
 //        btnSetting.setOnClickListener(this);
@@ -57,6 +70,8 @@ public class LeftDrawerFragment extends Fragment implements View.OnClickListener
     public void onClick(View v) {
         if (v == btnPasien) {
             this.listener.changePage(6);
+        }else if ( v == btnPemeriksaan){
+            this.listener.changePage(2);
         }
 //        }else if (v == btnSetting){
 //            this.listener.changePage(3);
