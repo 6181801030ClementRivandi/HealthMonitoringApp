@@ -124,6 +124,7 @@ public class AssignFragment extends Fragment implements PostCalculateTask.IMainA
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            Toast.makeText(getContext(), "reset successful", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -168,8 +169,8 @@ public class AssignFragment extends Fragment implements PostCalculateTask.IMainA
             Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
             listener.changePage(2);
             reset = false;
-        }else{
-            Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
+            MainActivity main = (MainActivity) getActivity();
+            main.bottomNavigationView.setSelected(false);
         }
     }
 }
