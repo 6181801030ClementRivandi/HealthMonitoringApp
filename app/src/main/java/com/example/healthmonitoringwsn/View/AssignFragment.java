@@ -35,6 +35,7 @@ public class AssignFragment extends Fragment implements PostCalculateTask.IMainA
     String idPasien;
     String idNode;
     String idStaff;
+    boolean reset = false;
     PostCalculateTask postCalculateTask;
 
     public AssignFragment(){}
@@ -111,13 +112,17 @@ public class AssignFragment extends Fragment implements PostCalculateTask.IMainA
             this.hideKeyboard(getActivity());
             MainActivity main = (MainActivity) getActivity();
             main.passIdAssign(idPasien, idStaff);
-        }else{
+            eTidPasien.setText(null);
+            eTidNode.setText(null);
+            reset = true;
+        }else if (v == btnReset){
             String status = "0";
             String[] apicall = new String[5];
             apicall[0] = "assignNode";
-            apicall[1] = null;
+            apicall[1] = "0";
             apicall[2] = idNode;
-            apicall[3] = null;
+            Log.d("id node", idNode);
+            apicall[3] = "0";
             apicall[4] = status;
             try {
                 postCalculateTask.callVolley(apicall);
@@ -164,9 +169,10 @@ public class AssignFragment extends Fragment implements PostCalculateTask.IMainA
     @Override
     public void resultAssign(String message) {
         String result = message;
-        if(result.equals("assign successful")){
+        if(result.equals("assign successful") && reset == true){
             Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
             listener.changePage(2);
+            reset = false;
         }else{
             Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
         }
