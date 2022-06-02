@@ -122,15 +122,20 @@ public class AssignFragment extends Fragment implements PostCalculateTask.IMainA
                 reset = true;
             }
         }else if (v == btnReset){
-            String[] apicall = new String[5];
-            apicall[0] = "resetAssign";
-            apicall[1] = idNode;
-            try {
-                postCalculateTask.callVolley(apicall);
-            } catch (JSONException e) {
-                e.printStackTrace();
+            if(idNode == null){
+                Toast.makeText(getContext(), "reset gagal, node belum dialokasi", Toast.LENGTH_SHORT).show();
+
+            }else{
+                String[] apicall = new String[5];
+                apicall[0] = "resetAssign";
+                apicall[1] = idNode;
+                try {
+                    postCalculateTask.callVolley(apicall);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Toast.makeText(getContext(), "reset berhasil", Toast.LENGTH_SHORT).show();
             }
-            Toast.makeText(getContext(), "reset successful", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -172,7 +177,7 @@ public class AssignFragment extends Fragment implements PostCalculateTask.IMainA
     public void resultAssign(String message) {
         String result = message;
         if(result.equals("assign successful") && reset == true){
-            Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "alokasi berhasil", Toast.LENGTH_SHORT).show();
             listener.changePage(2);
             reset = false;
             MainActivity main = (MainActivity) getActivity();
