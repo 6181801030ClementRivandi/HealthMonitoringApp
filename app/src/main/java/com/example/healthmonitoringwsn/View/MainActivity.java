@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
     private EditPasienFragment editPasienFragment;
     private ProfileStaffFragment profileStaffFragment;
     private AssignFragment assignFragment;
-    LeftDrawerFragment leftDrawerFragment;
 
     private FragmentManager fragmentManager;
     private FragmentTransaction ft;
@@ -41,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
     String idUser = "";
     String idStaff = "";
     String idPsn = "";
+    String buttonView;
 
     BottomNavigationView bottomNavigationView;
 
@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         this.editPasienFragment = EditPasienFragment.newInstance();
         this.profileStaffFragment = ProfileStaffFragment.newInstance();
         this.assignFragment = AssignFragment.newInstance();
-        this.leftDrawerFragment = LeftDrawerFragment.newInstance("leftDrawer");
 
         this.fragmentManager = this.getSupportFragmentManager();
         this.toolbar = findViewById(R.id.toolbar);
@@ -207,12 +206,10 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         changePage(9);
     }
 
-    public void passBtnAssign(String check){
-        this.ft = this.fragmentManager.beginTransaction();
-        Bundle bundle = new Bundle();
-        bundle.putString("btnAssign", check);
-        this.leftDrawerFragment.setArguments(bundle);
-    }
+//    public void passBtnAssign(String check){
+//        this.ft = this.fragmentManager.beginTransaction();
+//        this.buttonView = check;
+//    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

@@ -33,11 +33,11 @@ import org.json.JSONException;
 public class AssignFragment extends Fragment implements PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.ILoginActivityStaff, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn, PostCalculateTask.IMainActivityAssignNode, View.OnClickListener {
 
     EditText eTidPasien, eTidNode;
-    Button btnSubmit, btnReset;
+    Button btnSubmit, btnPemeriksaan, btnReset;
     String idPasien;
     String idNode;
     String idStaff;
-    boolean reset = false;
+    boolean reset = false, btnPeriksa = false;
     PostCalculateTask postCalculateTask;
 
     public AssignFragment(){}
@@ -70,6 +70,14 @@ public class AssignFragment extends Fragment implements PostCalculateTask.IMainA
         this.btnSubmit.setOnClickListener(this);
         this.btnReset = view.findViewById(R.id.btn_reset);
         this.btnReset.setOnClickListener(this);
+        this.btnPemeriksaan = view.findViewById(R.id.btn_pemeriksaan);
+        this.btnPemeriksaan.setOnClickListener(this);
+        btnPemeriksaan.setVisibility(View.INVISIBLE);
+        if(btnPeriksa == false){
+            btnPemeriksaan.setVisibility(View.INVISIBLE);
+        }else{
+            btnPemeriksaan.setVisibility(View.VISIBLE);
+        }
 
         this.postCalculateTask = new PostCalculateTask(getContext(), this,this, this, this, this, this, this, this);
 
@@ -135,7 +143,13 @@ public class AssignFragment extends Fragment implements PostCalculateTask.IMainA
                     e.printStackTrace();
                 }
                 Toast.makeText(getContext(), "reset berhasil", Toast.LENGTH_SHORT).show();
+                btnPemeriksaan.setVisibility(View.INVISIBLE);
+                btnPeriksa = false;
             }
+        }else if (v == btnPemeriksaan){
+            listener.changePage(2);
+            MainActivity main = (MainActivity) getActivity();
+            main.bottomNavigationView.getMenu().findItem(R.id.home_icon).setCheckable(false);
         }
     }
 
@@ -177,13 +191,13 @@ public class AssignFragment extends Fragment implements PostCalculateTask.IMainA
     public void resultAssign(String message) {
         String result = message;
         if(result.equals("assign successful") && reset == true){
-            Toast.makeText(getContext(), "alokasi berhasil", Toast.LENGTH_SHORT).show();
             listener.changePage(2);
+            Toast.makeText(getContext(), "alokasi berhasil", Toast.LENGTH_SHORT).show();
             reset = false;
+            btnPeriksa = true;
+            btnPemeriksaan.setVisibility(View.VISIBLE);
             MainActivity main = (MainActivity) getActivity();
             main.bottomNavigationView.getMenu().findItem(R.id.home_icon).setCheckable(false);
-            main.leftDrawerFragment.btnPemeriksaan.setVisibility(View.VISIBLE);
-            main.passBtnAssign("on");
         }
     }
 }
