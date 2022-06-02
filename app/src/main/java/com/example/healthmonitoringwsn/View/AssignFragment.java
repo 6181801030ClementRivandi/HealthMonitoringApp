@@ -31,7 +31,7 @@ import org.json.JSONException;
 public class AssignFragment extends Fragment implements PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.ILoginActivityStaff, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn, PostCalculateTask.IMainActivityAssignNode, View.OnClickListener {
 
     EditText eTidPasien, eTidNode;
-    Button btnSubmit;
+    Button btnSubmit, btnReset;
     String idPasien;
     String idNode;
     String idStaff;
@@ -66,6 +66,8 @@ public class AssignFragment extends Fragment implements PostCalculateTask.IMainA
         this.eTidNode = view.findViewById(R.id.assign_idNode);
         this.btnSubmit = view.findViewById(R.id.btn_submit);
         this.btnSubmit.setOnClickListener(this);
+        this.btnReset = view.findViewById(R.id.btn_reset);
+        this.btnReset.setOnClickListener(this);
 
         this.postCalculateTask = new PostCalculateTask(getContext(), this,this, this, this, this, this, this, this);
 
@@ -109,6 +111,19 @@ public class AssignFragment extends Fragment implements PostCalculateTask.IMainA
             this.hideKeyboard(getActivity());
             MainActivity main = (MainActivity) getActivity();
             main.passIdAssign(idPasien, idStaff);
+        }else{
+            String status = "0";
+            String[] apicall = new String[5];
+            apicall[0] = "assignNode";
+            apicall[1] = null;
+            apicall[2] = idNode;
+            apicall[3] = null;
+            apicall[4] = status;
+            try {
+                postCalculateTask.callVolley(apicall);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 

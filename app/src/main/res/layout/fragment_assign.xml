@@ -52,4 +52,22 @@
 
     </LinearLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center|bottom"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints"
+        android:layout_margin="10dp">
+
+        <Button
+            android:id="@+id/btn_reset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reset"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_marginBottom="20dp"/>
+    </RelativeLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
