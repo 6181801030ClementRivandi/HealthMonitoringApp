@@ -3,6 +3,7 @@ package com.example.healthmonitoringwsn.View;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,7 @@ public class AssignFragment extends Fragment implements View.OnClickListener {
     Button btnSubmit;
     String idPasien;
     String idNode;
+    String idStaff;
     PostCalculateTask postCalculateTask;
 
     public AssignFragment(){}
@@ -51,6 +53,11 @@ public class AssignFragment extends Fragment implements View.OnClickListener {
             }
             return false;
         });
+
+        Bundle bundle = getArguments();
+        if(bundle != null){
+            this.idStaff = bundle.getString("idStff");
+        }
 
         this.eTidPasien = view.findViewById(R.id.assign_idPasien);
         this.eTidNode = view.findViewById(R.id.assign_idNode);
@@ -84,18 +91,19 @@ public class AssignFragment extends Fragment implements View.OnClickListener {
         if( v == btnSubmit){
             idPasien = eTidPasien.getText().toString();
             idNode = eTidNode.getText().toString();
-            String[] apicall = new String[3];
-            apicall[0] = "assign";
-            apicall[1] = idPasien;
-            apicall[2] = idNode;
-            try {
-                postCalculateTask.callVolley(apicall);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+//            String[] apicall = new String[3];
+//            apicall[0] = "assign";
+//            apicall[1] = idPasien;
+//            apicall[2] = idNode;
+//            try {
+//                postCalculateTask.callVolley(apicall);
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
             this.hideKeyboard(getActivity());
             MainActivity main = (MainActivity) getActivity();
-            main.passIdAssign(idPasien);
+            main.passIdAssign(idPasien, idStaff);
+            listener.changePage(2);
         }
     }
 

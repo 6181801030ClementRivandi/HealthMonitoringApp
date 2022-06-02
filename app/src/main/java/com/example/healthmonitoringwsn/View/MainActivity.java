@@ -170,13 +170,14 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         Bundle bundle = new Bundle();
         bundle.putString("idStff", idStaff);
         this.profileStaffFragment.setArguments(bundle);
-        this.mainFragment.setArguments(bundle);
+        this.assignFragment.setArguments(bundle);
     }
 
-    public void passIdAssign(String idPsn){
+    public void passIdAssign(String idPsn, String idStff){
         this.idPsn = idPsn;
         Bundle bundle = new Bundle();
         bundle.putString("idPsn", idPsn);
+        bundle.putString("idStaff", idStff);
         this.mainFragment.setArguments(bundle);
     }
 

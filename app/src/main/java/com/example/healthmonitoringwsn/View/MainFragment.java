@@ -71,7 +71,7 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
 
         Bundle bundle = getArguments();
         if(bundle != null){
-            this.idStff = bundle.getString("idStff");
+            this.idStff = bundle.getString("idStaff");
             this.idUsr = bundle.getString("idUsr");
             String[] apicall;
             if ( idStff.equals("")){

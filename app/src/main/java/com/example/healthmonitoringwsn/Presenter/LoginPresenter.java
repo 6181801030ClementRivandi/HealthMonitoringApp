@@ -86,8 +86,8 @@ public class LoginPresenter implements ILoginPresenter, PostCalculateTask.ILogin
         }else{
             loginView.onLoginSuccess("Login berhasil", String.valueOf(profStaff.getIdStaff()));
             ProfileStaff profileStaff1 = new ProfileStaff();
-            Log.d("test", String.valueOf(profileStaff1.getIdStaff()));
             profileStaff1 = sqliteStaff.getContact(Integer.parseInt(iduser));
+//            Log.d("test", String.valueOf(profileStaff1.getIdStaff()));
             if (profileStaff1.getIdStaff() == 0) {
                 sqliteStaff.addRecord(profStaff);
             }
