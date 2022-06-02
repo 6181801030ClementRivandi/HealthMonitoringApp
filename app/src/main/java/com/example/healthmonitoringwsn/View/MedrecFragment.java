@@ -49,7 +49,7 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
     private SimpleDateFormat dateFormatter;
     private Context context;
     Button filter, delFilter;
-    String idUser;
+    String idUser, idStaff;
     String[] temp;
     Boolean state;
     PostCalculateTask postCalculateTask;
@@ -63,6 +63,7 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
         Bundle bundle = getArguments();
         if(bundle != null){
             this.idUser = bundle.getString("idUsr");
+            this.idStaff = bundle.getString("idStff");
         }
 
         hasilMedrec = new ArrayList<>();
@@ -95,8 +96,13 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
             }
         }else{
             String[] apicall = new String[2];
-            apicall[0] = "medrec";
-            apicall[1] = idUser;
+            if(idStaff != null){
+                apicall[0] = "medrecStaff";
+                apicall[1] = idStaff;
+            }else{
+                apicall[0] = "medrec";
+                apicall[1] = idUser;
+            }
             try {
                 postCalculateTask.callVolley(apicall);
             } catch (JSONException e) {

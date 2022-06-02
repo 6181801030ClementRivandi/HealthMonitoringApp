@@ -172,6 +172,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         bundle.putString("idStff", idStaff);
         this.profileStaffFragment.setArguments(bundle);
         this.assignFragment.setArguments(bundle);
+        this.medrecFragment.setArguments(bundle);
     }
 
     public void passIdAssign(String idPsn, String idStff){
