@@ -97,24 +97,30 @@ public class AssignFragment extends Fragment implements PostCalculateTask.IMainA
         if( v == btnSubmit){
             idPasien = eTidPasien.getText().toString();
             idNode = eTidNode.getText().toString();
-            String status = "1";
-            String[] apicall = new String[5];
-            apicall[0] = "assignNode";
-            apicall[1] = idStaff;
-            apicall[2] = idNode;
-            apicall[3] = idPasien;
-            apicall[4] = status;
-            try {
-                postCalculateTask.callVolley(apicall);
-            } catch (JSONException e) {
-                e.printStackTrace();
+            Log.d("test iddd", idPasien);
+            if (idPasien.equals("") || idNode.equals("")){
+                Toast.makeText(getContext(), "data tidak boleh kosong", Toast.LENGTH_SHORT).show();
+
+            }else{
+                String status = "1";
+                String[] apicall = new String[5];
+                apicall[0] = "assignNode";
+                apicall[1] = idStaff;
+                apicall[2] = idNode;
+                apicall[3] = idPasien;
+                apicall[4] = status;
+                try {
+                    postCalculateTask.callVolley(apicall);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                this.hideKeyboard(getActivity());
+                MainActivity main = (MainActivity) getActivity();
+                main.passIdAssign(idPasien, idStaff);
+                eTidPasien.setText(null);
+                eTidNode.setText(null);
+                reset = true;
             }
-            this.hideKeyboard(getActivity());
-            MainActivity main = (MainActivity) getActivity();
-            main.passIdAssign(idPasien, idStaff);
-            eTidPasien.setText(null);
-            eTidNode.setText(null);
-            reset = true;
         }else if (v == btnReset){
             String[] apicall = new String[5];
             apicall[0] = "resetAssign";
@@ -170,7 +176,7 @@ public class AssignFragment extends Fragment implements PostCalculateTask.IMainA
             listener.changePage(2);
             reset = false;
             MainActivity main = (MainActivity) getActivity();
-            main.bottomNavigationView.setSelected(false);
+            main.bottomNavigationView.getMenu().findItem(R.id.home_icon).setCheckable(false);
         }
     }
 }

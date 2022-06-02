@@ -210,6 +210,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         this.ft = this.fragmentManager.beginTransaction();
         switch (item.getItemId()) {
             case R.id.home_icon:
+                item.setCheckable(true);
                 if (idStaff.equals("") && !idUser.equals("")){
                     ft.replace(R.id.fragment_container, this.mainFragment).addToBackStack(null);
                     lockDrawer();
