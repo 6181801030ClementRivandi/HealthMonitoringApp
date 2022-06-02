@@ -631,6 +631,44 @@ public class PostCalculateTask {
                 };
                 BASE_URL = "http://172.20.10.2/Api.php?apicall=";
                 break;
+            case "resetAssign":
+                BASE_URL += "resetAssign";
+                String nodeReset = apicall[1];
+                jsonObjRequest = new StringRequest(
+
+                        Request.Method.POST,BASE_URL,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONObject result = new JSONObject(response);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                VolleyLog.d("volley", "Error: " + error.getMessage());
+                                error.printStackTrace();
+                            }
+                        }) {
+
+                    @Override
+                    public String getBodyContentType() {
+                        return "application/x-www-form-urlencoded; charset=UTF-8";
+                    }
+
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("idNode", nodeReset);
+                        return params;
+                    }
+                };
+                BASE_URL = "http://172.20.10.2/Api.php?apicall=";
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + apicall[0]);
         }

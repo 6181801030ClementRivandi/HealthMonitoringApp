@@ -116,14 +116,9 @@ public class AssignFragment extends Fragment implements PostCalculateTask.IMainA
             eTidNode.setText(null);
             reset = true;
         }else if (v == btnReset){
-            String status = "0";
             String[] apicall = new String[5];
-            apicall[0] = "assignNode";
-            apicall[1] = "0";
-            apicall[2] = idNode;
-            Log.d("id node", idNode);
-            apicall[3] = "0";
-            apicall[4] = status;
+            apicall[0] = "resetAssign";
+            apicall[1] = idNode;
             try {
                 postCalculateTask.callVolley(apicall);
             } catch (JSONException e) {
