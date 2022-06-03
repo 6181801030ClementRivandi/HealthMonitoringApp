@@ -73,6 +73,8 @@ public class LeftDrawerFragment extends Fragment implements View.OnClickListener
     public void onClick(View v) {
         if (v == btnPasien) {
             this.listener.changePage(6);
+            MainActivity main = (MainActivity) getActivity();
+            main.bottomNavigationView.getMenu().findItem(R.id.home_icon).setCheckable(false);
         }
 //        }else if (v == btnSetting){
 //            this.listener.changePage(3);

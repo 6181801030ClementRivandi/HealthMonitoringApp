@@ -20,9 +20,10 @@ import com.example.healthmonitoringwsn.R;
 public class MedrecDetailsFragment extends Fragment implements View.OnClickListener//, PostCalculateTask.IMainActivity1 {
     {
     private FragmentListener listener;
-    Button btnBack;
+    Button btnDelete;
     TextView tvIdPeriksa, tvTanggal, tvSuhu, tvDetak, tvTekanan, tvSaturasi, tvIdPetugas, tvIdNode;
     TextView tvSuhuCond;
+    String idCheck;
     private MedrecDetails medrecDetails;
 
     public MedrecDetailsFragment(){
@@ -41,8 +42,8 @@ public class MedrecDetailsFragment extends Fragment implements View.OnClickListe
         this.tvIdPetugas = view.findViewById(R.id.idPetugas_periksa);
         this.tvIdNode = view.findViewById(R.id.idNode_periksa);
         this.tvSuhuCond = view.findViewById(R.id.suhuTubuh_periksaCondition);
-        this.btnBack = view.findViewById(R.id.btn_viewmedrec);
-        this.btnBack.setOnClickListener(this);
+        this.btnDelete = view.findViewById(R.id.btn_delMedrec);
+        this.btnDelete.setOnClickListener(this);
 
         Bundle bundle = getArguments();
         if ( bundle != null){
@@ -60,6 +61,14 @@ public class MedrecDetailsFragment extends Fragment implements View.OnClickListe
             this.tvSaturasi.setText(String.valueOf(medrecDetails.getSaturasiOksigen()));
             this.tvIdPetugas.setText(String.valueOf(medrecDetails.getIdPetugas()));
             this.tvIdNode.setText(String.valueOf(medrecDetails.getIdNode()));
+            this.idCheck = bundle.getString("checkId");
+        }
+
+        btnDelete.setVisibility(View.INVISIBLE);
+        if(idCheck.indexOf("924") == -1){
+            btnDelete.setVisibility(View.INVISIBLE);
+        }else{
+            btnDelete.setVisibility(View.VISIBLE);
         }
 
         return view;
@@ -83,7 +92,7 @@ public class MedrecDetailsFragment extends Fragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if (btnBack == v) {
+        if (btnDelete == v) {
             this.listener.changePage(4);
         }
     }

@@ -49,7 +49,7 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
     private SimpleDateFormat dateFormatter;
     private Context context;
     Button filter, delFilter;
-    String idUser, idStaff;
+    String idUser, idStaff, idChecker;
     String[] temp;
     Boolean state;
     PostCalculateTask postCalculateTask;
@@ -64,6 +64,11 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
         if(bundle != null){
             this.idUser = bundle.getString("idUsr");
             this.idStaff = bundle.getString("idStff");
+            if(idUser == null){
+                this.idChecker = idStaff;
+            }else{
+                this.idChecker = idUser;
+            }
         }
 
         hasilMedrec = new ArrayList<>();
@@ -82,7 +87,7 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MainActivity main = (MainActivity) getActivity();
                 MedrecDetails currentMedrec = (MedrecDetails) adapter.getItem(position);
-                main.psMedrec(currentMedrec);
+                main.psMedrec(currentMedrec, idChecker);
             }
         });
 

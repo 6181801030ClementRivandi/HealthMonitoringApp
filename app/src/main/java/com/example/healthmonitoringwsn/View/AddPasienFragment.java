@@ -160,7 +160,7 @@ public class AddPasienFragment extends Fragment implements PostCalculateTask.IMa
     public void result(String message) {
         result = message;
         if(result.equals("add successful")){
-            Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "pasien berhasil ditambahkan", Toast.LENGTH_SHORT).show();
             this.listener.changePage(6);
             etNama.setText(null);
             etNIK.setText(null);

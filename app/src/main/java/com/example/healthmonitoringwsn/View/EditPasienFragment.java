@@ -223,9 +223,8 @@ public class EditPasienFragment extends Fragment implements PostCalculateTask.IL
     @Override
     public void result(String message) {
         result = message;
-        Log.d("result", result);
         if(result.equals("edit successful")){
-            Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "data pasien berhasil diedit", Toast.LENGTH_SHORT).show();
             this.listener.changePage(6);
             etNama.setText(null);
             etNIK.setText(null);
@@ -236,7 +235,7 @@ public class EditPasienFragment extends Fragment implements PostCalculateTask.IL
             etPassword.setText(null);
             etIdKlinik.setText(null);
         }else if(result.equals("delete successful")){
-            Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "pasien berhasil dihapus", Toast.LENGTH_SHORT).show();
             this.listener.changePage(6);
             etNama.setText(null);
             etNIK.setText(null);
