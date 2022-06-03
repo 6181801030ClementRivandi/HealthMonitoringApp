@@ -202,7 +202,11 @@ public class PostCalculateTask {
                                 suhuTubuh = (Double) result.getJSONArray("periksa").getJSONObject(x).get("suhuTubuh");
                                 detakJantung = (Integer)result.getJSONArray("periksa").getJSONObject(x).get("detakJantung");
                                 tekananDarah = (Integer)result.getJSONArray("periksa").getJSONObject(x).get("tekananDarah");
-                                saturasiOksigen = (Double)result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen");
+                                if (String.valueOf(result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen")).equals("0")){
+                                    saturasiOksigen = 0.0;
+                                }else{
+                                    saturasiOksigen = (Double)result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen");
+                                }
                                 idPasien = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idPasien");
                                 idPetugas = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idPetugas");
                                 idNode = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idNode");
@@ -255,7 +259,11 @@ public class PostCalculateTask {
                                 suhuTubuh = (Double) result.getJSONArray("periksa").getJSONObject(x).get("suhuTubuh");
                                 detakJantung = (Integer)result.getJSONArray("periksa").getJSONObject(x).get("detakJantung");
                                 tekananDarah = (Integer)result.getJSONArray("periksa").getJSONObject(x).get("tekananDarah");
-                                saturasiOksigen = (Double)result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen");
+                                if (String.valueOf(result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen")).equals("0")){
+                                    saturasiOksigen = 0.0;
+                                }else{
+                                    saturasiOksigen = (Double)result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen");
+                                }
                                 idPasien = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idPasien");
                                 idPetugas = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idPetugas");
                                 idNode = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idNode");
@@ -308,8 +316,11 @@ public class PostCalculateTask {
                                 suhuTubuh = (Double) result.getJSONArray("periksa").getJSONObject(x).get("suhuTubuh");
                                 detakJantung = (Integer)result.getJSONArray("periksa").getJSONObject(x).get("detakJantung");
                                 tekananDarah = (Integer)result.getJSONArray("periksa").getJSONObject(x).get("tekananDarah");
-                                //saturasiOksigen = (Double)result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen");
-                                saturasiOksigen = 0.0;
+                                if (String.valueOf(result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen")).equals("0")){
+                                    saturasiOksigen = 0.0;
+                                }else{
+                                    saturasiOksigen = (Double)result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen");
+                                }
                                 idPasien = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idPasien");
                                 idPetugas = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idPetugas");
                                 idNode = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idNode");
@@ -363,8 +374,11 @@ public class PostCalculateTask {
                                 suhuTubuh = (Double) result.getJSONArray("periksa").getJSONObject(x).get("suhuTubuh");
                                 detakJantung = (Integer)result.getJSONArray("periksa").getJSONObject(x).get("detakJantung");
                                 tekananDarah = (Integer)result.getJSONArray("periksa").getJSONObject(x).get("tekananDarah");
-                                //saturasiOksigen = (Double)result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen");
-                                saturasiOksigen = 0.0;
+                                if (String.valueOf(result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen")).equals("0")){
+                                    saturasiOksigen = 0.0;
+                                }else{
+                                    saturasiOksigen = (Double)result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen");
+                                }
                                 idPasien = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idPasien");
                                 idPetugas = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idPetugas");
                                 idNode = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idNode");
@@ -419,8 +433,11 @@ public class PostCalculateTask {
                                 suhuTubuh = (Double) result.getJSONArray("periksa").getJSONObject(x).get("suhuTubuh");
                                 detakJantung = (Integer)result.getJSONArray("periksa").getJSONObject(x).get("detakJantung");
                                 tekananDarah = (Integer)result.getJSONArray("periksa").getJSONObject(x).get("tekananDarah");
-                                //saturasiOksigen = (Double)result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen");
-                                saturasiOksigen = 0.0;
+                                if (String.valueOf(result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen")).equals("0")){
+                                    saturasiOksigen = 0.0;
+                                }else{
+                                    saturasiOksigen = (Double)result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen");
+                                }
                                 idPasien = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idPasien");
                                 idPetugas = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idPetugas");
                                 idNode = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idNode");
