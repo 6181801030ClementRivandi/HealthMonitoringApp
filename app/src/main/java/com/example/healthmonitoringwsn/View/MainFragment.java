@@ -74,7 +74,7 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
             this.idStff = bundle.getString("idStaff");
             this.idUsr = bundle.getString("idUsr");
             String[] apicall;
-            if ( idStff.equals("")){
+            if (idStff == null){
                 apicall = new String[2];
                 apicall[0] = "medrecLatest";
                 apicall[1] = idUsr;

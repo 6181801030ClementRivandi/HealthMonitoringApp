@@ -167,9 +167,15 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
                     Calendar newDate = Calendar.getInstance();
                     newDate.set(year, monthOfYear, dayOfMonth);
                     String[] apicallSort = new String[3];
-                    apicallSort[0] = "medrecSort";
-                    apicallSort[1] = idUser;
-                    apicallSort[2] = dateFormatter.format(newDate.getTime());
+                    if(idStaff == null){
+                        apicallSort[0] = "medrecSort";
+                        apicallSort[1] = idUser;
+                        apicallSort[2] = dateFormatter.format(newDate.getTime());
+                    }else{
+                        apicallSort[0] = "medrecSortStaff";
+                        apicallSort[1] = idStaff;
+                        apicallSort[2] = dateFormatter.format(newDate.getTime());
+                    }
                     temp = apicallSort;
                     state = true;
                     try {
@@ -186,8 +192,13 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
             temp = null;
             state = false;
             String[] apicall = new String[2];
-            apicall[0] = "medrec";
-            apicall[1] = idUser;
+            if(idStaff == null){
+                apicall[0] = "medrec";
+                apicall[1] = idUser;
+            }else{
+                apicall[0] = "medrecStaff";
+                apicall[1] = idStaff;
+            }
             try {
                 postCalculateTask.callVolley(apicall);
             } catch (JSONException e) {
