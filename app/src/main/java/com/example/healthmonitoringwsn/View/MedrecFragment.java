@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -148,7 +149,12 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
     @Override
     public void hasil(MedrecDetails medrecDetails) {
         MedrecDetails medrecs = medrecDetails;
-        presenter.addList(medrecs.getTanggal(), medrecs.getIdPeriksa(), medrecs.getSuhuTubuh(), medrecs.getDetakJantung(), medrecs.getTekananDarah(), medrecs.getSaturasiOksigen(), medrecs.getIdPasien(), medrecs.getIdPetugas(), medrecs.getIdNode());
+        if(medrecs.getIdPeriksa() == 0){
+            Toast.makeText(getContext(), "hasil pemeriksaan tidak ada", Toast.LENGTH_SHORT).show();
+            presenter.loadData();
+        }else{
+            presenter.addList(medrecs.getTanggal(), medrecs.getIdPeriksa(), medrecs.getSuhuTubuh(), medrecs.getDetakJantung(), medrecs.getTekananDarah(), medrecs.getSaturasiOksigen(), medrecs.getIdPasien(), medrecs.getIdPetugas(), medrecs.getIdNode());
+        }
     }
 
     @Override
