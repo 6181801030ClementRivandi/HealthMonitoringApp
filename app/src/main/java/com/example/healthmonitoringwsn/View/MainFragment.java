@@ -32,7 +32,7 @@ import org.json.JSONException;
 
 import java.util.List;
 
-public class MainFragment extends Fragment implements PostCalculateTask.IMainActivityAssignNode, PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.ILoginActivityStaff, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn {
+public class MainFragment extends Fragment implements PostCalculateTask.IMainActivityFindPsn, PostCalculateTask.IMainActivityAssignNode, PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.ILoginActivityStaff, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn {
     private FragmentManager fragmentManager;
     private FragmentListener listener;
     SwipeRefreshLayout refreshLayout;
@@ -60,7 +60,7 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
         this.tvDetakCond = view.findViewById(R.id.detakJantung_periksaConditionMain);
         this.tvTekananCond = view.findViewById(R.id.tekananDarah_periksaConditionMain);
         this.tvSaturasiCond = view.findViewById(R.id.saturasiOksigen_periksaConditionMain);
-        this.postCalculateTask = new PostCalculateTask(getContext(), this,this, this, this, this, this, this, this);
+        this.postCalculateTask = new PostCalculateTask(getContext(), this,this,this, this, this, this, this, this, this);
 
         Bundle bundle = getArguments();
         if(bundle != null){
@@ -206,6 +206,11 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
 
     @Override
     public void resultAssign(String message) {
+
+    }
+
+    @Override
+    public void resultFind(String message) {
 
     }
 }

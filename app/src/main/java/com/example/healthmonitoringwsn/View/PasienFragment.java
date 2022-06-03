@@ -4,14 +4,17 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -33,7 +36,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class PasienFragment extends Fragment implements PostCalculateTask.IMainActivityAssignNode, PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.ILoginActivityStaff, PostCalculateTask.IMainActivityPsn, PasienPresenter.IMainActivity, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn, View.OnClickListener{
+public class PasienFragment extends Fragment implements PostCalculateTask.IMainActivityAssignNode, PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.ILoginActivityStaff, PostCalculateTask.IMainActivityPsn, PasienPresenter.IMainActivity, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn, PostCalculateTask.IMainActivityFindPsn, View.OnClickListener{
 
     private ListView pasienList;
     private PasienPresenter presenter;
@@ -49,6 +52,7 @@ public class PasienFragment extends Fragment implements PostCalculateTask.IMainA
 
     String[] temp;
     Boolean state;
+    String checker;
 
     public PasienFragment() {
     }
@@ -86,7 +90,7 @@ public class PasienFragment extends Fragment implements PostCalculateTask.IMainA
             }
         });
 
-        this.postCalculateTask = new PostCalculateTask(getContext(), this,this, this, this, this, this, this, this);
+        this.postCalculateTask = new PostCalculateTask(getContext(), this,this,this, this, this, this, this, this, this);
 
         if ( temp != null && state == true){
             try {
@@ -108,7 +112,7 @@ public class PasienFragment extends Fragment implements PostCalculateTask.IMainA
 
         this.add.setOnClickListener(this);
 
-        presenter.refresh();
+//        presenter.refresh();
 
         return view;
     }
@@ -131,6 +135,54 @@ public class PasienFragment extends Fragment implements PostCalculateTask.IMainA
     }
 
     @Override
+    public void onClick(View view) {
+        if(view == this.add){
+            this.listener.changePage(8);
+        }else if(view == btnCariPasien){
+            String nama = edCari.getText().toString();
+            if(nama.equals("")){
+                Toast.makeText(getContext(), "anda belum memasukkan nama", Toast.LENGTH_SHORT).show();
+            }else{
+                String[] apicall = new String[2];
+                apicall[0] = "findPasien";
+                apicall[1] = nama;
+                temp = apicall;
+                state = true;
+                try {
+                    postCalculateTask.callVolley(apicall);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                presenter.refresh();
+            }
+            this.hideKeyboard(getActivity());
+        }else if(view == btnDelFilter){
+            temp = null;
+            state = false;
+            String[] apicall = new String[1];
+            apicall[0] = "pasien";
+            try {
+                postCalculateTask.callVolley(apicall);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            edCari.setText(null);
+            presenter.refresh();
+        }
+    }
+
+    @Override
+    public void hasil(PasienDetails pasienDetails) {
+        PasienDetails pasien = pasienDetails;
+        if(pasien.getIdPasien() == 0){
+            Toast.makeText(getContext(), "nama pasien tidak ada", Toast.LENGTH_SHORT).show();
+            presenter.loadData();
+        }else{
+            presenter.addList(pasien.getNama(), pasien.getNIK(), pasien.getUsia(), pasien.getTanggalLahir(), pasien.getIdPasien(), pasien.getNomorHP(), pasien.getEmail(), pasien.getPassword(), pasien.getTanggalDaftar(), pasien.getIdKlinik(), pasien.getNamaKlinik());
+        }
+    }
+
+    @Override
     public void hasil(MedrecDetails medrecDetails) {
     }
 
@@ -142,43 +194,6 @@ public class PasienFragment extends Fragment implements PostCalculateTask.IMainA
     @Override
     public void logResult(Profile profile) {
 
-    }
-
-    @Override
-    public void onClick(View view) {
-        if(view == this.add){
-            this.listener.changePage(8);
-        }else if(view == btnCariPasien){
-            String nama = edCari.getText().toString();
-            String[] apicall = new String[2];
-            apicall[0] = "findPasien";
-            apicall[1] = nama;
-            temp = apicall;
-            state = true;
-            try {
-                postCalculateTask.callVolley(apicall);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            presenter.refresh();
-        }else if(view == btnDelFilter){
-            temp = null;
-            state = false;
-            String[] apicall = new String[1];
-            apicall[0] = "pasien";
-            try {
-                postCalculateTask.callVolley(apicall);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            presenter.refresh();
-        }
-    }
-
-    @Override
-    public void hasil(PasienDetails pasienDetails) {
-        PasienDetails pasien = pasienDetails;
-        presenter.addList(pasien.getNama(), pasien.getNIK(), pasien.getUsia(), pasien.getTanggalLahir(), pasien.getIdPasien(), pasien.getNomorHP(), pasien.getEmail(), pasien.getPassword(), pasien.getTanggalDaftar(), pasien.getIdKlinik(), pasien.getNamaKlinik());
     }
 
     @Override
@@ -194,5 +209,31 @@ public class PasienFragment extends Fragment implements PostCalculateTask.IMainA
     @Override
     public void resultAssign(String message) {
 
+    }
+
+    @Override
+    public void resultFind(String message) {
+        checker = message;
+        Log.d("pasien gaada", "pasien gaada");
+        check();
+    }
+
+    public void check(){
+        int temp;
+//        Log.d("checker", checker);
+        if(checker != null){
+            temp = 1;
+        }else{
+            temp = 0;
+        }
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        View view = activity.getCurrentFocus();
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

@@ -37,7 +37,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class MedrecFragment extends Fragment implements PostCalculateTask.IMainActivityAssignNode, PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.ILoginActivityStaff, PostCalculateTask.IMainActivityPsn, MedrecPresenter.IMainActivity, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn, View.OnClickListener{
+public class MedrecFragment extends Fragment implements PostCalculateTask.IMainActivityFindPsn, PostCalculateTask.IMainActivityAssignNode, PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.ILoginActivityStaff, PostCalculateTask.IMainActivityPsn, MedrecPresenter.IMainActivity, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn, View.OnClickListener{
 
     private ListView medrecList;
     private MedrecPresenter presenter;
@@ -91,7 +91,7 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
             }
         });
 
-        this.postCalculateTask = new PostCalculateTask(getContext(), this,this, this, this, this, this, this, this);
+        this.postCalculateTask = new PostCalculateTask(getContext(), this,this,this, this, this, this, this, this, this);
 
         if ( temp != null && state == true){
             try {
@@ -230,6 +230,11 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
 
     @Override
     public void resultAssign(String message) {
+
+    }
+
+    @Override
+    public void resultFind(String message) {
 
     }
 }

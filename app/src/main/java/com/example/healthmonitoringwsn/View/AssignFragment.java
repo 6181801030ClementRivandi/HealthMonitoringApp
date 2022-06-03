@@ -30,7 +30,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
 
-public class AssignFragment extends Fragment implements PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.ILoginActivityStaff, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn, PostCalculateTask.IMainActivityAssignNode, View.OnClickListener {
+public class AssignFragment extends Fragment implements PostCalculateTask.IMainActivityFindPsn, PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.ILoginActivityStaff, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn, PostCalculateTask.IMainActivityAssignNode, View.OnClickListener {
 
     EditText eTidPasien, eTidNode;
     Button btnSubmit, btnPemeriksaan, btnReset;
@@ -79,7 +79,7 @@ public class AssignFragment extends Fragment implements PostCalculateTask.IMainA
             btnPemeriksaan.setVisibility(View.VISIBLE);
         }
 
-        this.postCalculateTask = new PostCalculateTask(getContext(), this,this, this, this, this, this, this, this);
+        this.postCalculateTask = new PostCalculateTask(getContext(), this,this,this, this, this, this, this, this, this);
 
         return view;
     }
@@ -199,5 +199,10 @@ public class AssignFragment extends Fragment implements PostCalculateTask.IMainA
             MainActivity main = (MainActivity) getActivity();
             main.bottomNavigationView.getMenu().findItem(R.id.home_icon).setCheckable(false);
         }
+    }
+
+    @Override
+    public void resultFind(String message) {
+
     }
 }

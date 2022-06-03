@@ -26,7 +26,7 @@ import com.example.healthmonitoringwsn.R;
 
 import org.json.JSONException;
 
-public class MedrecDetailsFragment extends Fragment implements PostCalculateTask.ILoginActivity, PostCalculateTask.ILoginActivityStaff, PostCalculateTask.IMainActivity, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn, PostCalculateTask.IMainActivityAssignNode, View.OnClickListener//, PostCalculateTask.IMainActivity1 {
+public class MedrecDetailsFragment extends Fragment implements PostCalculateTask.IMainActivityFindPsn, PostCalculateTask.ILoginActivity, PostCalculateTask.ILoginActivityStaff, PostCalculateTask.IMainActivity, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn, PostCalculateTask.IMainActivityAssignNode, View.OnClickListener//, PostCalculateTask.IMainActivity1 {
     {
     private FragmentListener listener;
     Button btnDelete;
@@ -111,7 +111,7 @@ public class MedrecDetailsFragment extends Fragment implements PostCalculateTask
         }else{
             btnDelete.setVisibility(View.VISIBLE);
         }
-        this.postCalculateTask = new PostCalculateTask(getContext(), this,this, this, this, this, this, this, this);
+        this.postCalculateTask = new PostCalculateTask(getContext(), this,this,this, this, this, this, this, this, this);
 
         return view;
     }
@@ -196,6 +196,11 @@ public class MedrecDetailsFragment extends Fragment implements PostCalculateTask
 
         @Override
         public void resultAssign(String message) {
+
+        }
+
+        @Override
+        public void resultFind(String message) {
 
         }
     }

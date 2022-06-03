@@ -37,13 +37,14 @@ public class PostCalculateTask {
     IMainActivityDelPsn uiDeletePasien;
     ILoginActivityStaff uiLogStaff;
     IMainActivityAssignNode uiAssignNode;
+    IMainActivityFindPsn uiFindPasien;
 
     String nama, tanggalLahir, usia, nomorHP, email, tanggalDaftar, namaKlinik;
     String namaStaff, namaKlinikStaff;
     int NIK, idPasien;
     int IdStaff;
 
-    public PostCalculateTask(Context context, ILoginActivity uiLog, ILoginActivityStaff uiLogStaff, IMainActivity uiMedrec, IMainActivityPsn uiPasien, IMainActivityAddPsn uiAddPasien, IMainActivityEditPsn uiEditPasien, IMainActivityDelPsn uiDeletePasien, IMainActivityAssignNode uiAssignNode) {
+    public PostCalculateTask(Context context, ILoginActivity uiLog, ILoginActivityStaff uiLogStaff, IMainActivity uiMedrec, IMainActivityPsn uiPasien, IMainActivityAddPsn uiAddPasien, IMainActivityEditPsn uiEditPasien, IMainActivityDelPsn uiDeletePasien, IMainActivityAssignNode uiAssignNode, IMainActivityFindPsn uiFindPasien) {
         this.context = context;
         this.uiLog = uiLog;
         this.uiMedrec = uiMedrec;
@@ -53,6 +54,7 @@ public class PostCalculateTask {
         this.uiDeletePasien = uiDeletePasien;
         this.uiLogStaff = uiLogStaff;
         this.uiAssignNode = uiAssignNode;
+        this.uiFindPasien = uiFindPasien;
     }
 
     public void callVolley(String[] apicall) throws JsonIOException, JSONException {
@@ -536,28 +538,40 @@ public class PostCalculateTask {
                         new Response.Listener<String>() {
                             String nama, usia, tanggalLahir, nomorHP, email, password, tanggalDaftar, namaKlinik;
                             int NIK, idPasien, idKlinik;
+                            String checkResult;
                             @Override
                             public void onResponse(String response) {
-                                try {
-                                    JSONObject result = new JSONObject(response);
-                                    for (int x = 0; x < result.getJSONArray("user").length(); x++) {
-                                        nama = (String) result.getJSONArray("user").getJSONObject(x).get("nama");
-                                        NIK = (Integer) result.getJSONArray("user").getJSONObject(x).get("NIK");
-                                        usia = (String) result.getJSONArray("user").getJSONObject(x).get("usia");
-                                        tanggalLahir = (String) result.getJSONArray("user").getJSONObject(x).get("tanggalLahir");
-                                        idPasien = (Integer) result.getJSONArray("user").getJSONObject(x).get("idPasien");
-                                        nomorHP = (String) result.getJSONArray("user").getJSONObject(x).get("nomorHP");
-                                        email = (String) result.getJSONArray("user").getJSONObject(x).get("email");
-                                        password = (String) result.getJSONArray("user").getJSONObject(x).get("password");
-                                        tanggalDaftar = (String) result.getJSONArray("user").getJSONObject(x).get("tanggalDaftar");
-                                        idKlinik = (Integer) result.getJSONArray("user").getJSONObject(x).get("idKlinik");
-                                        namaKlinik = (String) result.getJSONArray("user").getJSONObject(x).get("namaKlinik");
-                                        PasienDetails pasienDetails = new PasienDetails(this.nama, this.NIK, this.usia, this.tanggalLahir, this.idPasien, this.nomorHP, this.email, this.password, this.tanggalDaftar, this.idKlinik, this.namaKlinik);
-                                        uiPasien.hasil(pasienDetails);
+//                                if(response.equals("[]")){
+//                                    checkResult = response;
+//                                    uiFindPasien.resultFind(checkResult);
+//                                }else{
+
+                                    try {
+                                        if(response.equals("[]")){
+                                            PasienDetails pasienDetails = new PasienDetails("", 0, "", "", 0, "", "", "", "", 0, "");
+                                            uiPasien.hasil(pasienDetails);
+                                        }else{
+                                            JSONObject result = new JSONObject(response);
+                                            for (int x = 0; x < result.getJSONArray("user").length(); x++) {
+                                                nama = (String) result.getJSONArray("user").getJSONObject(x).get("nama");
+                                                NIK = (Integer) result.getJSONArray("user").getJSONObject(x).get("NIK");
+                                                usia = (String) result.getJSONArray("user").getJSONObject(x).get("usia");
+                                                tanggalLahir = (String) result.getJSONArray("user").getJSONObject(x).get("tanggalLahir");
+                                                idPasien = (Integer) result.getJSONArray("user").getJSONObject(x).get("idPasien");
+                                                nomorHP = (String) result.getJSONArray("user").getJSONObject(x).get("nomorHP");
+                                                email = (String) result.getJSONArray("user").getJSONObject(x).get("email");
+                                                password = (String) result.getJSONArray("user").getJSONObject(x).get("password");
+                                                tanggalDaftar = (String) result.getJSONArray("user").getJSONObject(x).get("tanggalDaftar");
+                                                idKlinik = (Integer) result.getJSONArray("user").getJSONObject(x).get("idKlinik");
+                                                namaKlinik = (String) result.getJSONArray("user").getJSONObject(x).get("namaKlinik");
+                                                PasienDetails pasienDetails = new PasienDetails(this.nama, this.NIK, this.usia, this.tanggalLahir, this.idPasien, this.nomorHP, this.email, this.password, this.tanggalDaftar, this.idKlinik, this.namaKlinik);
+                                                uiPasien.hasil(pasienDetails);
+                                            }
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
                                     }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+//                                }
                             }
                         },
                         new Response.ErrorListener() {
@@ -926,6 +940,10 @@ public class PostCalculateTask {
 
     public interface IMainActivityAddPsn{
         void result(String message);
+    }
+
+    public interface IMainActivityFindPsn{
+        void resultFind(String message);
     }
 
     public interface IMainActivityEditPsn{

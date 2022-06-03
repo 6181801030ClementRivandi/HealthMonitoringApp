@@ -33,7 +33,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class EditPasienFragment extends Fragment implements PostCalculateTask.ILoginActivity, PostCalculateTask.ILoginActivityStaff, PostCalculateTask.IMainActivity, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn, PostCalculateTask.IMainActivityAssignNode, View.OnClickListener {
+public class EditPasienFragment extends Fragment implements PostCalculateTask.IMainActivityFindPsn, PostCalculateTask.ILoginActivity, PostCalculateTask.ILoginActivityStaff, PostCalculateTask.IMainActivity, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn, PostCalculateTask.IMainActivityAssignNode, View.OnClickListener {
 
     private FragmentManager fragmentManager;
 
@@ -55,7 +55,7 @@ public class EditPasienFragment extends Fragment implements PostCalculateTask.IL
 
         dateFormatter = new SimpleDateFormat("yyyy-MM-dd H:m:s", Locale.US);
 
-        this.postCalculateTask = new PostCalculateTask(getContext(), this,this, this, this, this, this, this, this);
+        this.postCalculateTask = new PostCalculateTask(getContext(), this,this,this, this, this, this, this, this, this);
 
         this.etNama = view.findViewById(R.id.ETEditNamaPasien);
         this.etNIK = view.findViewById(R.id.ETEditNIKPasien);
@@ -266,6 +266,11 @@ public class EditPasienFragment extends Fragment implements PostCalculateTask.IL
 
     @Override
     public void resultAssign(String message) {
+
+    }
+
+    @Override
+    public void resultFind(String message) {
 
     }
 }
