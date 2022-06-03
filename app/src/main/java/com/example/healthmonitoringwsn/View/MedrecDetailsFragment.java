@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,11 +15,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.healthmonitoringwsn.Model.MedrecDetails;
+import com.example.healthmonitoringwsn.Model.PasienDetails;
+import com.example.healthmonitoringwsn.Model.Profile;
+import com.example.healthmonitoringwsn.Model.ProfileStaff;
+import com.example.healthmonitoringwsn.PostCalculateTask;
 import com.example.healthmonitoringwsn.R;
 
-public class MedrecDetailsFragment extends Fragment implements View.OnClickListener//, PostCalculateTask.IMainActivity1 {
+import org.json.JSONException;
+
+public class MedrecDetailsFragment extends Fragment implements PostCalculateTask.ILoginActivity, PostCalculateTask.ILoginActivityStaff, PostCalculateTask.IMainActivity, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn, PostCalculateTask.IMainActivityAssignNode, View.OnClickListener//, PostCalculateTask.IMainActivity1 {
     {
     private FragmentListener listener;
     Button btnDelete;
@@ -25,6 +34,7 @@ public class MedrecDetailsFragment extends Fragment implements View.OnClickListe
     TextView tvSuhuCond;
     String idCheck;
     private MedrecDetails medrecDetails;
+    PostCalculateTask postCalculateTask;
 
     public MedrecDetailsFragment(){
     }
@@ -70,6 +80,7 @@ public class MedrecDetailsFragment extends Fragment implements View.OnClickListe
         }else{
             btnDelete.setVisibility(View.VISIBLE);
         }
+        this.postCalculateTask = new PostCalculateTask(getContext(), this,this, this, this, this, this, this, this);
 
         return view;
     }
@@ -93,7 +104,67 @@ public class MedrecDetailsFragment extends Fragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (btnDelete == v) {
-            this.listener.changePage(4);
+            String[] apicall = new String[2];
+            apicall[0] = "deleteMedrec";
+            apicall[1] = String.valueOf(medrecDetails.getIdPeriksa());
+            AlertDialog.Builder dialog1 = new AlertDialog.Builder(getContext());
+            dialog1.setMessage("Apakah anda yakin ingin menghapus hasil ini?");
+            dialog1.setCancelable(true);
+
+            dialog1.setPositiveButton(
+                    "hapus",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            try {
+                                postCalculateTask.callVolley(apicall);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            listener.changePage(4);
+                            Toast.makeText(getContext(), "hasil berhasil dihapus", Toast.LENGTH_SHORT).show();
+
+                        }
+                    });
+
+            dialog1.setNegativeButton(
+                    "batal",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert11 = dialog1.create();
+            alert11.show();
         }
     }
-}
+
+        @Override
+        public void logResult(Profile profile) {
+
+        }
+
+        @Override
+        public void logResult(ProfileStaff profileStaff) {
+
+        }
+
+        @Override
+        public void hasil(MedrecDetails medrecDetails) {
+
+        }
+
+        @Override
+        public void hasil(PasienDetails pasienDetails) {
+
+        }
+
+        @Override
+        public void result(String message) {
+
+        }
+
+        @Override
+        public void resultAssign(String message) {
+
+        }
+    }
