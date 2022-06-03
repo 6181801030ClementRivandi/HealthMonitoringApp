@@ -47,16 +47,6 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_main,container, false);
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
-        view.setOnKeyListener((view1, i, keyEvent) -> {
-            if (keyEvent.getAction() == KeyEvent.ACTION_DOWN){
-                if (i == KeyEvent.KEYCODE_BACK){
-                    return true;
-                }
-            }
-            return false;
-        });
         this.tvIdPeriksa = view.findViewById(R.id.judul_periksaMain);
         this.tvTanggal = view.findViewById(R.id.tanggal_periksaMain);
         this.tvSuhu = view.findViewById(R.id.suhuTubuh_periksaMain);
@@ -78,6 +68,16 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
                 apicall = new String[2];
                 apicall[0] = "medrecLatest";
                 apicall[1] = idUsr;
+                view.setFocusableInTouchMode(true);
+                view.requestFocus();
+                view.setOnKeyListener((view1, i, keyEvent) -> {
+                    if (keyEvent.getAction() == KeyEvent.ACTION_DOWN){
+                        if (i == KeyEvent.KEYCODE_BACK){
+                            return true;
+                        }
+                    }
+                    return false;
+                });
             }else{
                 this.idUsr = bundle.getString("idPsn");
                 apicall = new String[2];
@@ -102,8 +102,8 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
                     @Override
                     public void run() {
                         refreshLayout.setRefreshing(false);
-                        listener.changePage(1);
-                        listener.changePage(2);
+//                        listener.changePage(1);
+//                        listener.changePage(2);
                     }
                 }, 1000);
             }
