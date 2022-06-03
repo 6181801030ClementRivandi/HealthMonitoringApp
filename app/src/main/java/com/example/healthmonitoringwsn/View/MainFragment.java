@@ -39,8 +39,9 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
     PostCalculateTask postCalculateTask;
     private MedrecDetails medrecDetailsLatest;
     TextView tvIdPeriksa, tvTanggal, tvSuhu, tvDetak, tvTekanan, tvSaturasi, tvIdPetugas, tvIdNode;
-    TextView tvSuhuCond;
+    TextView tvSuhuCond, tvDetakCond, tvTekananCond, tvSaturasiCond;
     String idUsr = "", idStff = "";
+    String[] apicall;
 
     public MainFragment(){}
 
@@ -56,14 +57,15 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
         this.tvIdPetugas = view.findViewById(R.id.idPetugas_periksaMain);
         this.tvIdNode = view.findViewById(R.id.idNode_periksaMain);
         this.tvSuhuCond = view.findViewById(R.id.suhuTubuh_periksaConditionMain);
-
+        this.tvDetakCond = view.findViewById(R.id.detakJantung_periksaConditionMain);
+        this.tvTekananCond = view.findViewById(R.id.tekananDarah_periksaConditionMain);
+        this.tvSaturasiCond = view.findViewById(R.id.saturasiOksigen_periksaConditionMain);
         this.postCalculateTask = new PostCalculateTask(getContext(), this,this, this, this, this, this, this, this);
 
         Bundle bundle = getArguments();
         if(bundle != null){
             this.idStff = bundle.getString("idStaff");
             this.idUsr = bundle.getString("idUsr");
-            String[] apicall;
             if (idStff == null){
                 apicall = new String[2];
                 apicall[0] = "medrecLatest";
@@ -102,8 +104,11 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
                     @Override
                     public void run() {
                         refreshLayout.setRefreshing(false);
-//                        listener.changePage(1);
-//                        listener.changePage(2);
+                        try {
+                            postCalculateTask.callVolley(apicall);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, 1000);
             }
@@ -139,16 +144,44 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
         this.tvIdPeriksa.setText("id pemeriksaan : " + String.valueOf(medrecDetailsLatest.getIdPeriksa()));
         this.tvTanggal.setText(medrecDetailsLatest.getTanggal());
         this.tvSuhu.setText(String.valueOf(medrecDetailsLatest.getSuhuTubuh()));
-        if (medrecDetailsLatest.getSuhuTubuh() <= 36.5 || medrecDetailsLatest.getSuhuTubuh() >= 37.5){
-            this.tvSuhuCond.setText("tidak normal");
-        }else{
-            this.tvSuhuCond.setText("normal");
-        }
         this.tvDetak.setText(String.valueOf(medrecDetailsLatest.getDetakJantung()));
         this.tvTekanan.setText(String.valueOf(medrecDetailsLatest.getTekananDarah()));
         this.tvSaturasi.setText(String.valueOf(medrecDetailsLatest.getSaturasiOksigen()));
         this.tvIdPetugas.setText(String.valueOf(medrecDetailsLatest.getIdPetugas()));
         this.tvIdNode.setText(String.valueOf(medrecDetailsLatest.getIdNode()));
+        if (medrecDetailsLatest.getSuhuTubuh() == 0){
+        }else{
+            if (medrecDetailsLatest.getSuhuTubuh() < 36.5 || medrecDetailsLatest.getSuhuTubuh() > 37.5){
+                this.tvSuhuCond.setText("tidak normal");
+            }else{
+                this.tvSuhuCond.setText("normal");
+            }
+        }
+        if(medrecDetailsLatest.getDetakJantung() == 0){
+        }else{
+            if (medrecDetailsLatest.getDetakJantung() < 60 || medrecDetailsLatest.getDetakJantung() > 100){
+                this.tvDetakCond.setText("tidak normal");
+            }else{
+                this.tvDetakCond.setText("normal");
+            }
+        }
+        if(medrecDetailsLatest.getTekananDarah() == 0){
+        }else{
+//                if (medrecDetails.getTekananDarah() < 60 || medrecDetails.getTekananDarah() > 100){
+//                    this.tvTekananCond.setText("tidak normal");
+//                }else{
+//                    this.tvTekananCond.setText("normal");
+//                }
+        }
+        Log.d("test saturasi", String.valueOf(medrecDetailsLatest.getSaturasiOksigen()));
+        if(medrecDetailsLatest.getSaturasiOksigen() == 0){
+        }else{
+            if (medrecDetailsLatest.getSaturasiOksigen() < 95.00){
+                this.tvSaturasiCond.setText("tidak normal");
+            }else{
+                this.tvSaturasiCond.setText("normal");
+            }
+        }
     }
 
     @Override

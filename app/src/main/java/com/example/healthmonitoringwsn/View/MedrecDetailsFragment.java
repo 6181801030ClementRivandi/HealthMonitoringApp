@@ -31,7 +31,7 @@ public class MedrecDetailsFragment extends Fragment implements PostCalculateTask
     private FragmentListener listener;
     Button btnDelete;
     TextView tvIdPeriksa, tvTanggal, tvSuhu, tvDetak, tvTekanan, tvSaturasi, tvIdPetugas, tvIdNode;
-    TextView tvSuhuCond;
+    TextView tvSuhuCond, tvDetakCond, tvTekananCond, tvSaturasiCond;
     String idCheck;
     private MedrecDetails medrecDetails;
     PostCalculateTask postCalculateTask;
@@ -52,6 +52,9 @@ public class MedrecDetailsFragment extends Fragment implements PostCalculateTask
         this.tvIdPetugas = view.findViewById(R.id.idPetugas_periksa);
         this.tvIdNode = view.findViewById(R.id.idNode_periksa);
         this.tvSuhuCond = view.findViewById(R.id.suhuTubuh_periksaCondition);
+        this.tvDetakCond = view.findViewById(R.id.detakJantung_periksaCondition);
+        this.tvTekananCond = view.findViewById(R.id.tekananDarah_periksaCondition);
+        this.tvSaturasiCond = view.findViewById(R.id.saturasiOksigen_periksaCondition);
         this.btnDelete = view.findViewById(R.id.btn_delMedrec);
         this.btnDelete.setOnClickListener(this);
 
@@ -61,17 +64,45 @@ public class MedrecDetailsFragment extends Fragment implements PostCalculateTask
             this.tvIdPeriksa.setText("id pemeriksaan : " + String.valueOf(medrecDetails.getIdPeriksa()));
             this.tvTanggal.setText(medrecDetails.getTanggal());
             this.tvSuhu.setText(String.valueOf(medrecDetails.getSuhuTubuh()));
-            if (medrecDetails.getSuhuTubuh() <= 36.5 || medrecDetails.getSuhuTubuh() >= 37.5){
-                this.tvSuhuCond.setText("tidak normal");
-            }else{
-                this.tvSuhuCond.setText("normal");
-            }
             this.tvDetak.setText(String.valueOf(medrecDetails.getDetakJantung()));
             this.tvTekanan.setText(String.valueOf(medrecDetails.getTekananDarah()));
             this.tvSaturasi.setText(String.valueOf(medrecDetails.getSaturasiOksigen()));
             this.tvIdPetugas.setText(String.valueOf(medrecDetails.getIdPetugas()));
             this.tvIdNode.setText(String.valueOf(medrecDetails.getIdNode()));
             this.idCheck = bundle.getString("checkId");
+            if (medrecDetails.getSuhuTubuh() == 0){
+            }else{
+                if (medrecDetails.getSuhuTubuh() < 36.5 || medrecDetails.getSuhuTubuh() > 37.5){
+                    this.tvSuhuCond.setText("tidak normal");
+                }else{
+                    this.tvSuhuCond.setText("normal");
+                }
+            }
+            if(medrecDetails.getDetakJantung() == 0){
+            }else{
+                if (medrecDetails.getDetakJantung() < 60 || medrecDetails.getDetakJantung() > 100){
+                    this.tvDetakCond.setText("tidak normal");
+                }else{
+                    this.tvDetakCond.setText("normal");
+                }
+            }
+            if(medrecDetails.getTekananDarah() == 0){
+            }else{
+//                if (medrecDetails.getTekananDarah() < 60 || medrecDetails.getTekananDarah() > 100){
+//                    this.tvTekananCond.setText("tidak normal");
+//                }else{
+//                    this.tvTekananCond.setText("normal");
+//                }
+            }
+            Log.d("saturasi", String.valueOf(medrecDetails.getSaturasiOksigen()));
+            if(medrecDetails.getSaturasiOksigen() == 0){
+            }else{
+                if (medrecDetails.getSaturasiOksigen() < 95.00){
+                    this.tvSaturasiCond.setText("tidak normal");
+                }else{
+                    this.tvSaturasiCond.setText("normal");
+                }
+            }
         }
 
         btnDelete.setVisibility(View.INVISIBLE);

@@ -87,6 +87,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="null" />
+            <TextView
+                android:id="@+id/detakJantung_periksaCondition"
+                android:layout_marginLeft="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="null" />
 
         </LinearLayout>
 
@@ -108,6 +114,13 @@
                 android:layout_height="wrap_content"
                 android:text="null" />
 
+            <TextView
+                android:id="@+id/tekananDarah_periksaCondition"
+                android:layout_marginLeft="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="null" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -123,6 +136,13 @@
 
             <TextView
                 android:id="@+id/saturasiOksigen_periksa"
+                android:layout_marginLeft="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="null" />
+
+            <TextView
+                android:id="@+id/saturasiOksigen_periksaCondition"
                 android:layout_marginLeft="10sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
