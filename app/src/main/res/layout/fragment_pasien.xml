@@ -7,11 +7,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:id="@+id/linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/ed_cariPasien"
+            android:layout_width="match_parent"
+            android:layout_height="50sp"
+            android:hint="nama pasien"
+            android:layout_weight="5"
+            android:layout_margin="5sp"/>
+
+        <Button
+            android:id="@+id/btn_cariPasien"
+            android:layout_width="wrap_content"
+            android:layout_height="50sp"
+            android:layout_margin="5sp"
+            android:hint="Cari"
+            android:layout_weight="0"/>
+
+        <Button
+            android:id="@+id/btn_delFilterPasien"
+            android:layout_width="wrap_content"
+            android:layout_height="50sp"
+            android:layout_margin="5sp"
+            android:hint="Hapus Filter"
+            android:layout_weight="0"/>
+
+    </LinearLayout>
+
     <ListView
         android:id="@+id/list_pasien"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </ListView>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linear_layout"
+        android:layout_marginTop="1dp"></ListView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add"

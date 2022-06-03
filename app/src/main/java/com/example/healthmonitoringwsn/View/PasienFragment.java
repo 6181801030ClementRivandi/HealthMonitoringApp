@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.fragment.app.Fragment;
@@ -43,6 +44,11 @@ public class PasienFragment extends Fragment implements PostCalculateTask.IMainA
     FloatingActionButton add;
     String idUser;
     PostCalculateTask postCalculateTask;
+    Button btnCariPasien, btnDelFilter;
+    EditText edCari;
+
+    String[] temp;
+    Boolean state;
 
     public PasienFragment() {
     }
@@ -54,6 +60,13 @@ public class PasienFragment extends Fragment implements PostCalculateTask.IMainA
         if(bundle != null){
             this.idUser = bundle.getString("pasienDetails");
         }
+
+        this.btnCariPasien = view.findViewById(R.id.btn_cariPasien);
+        this.btnDelFilter = view.findViewById(R.id.btn_delFilterPasien);
+        this.btnCariPasien.setOnClickListener(this);
+        this.btnDelFilter.setOnClickListener(this);
+
+        this.edCari = view.findViewById(R.id.ed_cariPasien);
 
         hasilPasien = new ArrayList<>();
 
@@ -75,12 +88,20 @@ public class PasienFragment extends Fragment implements PostCalculateTask.IMainA
 
         this.postCalculateTask = new PostCalculateTask(getContext(), this,this, this, this, this, this, this, this);
 
-        String[] apicall = new String[1];
-        apicall[0] = "pasien";
-        try {
-            postCalculateTask.callVolley(apicall);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if ( temp != null && state == true){
+            try {
+                postCalculateTask.callVolley(temp);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }else{
+            String[] apicall = new String[1];
+            apicall[0] = "pasien";
+            try {
+                postCalculateTask.callVolley(apicall);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
         this.add = view.findViewById(R.id.fab_add);
@@ -127,6 +148,30 @@ public class PasienFragment extends Fragment implements PostCalculateTask.IMainA
     public void onClick(View view) {
         if(view == this.add){
             this.listener.changePage(8);
+        }else if(view == btnCariPasien){
+            String nama = edCari.getText().toString();
+            String[] apicall = new String[2];
+            apicall[0] = "findPasien";
+            apicall[1] = nama;
+            temp = apicall;
+            state = true;
+            try {
+                postCalculateTask.callVolley(apicall);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            presenter.refresh();
+        }else if(view == btnDelFilter){
+            temp = null;
+            state = false;
+            String[] apicall = new String[1];
+            apicall[0] = "pasien";
+            try {
+                postCalculateTask.callVolley(apicall);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            presenter.refresh();
         }
     }
 

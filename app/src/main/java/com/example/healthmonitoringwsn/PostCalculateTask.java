@@ -527,6 +527,62 @@ public class PostCalculateTask {
                 };
                 BASE_URL = "http://172.20.10.2/Api.php?apicall=";
                 break;
+            case "findPasien":
+                BASE_URL += "findPasien";
+                String namaPasien = apicall[1];
+                jsonObjRequest = new StringRequest(
+
+                        Request.Method.POST,BASE_URL,
+                        new Response.Listener<String>() {
+                            String nama, usia, tanggalLahir, nomorHP, email, password, tanggalDaftar, namaKlinik;
+                            int NIK, idPasien, idKlinik;
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONObject result = new JSONObject(response);
+                                    for (int x = 0; x < result.getJSONArray("user").length(); x++) {
+                                        nama = (String) result.getJSONArray("user").getJSONObject(x).get("nama");
+                                        NIK = (Integer) result.getJSONArray("user").getJSONObject(x).get("NIK");
+                                        usia = (String) result.getJSONArray("user").getJSONObject(x).get("usia");
+                                        tanggalLahir = (String) result.getJSONArray("user").getJSONObject(x).get("tanggalLahir");
+                                        idPasien = (Integer) result.getJSONArray("user").getJSONObject(x).get("idPasien");
+                                        nomorHP = (String) result.getJSONArray("user").getJSONObject(x).get("nomorHP");
+                                        email = (String) result.getJSONArray("user").getJSONObject(x).get("email");
+                                        password = (String) result.getJSONArray("user").getJSONObject(x).get("password");
+                                        tanggalDaftar = (String) result.getJSONArray("user").getJSONObject(x).get("tanggalDaftar");
+                                        idKlinik = (Integer) result.getJSONArray("user").getJSONObject(x).get("idKlinik");
+                                        namaKlinik = (String) result.getJSONArray("user").getJSONObject(x).get("namaKlinik");
+                                        PasienDetails pasienDetails = new PasienDetails(this.nama, this.NIK, this.usia, this.tanggalLahir, this.idPasien, this.nomorHP, this.email, this.password, this.tanggalDaftar, this.idKlinik, this.namaKlinik);
+                                        uiPasien.hasil(pasienDetails);
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                VolleyLog.d("volley", "Error: " + error.getMessage());
+                                error.printStackTrace();
+                            }
+                        }) {
+
+                    @Override
+                    public String getBodyContentType() {
+                        return "application/x-www-form-urlencoded; charset=UTF-8";
+                    }
+
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("nama", namaPasien);
+                        return params;
+                    }
+                };
+                BASE_URL = "http://172.20.10.2/Api.php?apicall=";
+                break;
             case "addPasien":
                 BASE_URL += "addPasien";
                 String nama, usia, tanggallahir, nomorHP, email, password, tanggaldaftar, nik, idpasien, idklinik;
