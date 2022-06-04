@@ -841,14 +841,8 @@ public class PostCalculateTask {
                             public void onResponse(String response) {
                                 try {
                                     JSONObject result = new JSONObject(response);
-                                    String res = "";
                                     String checker = result.get("message").toString();
-                                    if(checker.equals("assign successful")) {
-                                        res = "assign successful";
-                                    }else{
-                                        res = "assign failed";
-                                    }
-                                    uiAssignNode.resultAssign(res);
+                                    uiAssignNode.resultAssign(checker);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }

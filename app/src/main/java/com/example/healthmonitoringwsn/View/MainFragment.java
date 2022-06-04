@@ -151,7 +151,7 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
         this.tvIdNode.setText(String.valueOf(medrecDetailsLatest.getIdNode()));
         if (medrecDetailsLatest.getSuhuTubuh() == 0){
         }else{
-            if (medrecDetailsLatest.getSuhuTubuh() < 36.5 || medrecDetailsLatest.getSuhuTubuh() > 37.5){
+            if (medrecDetailsLatest.getSuhuTubuh() < 36.1 || medrecDetailsLatest.getSuhuTubuh() > 37.2){
                 this.tvSuhuCond.setText("tidak normal");
             }else{
                 this.tvSuhuCond.setText("normal");
@@ -173,7 +173,6 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
 //                    this.tvTekananCond.setText("normal");
 //                }
         }
-        Log.d("test saturasi", String.valueOf(medrecDetailsLatest.getSaturasiOksigen()));
         if(medrecDetailsLatest.getSaturasiOksigen() == 0){
         }else{
             if (medrecDetailsLatest.getSaturasiOksigen() < 95.00){

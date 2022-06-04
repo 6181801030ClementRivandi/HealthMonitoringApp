@@ -72,7 +72,7 @@ public class MedrecDetailsFragment extends Fragment implements PostCalculateTask
             this.idCheck = bundle.getString("checkId");
             if (medrecDetails.getSuhuTubuh() == 0){
             }else{
-                if (medrecDetails.getSuhuTubuh() < 36.5 || medrecDetails.getSuhuTubuh() > 37.5){
+                if (medrecDetails.getSuhuTubuh() < 36.1 || medrecDetails.getSuhuTubuh() > 37.2){
                     this.tvSuhuCond.setText("tidak normal");
                 }else{
                     this.tvSuhuCond.setText("normal");
@@ -94,7 +94,6 @@ public class MedrecDetailsFragment extends Fragment implements PostCalculateTask
 //                    this.tvTekananCond.setText("normal");
 //                }
             }
-            Log.d("saturasi", String.valueOf(medrecDetails.getSaturasiOksigen()));
             if(medrecDetails.getSaturasiOksigen() == 0){
             }else{
                 if (medrecDetails.getSaturasiOksigen() < 95.00){

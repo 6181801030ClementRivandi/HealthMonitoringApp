@@ -198,6 +198,9 @@ public class AssignFragment extends Fragment implements PostCalculateTask.IMainA
             btnPemeriksaan.setVisibility(View.VISIBLE);
             MainActivity main = (MainActivity) getActivity();
             main.bottomNavigationView.getMenu().findItem(R.id.home_icon).setCheckable(false);
+        }else{
+            Toast.makeText(getContext(), "pasien atau node belum terdaftar", Toast.LENGTH_SHORT).show();
+
         }
     }
 
