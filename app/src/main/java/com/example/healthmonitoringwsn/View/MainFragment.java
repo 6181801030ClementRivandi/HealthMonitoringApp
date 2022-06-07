@@ -143,11 +143,11 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
         medrecDetailsLatest = medrecDetails;
         this.tvIdPeriksa.setText("id pemeriksaan : " + String.valueOf(medrecDetailsLatest.getIdPeriksa()));
         this.tvTanggal.setText(medrecDetailsLatest.getTanggal());
-        this.tvSuhu.setText(String.valueOf(medrecDetailsLatest.getSuhuTubuh()));
-        this.tvDetak.setText(String.valueOf(medrecDetailsLatest.getDetakJantung()));
-        this.tvTekanan.setText(String.valueOf(medrecDetailsLatest.getTekananDarah()));
-        this.tvSaturasi.setText(String.valueOf(medrecDetailsLatest.getSaturasiOksigen()));
-        this.tvIdPetugas.setText(String.valueOf(medrecDetailsLatest.getIdPetugas()));
+        this.tvSuhu.setText(String.valueOf(medrecDetailsLatest.getSuhuTubuh()) + " \u2103");
+        this.tvDetak.setText(String.valueOf(medrecDetailsLatest.getDetakJantung()) + " bpm");
+        this.tvTekanan.setText(String.valueOf(medrecDetailsLatest.getTekananDarah()) + " mmHg");
+        this.tvSaturasi.setText(String.valueOf(medrecDetailsLatest.getSaturasiOksigen()) + " %");
+        this.tvIdPetugas.setText(medrecDetailsLatest.getNamaPetugas());
         this.tvIdNode.setText(String.valueOf(medrecDetailsLatest.getIdNode()));
         if (medrecDetailsLatest.getSuhuTubuh() == 0){
         }else{

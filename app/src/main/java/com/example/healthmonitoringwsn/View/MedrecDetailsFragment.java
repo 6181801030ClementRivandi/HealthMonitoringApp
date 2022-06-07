@@ -63,11 +63,11 @@ public class MedrecDetailsFragment extends Fragment implements PostCalculateTask
             this.medrecDetails = bundle.getParcelable("medrecDetails");
             this.tvIdPeriksa.setText("id pemeriksaan : " + String.valueOf(medrecDetails.getIdPeriksa()));
             this.tvTanggal.setText(medrecDetails.getTanggal());
-            this.tvSuhu.setText(String.valueOf(medrecDetails.getSuhuTubuh()) + "\u2103C");
-            this.tvDetak.setText(String.valueOf(medrecDetails.getDetakJantung()));
-            this.tvTekanan.setText(String.valueOf(medrecDetails.getTekananDarah()));
-            this.tvSaturasi.setText(String.valueOf(medrecDetails.getSaturasiOksigen()));
-            this.tvIdPetugas.setText(String.valueOf(medrecDetails.getIdPetugas()));
+            this.tvSuhu.setText(String.valueOf(medrecDetails.getSuhuTubuh()) + " \u2103");
+            this.tvDetak.setText(String.valueOf(medrecDetails.getDetakJantung()) + " bpm");
+            this.tvTekanan.setText(String.valueOf(medrecDetails.getTekananDarah()) + " mmHg");
+            this.tvSaturasi.setText(String.valueOf(medrecDetails.getSaturasiOksigen()) + " %");
+            this.tvIdPetugas.setText(medrecDetails.getNamaPetugas());
             this.tvIdNode.setText(String.valueOf(medrecDetails.getIdNode()));
             this.idCheck = bundle.getString("checkId");
             if (medrecDetails.getSuhuTubuh() == 0){

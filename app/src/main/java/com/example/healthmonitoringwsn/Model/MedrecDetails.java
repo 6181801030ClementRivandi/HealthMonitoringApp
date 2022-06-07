@@ -14,10 +14,10 @@ public class MedrecDetails implements Parcelable {
     int tekananDarah;
     double saturasiOksigen;
     int idPasien;
-    int idPetugas;
+    String namaPetugas;
     int idNode;
 
-    public MedrecDetails(String tanggal, int idPeriksa, double suhuTubuh, int detakJantung, int tekananDarah, double saturasiOksigen, int idPasien, int idPetugas, int idNode) {
+    public MedrecDetails(String tanggal, int idPeriksa, double suhuTubuh, int detakJantung, int tekananDarah, double saturasiOksigen, int idPasien, String namaPetugas, int idNode) {
         this.tanggal = tanggal;
         this.idPeriksa = idPeriksa;
         this.suhuTubuh = suhuTubuh;
@@ -25,7 +25,7 @@ public class MedrecDetails implements Parcelable {
         this.tekananDarah = tekananDarah;
         this.saturasiOksigen = saturasiOksigen;
         this.idPasien = idPasien;
-        this.idPetugas = idPetugas;
+        this.namaPetugas = namaPetugas;
         this.idNode = idNode;
     }
 
@@ -39,7 +39,7 @@ public class MedrecDetails implements Parcelable {
         tekananDarah = in.readInt();
         saturasiOksigen = in.readDouble();
         idPasien = in.readInt();
-        idPetugas = in.readInt();
+        namaPetugas = in.readString();
         idNode = in.readInt();
     }
 
@@ -111,12 +111,12 @@ public class MedrecDetails implements Parcelable {
         this.idPasien = idPasien;
     }
 
-    public int getIdPetugas() {
-        return idPetugas;
+    public String getNamaPetugas() {
+        return namaPetugas;
     }
 
-    public void setIdPetugas(int idPetugas) {
-        this.idPetugas = idPetugas;
+    public void setNamaPetugas(String namaPetugas) {
+        this.namaPetugas = namaPetugas;
     }
 
     public int getIdNode() {
@@ -141,7 +141,7 @@ public class MedrecDetails implements Parcelable {
         dest.writeInt(this.tekananDarah);
         dest.writeDouble(this.saturasiOksigen);
         dest.writeInt(this.idPasien);
-        dest.writeInt(this.idPetugas);
+        dest.writeString(this.namaPetugas);
         dest.writeInt(this.idNode);
     }
 }

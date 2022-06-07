@@ -18,7 +18,7 @@
             android:id="@+id/judul_periksa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="null"
+            android:text="tidak ada hasil pemeriksaan"
             android:textAlignment="center"
             android:textSize="30sp"
             android:layout_marginBottom="10sp"/>
@@ -39,7 +39,7 @@
                 android:layout_marginLeft="10sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="null" />
+                android:text="" />
 
         </LinearLayout>
 
@@ -59,14 +59,14 @@
                 android:layout_marginLeft="10sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="null" />
+                android:text="" />
 
             <TextView
                 android:id="@+id/suhuTubuh_periksaCondition"
                 android:layout_marginLeft="10sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="null" />
+                android:text="" />
 
         </LinearLayout>
 
@@ -86,13 +86,13 @@
                 android:layout_marginLeft="10sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="null" />
+                android:text="" />
             <TextView
                 android:id="@+id/detakJantung_periksaCondition"
                 android:layout_marginLeft="10sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="null" />
+                android:text="" />
 
         </LinearLayout>
 
@@ -112,14 +112,14 @@
                 android:layout_marginLeft="10sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="null" />
+                android:text="" />
 
             <TextView
                 android:id="@+id/tekananDarah_periksaCondition"
                 android:layout_marginLeft="10sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="null" />
+                android:text="" />
 
         </LinearLayout>
 
@@ -139,14 +139,14 @@
                 android:layout_marginLeft="10sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="null" />
+                android:text="" />
 
             <TextView
                 android:id="@+id/saturasiOksigen_periksaCondition"
                 android:layout_marginLeft="10sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="null" />
+                android:text="" />
 
         </LinearLayout>
 
@@ -159,14 +159,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Id Petugas :" />
+                android:text="Nama Petugas :" />
 
             <TextView
                 android:id="@+id/idPetugas_periksa"
                 android:layout_marginLeft="10sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="null" />
+                android:text="" />
 
         </LinearLayout>
 
@@ -186,7 +186,7 @@
                 android:layout_marginLeft="10sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="null" />
+                android:text="" />
 
         </LinearLayout>
 
