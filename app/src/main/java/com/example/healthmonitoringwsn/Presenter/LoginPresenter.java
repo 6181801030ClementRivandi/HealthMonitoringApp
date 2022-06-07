@@ -46,15 +46,21 @@ public class LoginPresenter implements ILoginPresenter, PostCalculateTask.IMainA
         } else if(loginCode == 2) {
             loginView.onLoginError("Password harus terdiri dari 6 digit gabungan huruf dan angka");
         } else {
-            if(idUser.indexOf("924") == -1){
+            if(idUser.indexOf("924") != -1){
                 String[] apicall = new String[3];
-                apicall[0] = "login";
+                apicall[0] = "loginStaff";
+                apicall[1] = idUser;
+                apicall[2] = password;
+                postCalculateTask.callVolley(apicall);
+            }else if(idUser.indexOf("111") != -1){
+                String[] apicall = new String[3];
+                apicall[0] = "loginStaff";
                 apicall[1] = idUser;
                 apicall[2] = password;
                 postCalculateTask.callVolley(apicall);
             }else{
                 String[] apicall = new String[3];
-                apicall[0] = "loginStaff";
+                apicall[0] = "login";
                 apicall[1] = idUser;
                 apicall[2] = password;
                 postCalculateTask.callVolley(apicall);

@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
     private EditPasienFragment editPasienFragment;
     private ProfileStaffFragment profileStaffFragment;
     private AssignFragment assignFragment;
+    private AdminFragment adminFragment;
 
     private FragmentManager fragmentManager;
     private FragmentTransaction ft;
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         this.editPasienFragment = EditPasienFragment.newInstance();
         this.profileStaffFragment = ProfileStaffFragment.newInstance();
         this.assignFragment = AssignFragment.newInstance();
+        this.adminFragment = AdminFragment.newInstance();
 
         this.fragmentManager = this.getSupportFragmentManager();
         this.toolbar = findViewById(R.id.toolbar);
@@ -93,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
             if (idStaff.equals("") && !idUser.equals("")){
                 lockDrawer();
             }else if(!idStaff.equals("") && idUser.equals("")){
-                unlockDrawer();
+                lockDrawer();
             }
             bottomNavigationView.setVisibility(View.VISIBLE);
         }
@@ -102,8 +104,12 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
                 ft.replace(R.id.fragment_container, this.profileFragment).addToBackStack(null);
                 lockDrawer();
             }else if(!idStaff.equals("") && idUser.equals("")){
+                if(idStaff.indexOf("111") != -1){
+                    unlockDrawer();
+                }else if(idStaff.indexOf("924") != -1){
+                    lockDrawer();
+                }
                 ft.replace(R.id.fragment_container, this.profileStaffFragment).addToBackStack(null);
-                unlockDrawer();
             }
         }
         else if (page == 4) {
@@ -111,11 +117,24 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
             if (idStaff.equals("") && !idUser.equals("")){
                 lockDrawer();
             }else if(!idStaff.equals("") && idUser.equals("")){
-                unlockDrawer();
+                if(idStaff.indexOf("111") != -1){
+                    unlockDrawer();
+                }else if(idStaff.indexOf("924") != -1){
+                    lockDrawer();
+                }
             }
         }
         else if (page == 5) {
             ft.replace(R.id.fragment_container, this.medrecDetailsFragment).addToBackStack(null);
+            if (idStaff.equals("") && !idUser.equals("")){
+                lockDrawer();
+            }else if(!idStaff.equals("") && idUser.equals("")){
+                if(idStaff.indexOf("111") != -1){
+                    unlockDrawer();
+                }else if(idStaff.indexOf("924") != -1){
+                    lockDrawer();
+                }
+            }
         }
         else if (page == 6) {
             ft.replace(R.id.fragment_container, this.pasienFragment).addToBackStack(null);
@@ -132,12 +151,16 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         else if (page == 10) {
             ft.replace(R.id.fragment_container, this.assignFragment).addToBackStack(null);
             bottomNavigationView.setVisibility(View.VISIBLE);
-            if (idStaff.equals("") && !idUser.equals("")){
-                lockDrawer();
-            }else if(!idStaff.equals("") && idUser.equals("")){
+            if(idStaff.indexOf("111") != -1){
                 unlockDrawer();
+            }else if(idStaff.indexOf("924") != -1){
+                lockDrawer();
             }
-    }
+        }
+        else if (page == 11) {
+            ft.replace(R.id.fragment_container, this.adminFragment).addToBackStack(null);
+            bottomNavigationView.setVisibility(View.VISIBLE);
+        }
         this.drawer.closeDrawers();
         this.ft.commit();
     }
@@ -225,8 +248,14 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
                     ft.replace(R.id.fragment_container, this.mainFragment).addToBackStack(null);
                     lockDrawer();
                 }else if(!idStaff.equals("") && idUser.equals("")){
-                    ft.replace(R.id.fragment_container, this.assignFragment).addToBackStack(null);
-                    unlockDrawer();
+                    if(idStaff.indexOf("111") != -1){
+                        bottomNavigationView.setVisibility(View.VISIBLE);
+                        ft.replace(R.id.fragment_container, this.adminFragment).addToBackStack(null);
+                        unlockDrawer();
+                    }else if(idStaff.indexOf("924") != -1){
+                        ft.replace(R.id.fragment_container, this.assignFragment).addToBackStack(null);
+                        lockDrawer();
+                    }
                 }
                 ft.commit();
                 return true;
@@ -236,7 +265,11 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
                 if (idStaff.equals("") && !idUser.equals("")){
                     lockDrawer();
                 }else if(!idStaff.equals("") && idUser.equals("")){
-                    unlockDrawer();
+                    if(idStaff.indexOf("111") != -1){
+                        unlockDrawer();
+                    }else if(idStaff.indexOf("924") != -1){
+                        lockDrawer();
+                    }
                 }
                 ft.commit();
                 return true;
@@ -247,7 +280,11 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
                     lockDrawer();
                 }else if(!idStaff.equals("") && idUser.equals("")){
                     ft.replace(R.id.fragment_container, this.profileStaffFragment).addToBackStack(null);
-                    unlockDrawer();
+                    if(idStaff.indexOf("111") != -1){
+                        unlockDrawer();
+                    }else if(idStaff.indexOf("924") != -1){
+                        lockDrawer();
+                    }
                 }
                 ft.commit();
                 return true;

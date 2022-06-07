@@ -107,10 +107,12 @@ public class MedrecDetailsFragment extends Fragment implements PostCalculateTask
         }
 
         btnDelete.setVisibility(View.INVISIBLE);
-        if(idCheck.indexOf("924") == -1){
+        if(idCheck.indexOf("924") != -1){
             btnDelete.setVisibility(View.INVISIBLE);
-        }else{
+        }else if(idCheck.indexOf("111") != -1){
             btnDelete.setVisibility(View.VISIBLE);
+        }else{
+            btnDelete.setVisibility(View.INVISIBLE);
         }
         this.postCalculateTask = new PostCalculateTask(getContext(), this,this,this, this, this, this, this, this, this);
 

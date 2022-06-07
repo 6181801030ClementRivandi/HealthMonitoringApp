@@ -88,12 +88,15 @@ public class LoginFragment extends Fragment implements View.OnClickListener, ILo
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
         MainActivity mainActivity = (MainActivity)getActivity();
         this.hideKeyboard(getActivity());
-        if(id.indexOf("924") == -1){
-            mainActivity.passId(id);
-            this.listener.changePage(2);
-        }else{
+        if(id.indexOf("924") != -1){
             mainActivity.passIdStaff(id);
             this.listener.changePage(10);
+        }else if(id.indexOf("111") != -1){
+            mainActivity.passIdStaff(id);
+            this.listener.changePage(11);
+        }else{
+            mainActivity.passId(id);
+            this.listener.changePage(2);
         }
         eTidUser.setText(null);
         eTpassword.setText(null);

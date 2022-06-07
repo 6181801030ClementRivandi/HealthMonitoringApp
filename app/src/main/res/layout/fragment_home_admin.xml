@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/design_default_color_on_primary">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/tv_homeAdmin1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Selamat datang, admin!"
+                android:textSize="30dp"
+                android:layout_marginBottom="20dp"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/tv_homeAdmin2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fitur yang tersedia : \n - atur pasien \n   > tambah pasien baru \n   > hapus pasien \n   > edit data pasien \n - atur hasil pemeriksaan \n   > hapus hasil pemeriksaan \n - melihat profil \n\n\n\n\n * silahkan mengatur pasien dengan membuka drawer / swipe kanan lalu tekan tombol pasien \n\n *silahkan mengatur hasil pemeriksaan dengan membuka halaman detail pada masing-masing pemeriksaan"
+                android:textSize="20dp"
+                android:layout_marginBottom="20dp"
+                android:textAlignment="textStart"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
