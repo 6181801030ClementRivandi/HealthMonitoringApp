@@ -38,10 +38,10 @@ public class AddPasienFragment extends Fragment implements PostCalculateTask.IMa
     private SimpleDateFormat dateFormatter;
 
     private TextView etNama, etNIK, etUsia, etTanggalLahir, etId, etNomorHP, etEmail, etPassword, etIdKlinik;
-    private Button btnAdd;
+    private Button btnAdd, generate;
     private PostCalculateTask postCalculateTask;
     private String namaPasien, usiaPasien, tanggalLahirPasien, nomorHPPasien, emailPasien, passwordPasien, tanggalDaftarPasien, NIKPasien, idPasien, idKlinik;
-    private String result;
+    private String result, idGenerated;
 
     public AddPasienFragment(){}
 
@@ -57,14 +57,16 @@ public class AddPasienFragment extends Fragment implements PostCalculateTask.IMa
         this.etNIK = view.findViewById(R.id.ETNIKPasien);
         this.etUsia = view.findViewById(R.id.ETUsiaPasien);
         this.etTanggalLahir = view.findViewById(R.id.ETTanggalLahirPasien);
-        this.etId = view.findViewById(R.id.ETIdPasien);
         this.etNomorHP = view.findViewById(R.id.ETNomorHP);
         this.etEmail = view.findViewById(R.id.ETEmail);
         this.etPassword = view.findViewById(R.id.ETPassword);
         this.etIdKlinik = view.findViewById(R.id.ETIdKlinik);
         this.btnAdd = view.findViewById(R.id.btnAddPasien);
+        this.generate = view.findViewById(R.id.btnGenerateId);
+        this.etId = view.findViewById(R.id.idPasien);
 
         this.btnAdd.setOnClickListener(this);
+        this.generate.setOnClickListener(this);
         return view;
     }
 
@@ -103,7 +105,6 @@ public class AddPasienFragment extends Fragment implements PostCalculateTask.IMa
                 this.NIKPasien = this.etNIK.getText().toString();
                 this.usiaPasien = this.etUsia.getText().toString();
                 this.tanggalLahirPasien = this.etTanggalLahir.getText().toString();
-                this.idPasien = this.etId.getText().toString();
                 this.nomorHPPasien = this.etNomorHP.getText().toString();
                 this.emailPasien = this.etEmail.getText().toString();
                 this.passwordPasien = this.etPassword.getText().toString();
@@ -116,7 +117,7 @@ public class AddPasienFragment extends Fragment implements PostCalculateTask.IMa
                 apicall[2] = NIKPasien;
                 apicall[3] = usiaPasien;
                 apicall[4] = tanggalLahirPasien;
-                apicall[5] = idPasien;
+                apicall[5] = idGenerated;
                 apicall[6] = nomorHPPasien;
                 apicall[7] = emailPasien;
                 apicall[8] = passwordPasien;
@@ -128,6 +129,14 @@ public class AddPasienFragment extends Fragment implements PostCalculateTask.IMa
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+        }else if(view == this.generate){
+            String[] apicall = new String[1];
+            apicall[0] = "generate";
+            try {
+                postCalculateTask.callVolley(apicall);
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -172,7 +181,7 @@ public class AddPasienFragment extends Fragment implements PostCalculateTask.IMa
             etPassword.setText(null);
             etIdKlinik.setText(null);
         }else{
-            Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "tambah pasien gagal", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -189,5 +198,14 @@ public class AddPasienFragment extends Fragment implements PostCalculateTask.IMa
     @Override
     public void resultFind(String message) {
 
+    }
+
+    @Override
+    public void resultEdit(String message) {
+        this.idGenerated = message;
+        int temp = Integer.parseInt(idGenerated);
+        temp += 1;
+        idGenerated = String.valueOf(temp);
+        this.etId.setText("Id : " + idGenerated);
     }
 }

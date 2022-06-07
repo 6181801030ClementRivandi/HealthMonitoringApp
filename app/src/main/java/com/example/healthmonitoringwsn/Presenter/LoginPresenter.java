@@ -124,6 +124,11 @@ public class LoginPresenter implements ILoginPresenter, PostCalculateTask.IMainA
 
     }
 
+    @Override
+    public void resultEdit(String message) {
+
+    }
+
 //    public interface passUserId{
 //        void pass(String userId);
 //    }

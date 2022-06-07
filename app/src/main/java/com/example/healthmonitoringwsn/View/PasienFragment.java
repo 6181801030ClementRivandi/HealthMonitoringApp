@@ -236,4 +236,9 @@ public class PasienFragment extends Fragment implements PostCalculateTask.IMainA
         }
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
+
+    @Override
+    public void resultEdit(String message) {
+
+    }
 }

@@ -223,18 +223,7 @@ public class EditPasienFragment extends Fragment implements PostCalculateTask.IM
     @Override
     public void result(String message) {
         result = message;
-        if(result.equals("edit successful")){
-            Toast.makeText(getContext(), "data pasien berhasil diedit", Toast.LENGTH_SHORT).show();
-            this.listener.changePage(6);
-            etNama.setText(null);
-            etNIK.setText(null);
-            etUsia.setText(null);
-            etTanggalLahir.setText(null);
-            etNomorHP.setText(null);
-            etEmail.setText(null);
-            etPassword.setText(null);
-            etIdKlinik.setText(null);
-        }else if(result.equals("delete successful")){
+        if(result.equals("delete successful")){
             Toast.makeText(getContext(), "pasien berhasil dihapus", Toast.LENGTH_SHORT).show();
             this.listener.changePage(6);
             etNama.setText(null);
@@ -248,6 +237,7 @@ public class EditPasienFragment extends Fragment implements PostCalculateTask.IM
         }else{
             Toast.makeText(getContext(), "error", Toast.LENGTH_SHORT).show();
         }
+
     }
 
     public static void hideKeyboard(Activity activity) {
@@ -272,5 +262,24 @@ public class EditPasienFragment extends Fragment implements PostCalculateTask.IM
     @Override
     public void resultFind(String message) {
 
+    }
+
+    @Override
+    public void resultEdit(String message) {
+        result = message;
+        if(result.equals("edit successful")){
+            Toast.makeText(getContext(), "data pasien berhasil diedit", Toast.LENGTH_SHORT).show();
+            this.listener.changePage(6);
+            etNama.setText(null);
+            etNIK.setText(null);
+            etUsia.setText(null);
+            etTanggalLahir.setText(null);
+            etNomorHP.setText(null);
+            etEmail.setText(null);
+            etPassword.setText(null);
+            etIdKlinik.setText(null);
+        }else{
+            Toast.makeText(getContext(), "error", Toast.LENGTH_SHORT).show();
+        }
     }
 }

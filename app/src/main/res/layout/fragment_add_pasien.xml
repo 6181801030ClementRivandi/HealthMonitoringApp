@@ -76,18 +76,19 @@
             android:paddingLeft="10px"
             android:text="Id" />
 
-        <EditText
-            android:id="@+id/ETIdPasien"
+        <Button
+            android:id="@+id/btnGenerateId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/idPasien"
-            android:layout_marginBottom="10sp" />
+            android:layout_margin="10dp"
+            android:text="Generate id" />
 
         <TextView
             android:id="@+id/nomorHPPasien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ETIdPasien"
+            android:layout_below="@id/btnGenerateId"
             android:paddingLeft="10px"
             android:text="Nomor HP" />
 

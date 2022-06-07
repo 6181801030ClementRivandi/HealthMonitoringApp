@@ -160,6 +160,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         else if (page == 11) {
             ft.replace(R.id.fragment_container, this.adminFragment).addToBackStack(null);
             bottomNavigationView.setVisibility(View.VISIBLE);
+            unlockDrawer();
         }
         this.drawer.closeDrawers();
         this.ft.commit();

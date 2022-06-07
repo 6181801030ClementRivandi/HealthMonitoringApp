@@ -213,5 +213,10 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
     public void resultFind(String message) {
 
     }
+
+    @Override
+    public void resultEdit(String message) {
+
+    }
 }
 

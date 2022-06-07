@@ -208,4 +208,9 @@ public class AssignFragment extends Fragment implements PostCalculateTask.IMainA
     public void resultFind(String message) {
 
     }
+
+    @Override
+    public void resultEdit(String message) {
+
+    }
 }

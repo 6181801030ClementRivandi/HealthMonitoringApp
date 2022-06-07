@@ -206,4 +206,9 @@ public class MedrecDetailsFragment extends Fragment implements PostCalculateTask
         public void resultFind(String message) {
 
         }
+
+        @Override
+        public void resultEdit(String message) {
+
+        }
     }
