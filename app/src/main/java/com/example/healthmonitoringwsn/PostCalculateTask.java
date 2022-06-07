@@ -192,7 +192,7 @@ public class PostCalculateTask {
                 jsonObjRequest = new StringRequest(Request.Method.POST,BASE_URL, new Response.Listener<String>() {
 
                     String tanggal;
-                    int idPeriksa, detakJantung, tekananDarah, idPasien, idPetugas, idNode;
+                    int idPeriksa, detakJantung, tekananDarah, idPasien, idPetugas, idNode, saturasi;
                     double suhuTubuh, saturasiOksigen;
                     @Override
                     public void onResponse(String response) {
@@ -207,8 +207,8 @@ public class PostCalculateTask {
                                 if (String.valueOf(result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen")).equals("0")){
                                     saturasiOksigen = 0.0;
                                 }else{
-                                    saturasiOksigen = (Double)result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen");
-                                }
+                                    saturasi = (Integer)result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen");
+                                    saturasiOksigen = saturasi * 1.0;                                }
                                 idPasien = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idPasien");
                                 idPetugas = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idPetugas");
                                 idNode = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idNode");
@@ -249,7 +249,7 @@ public class PostCalculateTask {
                 jsonObjRequest = new StringRequest(Request.Method.POST,BASE_URL, new Response.Listener<String>() {
 
                     String tanggal;
-                    int idPeriksa, detakJantung, tekananDarah, idPasien, idPetugas, idNode;
+                    int idPeriksa, detakJantung, tekananDarah, idPasien, idPetugas, idNode, saturasi;
                     double suhuTubuh, saturasiOksigen;
                     @Override
                     public void onResponse(String response) {
@@ -262,9 +262,10 @@ public class PostCalculateTask {
                                 detakJantung = (Integer)result.getJSONArray("periksa").getJSONObject(x).get("detakJantung");
                                 tekananDarah = (Integer)result.getJSONArray("periksa").getJSONObject(x).get("tekananDarah");
                                 if (String.valueOf(result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen")).equals("0")){
-                                    saturasiOksigen = 0.0;
+                                    saturasiOksigen = 0 * 1.0;
                                 }else{
-                                    saturasiOksigen = (Double)result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen");
+                                    saturasi = (Integer)result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen");
+                                    saturasiOksigen = saturasi * 1.0;
                                 }
                                 idPasien = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idPasien");
                                 idPetugas = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idPetugas");
@@ -306,7 +307,7 @@ public class PostCalculateTask {
                 jsonObjRequest = new StringRequest(Request.Method.POST,BASE_URL, new Response.Listener<String>() {
 
                     String tanggal;
-                    int idPeriksa, detakJantung, tekananDarah, idPasien, idPetugas, idNode;
+                    int idPeriksa, detakJantung, tekananDarah, idPasien, idPetugas, idNode, saturasi;
                     double suhuTubuh, saturasiOksigen;
                     @Override
                     public void onResponse(String response) {
@@ -321,8 +322,8 @@ public class PostCalculateTask {
                                 if (String.valueOf(result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen")).equals("0")){
                                     saturasiOksigen = 0.0;
                                 }else{
-                                    saturasiOksigen = (Double)result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen");
-                                }
+                                    saturasi = (Integer)result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen");
+                                    saturasiOksigen = saturasi * 1.0;                                }
                                 idPasien = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idPasien");
                                 idPetugas = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idPetugas");
                                 idNode = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idNode");
@@ -364,7 +365,7 @@ public class PostCalculateTask {
                 jsonObjRequest = new StringRequest(Request.Method.POST,BASE_URL, new Response.Listener<String>() {
 
                     String tanggal;
-                    int idPeriksa, detakJantung, tekananDarah, idPasien, idPetugas, idNode;
+                    int idPeriksa, detakJantung, tekananDarah, idPasien, idPetugas, idNode, saturasi;
                     double suhuTubuh, saturasiOksigen;
                     @Override
                     public void onResponse(String response) {
@@ -384,8 +385,8 @@ public class PostCalculateTask {
                                     if (String.valueOf(result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen")).equals("0")){
                                         saturasiOksigen = 0.0;
                                     }else{
-                                        saturasiOksigen = (Double)result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen");
-                                    }
+                                        saturasi = (Integer)result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen");
+                                        saturasiOksigen = saturasi * 1.0;                                    }
                                     idPasien = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idPasien");
                                     idPetugas = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idPetugas");
                                     idNode = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idNode");
