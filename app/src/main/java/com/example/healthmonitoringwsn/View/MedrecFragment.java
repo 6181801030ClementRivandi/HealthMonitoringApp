@@ -158,7 +158,7 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
             Toast.makeText(getContext(), "hasil pemeriksaan tidak ada", Toast.LENGTH_SHORT).show();
             presenter.loadData();
         }else{
-            presenter.addList(medrecs.getTanggal(), medrecs.getIdPeriksa(), medrecs.getSuhuTubuh(), medrecs.getDetakJantung(), medrecs.getTekananDarah(), medrecs.getSaturasiOksigen(), medrecs.getIdPasien(), medrecs.getNamaPetugas(), medrecs.getIdNode());
+            presenter.addList(medrecs.getTanggal(), medrecs.getIdPeriksa(), medrecs.getSuhuTubuh(), medrecs.getDetakJantung(), medrecs.getTekananDarah(), medrecs.getSaturasiOksigen(), medrecs.getIdPasien(), medrecs.getNamaPetugas(), medrecs.getNamaPasien(), medrecs.getIdNode());
         }
     }
 

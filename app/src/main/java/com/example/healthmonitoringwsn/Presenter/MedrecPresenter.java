@@ -31,8 +31,8 @@ public class MedrecPresenter {
         return medrecs.size();
     }
 
-    public void addList(String tanggal, int idPeriksa, double suhuTubuh, int detakJantung, int tekananDarah, double saturasiOksigen, int idPasien, String namaPetugas, int idNode){
-        this.medrecs.add(new MedrecDetails(tanggal, idPeriksa, suhuTubuh, detakJantung, tekananDarah, saturasiOksigen, idPasien, namaPetugas, idNode));
+    public void addList(String tanggal, int idPeriksa, double suhuTubuh, int detakJantung, int tekananDarah, double saturasiOksigen, int idPasien, String namaPetugas, String namaPasien, int idNode){
+        this.medrecs.add(new MedrecDetails(tanggal, idPeriksa, suhuTubuh, detakJantung, tekananDarah, saturasiOksigen, idPasien, namaPetugas, namaPasien, idNode));
         this.ui.updateList(this.medrecs);
     }
 
