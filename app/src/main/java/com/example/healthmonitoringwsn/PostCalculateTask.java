@@ -352,7 +352,6 @@ public class PostCalculateTask {
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> params = new HashMap<String, String>();
-                        params.put("idPetugas", idPetugas);
                         return params;
                     }
                 };
@@ -430,7 +429,7 @@ public class PostCalculateTask {
                 jsonObjRequest = new StringRequest(Request.Method.POST,BASE_URL, new Response.Listener<String>() {
 
                     String tanggal, namaPetugas;
-                    int idPeriksa, detakJantung, tekananDarah, idPasien, idNode;
+                    int idPeriksa, detakJantung, tekananDarah, idPasien, idNode, saturasi;
                     double suhuTubuh, saturasiOksigen;
                     @Override
                     public void onResponse(String response) {
@@ -450,8 +449,8 @@ public class PostCalculateTask {
                                     if (String.valueOf(result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen")).equals("0")){
                                         saturasiOksigen = 0.0;
                                     }else{
-                                        saturasiOksigen = (Double)result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen");
-                                    }
+                                        saturasi = (Integer)result.getJSONArray("periksa").getJSONObject(x).get("saturasiOksigen");
+                                        saturasiOksigen = saturasi * 1.0;                                     }
                                     idPasien = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idPasien");
                                     namaPetugas = (String) result.getJSONArray("periksa").getJSONObject(x).get("namaPetugas");
                                     idNode = (Integer) result.getJSONArray("periksa").getJSONObject(x).get("idNode");
@@ -481,7 +480,6 @@ public class PostCalculateTask {
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> params = new HashMap<String, String>();
-                        params.put("idPetugas", idPetugas);
                         params.put("tanggal", tgl);
                         return params;
                     }
