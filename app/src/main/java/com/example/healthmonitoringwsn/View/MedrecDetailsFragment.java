@@ -34,6 +34,7 @@ public class MedrecDetailsFragment extends Fragment implements PostCalculateTask
     TextView tvSuhuCond, tvDetakCond, tvTekananCond, tvSaturasiCond;
     String idCheck;
     private MedrecDetails medrecDetails;
+    String nama;
     PostCalculateTask postCalculateTask;
 
     public MedrecDetailsFragment(){
@@ -61,7 +62,8 @@ public class MedrecDetailsFragment extends Fragment implements PostCalculateTask
         Bundle bundle = getArguments();
         if ( bundle != null){
             this.medrecDetails = bundle.getParcelable("medrecDetails");
-            this.tvIdPeriksa.setText("id pemeriksaan : " + String.valueOf(medrecDetails.getIdPeriksa()));
+            this.nama = medrecDetails.getNamaPasien();
+            this.tvIdPeriksa.setText("nama : " + nama + "\n" + "pemeriksaan ke : " + String.valueOf(medrecDetails.getIdPeriksa()));
             this.tvTanggal.setText(medrecDetails.getTanggal());
             this.tvSuhu.setText(String.valueOf(medrecDetails.getSuhuTubuh()) + " \u2103");
             this.tvDetak.setText(String.valueOf(medrecDetails.getDetakJantung()) + " bpm");

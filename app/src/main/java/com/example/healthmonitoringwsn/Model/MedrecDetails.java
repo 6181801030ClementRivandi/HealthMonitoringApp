@@ -15,9 +15,10 @@ public class MedrecDetails implements Parcelable {
     double saturasiOksigen;
     int idPasien;
     String namaPetugas;
+    String namaPasien;
     int idNode;
 
-    public MedrecDetails(String tanggal, int idPeriksa, double suhuTubuh, int detakJantung, int tekananDarah, double saturasiOksigen, int idPasien, String namaPetugas, int idNode) {
+    public MedrecDetails(String tanggal, int idPeriksa, double suhuTubuh, int detakJantung, int tekananDarah, double saturasiOksigen, int idPasien, String namaPetugas, String namaPasien, int idNode) {
         this.tanggal = tanggal;
         this.idPeriksa = idPeriksa;
         this.suhuTubuh = suhuTubuh;
@@ -26,6 +27,7 @@ public class MedrecDetails implements Parcelable {
         this.saturasiOksigen = saturasiOksigen;
         this.idPasien = idPasien;
         this.namaPetugas = namaPetugas;
+        this.namaPasien = namaPasien;
         this.idNode = idNode;
     }
 
@@ -40,6 +42,7 @@ public class MedrecDetails implements Parcelable {
         saturasiOksigen = in.readDouble();
         idPasien = in.readInt();
         namaPetugas = in.readString();
+        namaPasien = in.readString();
         idNode = in.readInt();
     }
 
@@ -119,6 +122,14 @@ public class MedrecDetails implements Parcelable {
         this.namaPetugas = namaPetugas;
     }
 
+    public String getNamaPasien() {
+        return namaPasien;
+    }
+
+    public void setNamaPasien(String namaPasien) {
+        this.namaPasien = namaPasien;
+    }
+
     public int getIdNode() {
         return idNode;
     }
@@ -142,6 +153,7 @@ public class MedrecDetails implements Parcelable {
         dest.writeDouble(this.saturasiOksigen);
         dest.writeInt(this.idPasien);
         dest.writeString(this.namaPetugas);
+        dest.writeString(this.namaPasien);
         dest.writeInt(this.idNode);
     }
 }

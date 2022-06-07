@@ -40,7 +40,7 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
     private MedrecDetails medrecDetailsLatest;
     TextView tvIdPeriksa, tvTanggal, tvSuhu, tvDetak, tvTekanan, tvSaturasi, tvIdPetugas, tvIdNode;
     TextView tvSuhuCond, tvDetakCond, tvTekananCond, tvSaturasiCond;
-    String idUsr = "", idStff = "";
+    String idUsr = "", idStff = "", nama = "";
     String[] apicall;
 
     public MainFragment(){}
@@ -141,7 +141,8 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
     @Override
     public void hasil(MedrecDetails medrecDetails) {
         medrecDetailsLatest = medrecDetails;
-        this.tvIdPeriksa.setText("id pemeriksaan : " + String.valueOf(medrecDetailsLatest.getIdPeriksa()));
+        this.nama = medrecDetailsLatest.getNamaPasien();
+        this.tvIdPeriksa.setText("nama : " + nama + "\n" + "pemeriksaan ke : " + String.valueOf(medrecDetails.getIdPeriksa()));
         this.tvTanggal.setText(medrecDetailsLatest.getTanggal());
         this.tvSuhu.setText(String.valueOf(medrecDetailsLatest.getSuhuTubuh()) + " \u2103");
         this.tvDetak.setText(String.valueOf(medrecDetailsLatest.getDetakJantung()) + " bpm");

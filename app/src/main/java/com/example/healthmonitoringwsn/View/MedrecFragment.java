@@ -29,6 +29,7 @@ import com.example.healthmonitoringwsn.Model.ProfileStaff;
 import com.example.healthmonitoringwsn.PostCalculateTask;
 import com.example.healthmonitoringwsn.Presenter.MedrecPresenter;
 import com.example.healthmonitoringwsn.R;
+import com.example.healthmonitoringwsn.Sqlite;
 
 import org.json.JSONException;
 
@@ -50,17 +51,19 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
     private SimpleDateFormat dateFormatter;
     private Context context;
     Button filter, delFilter;
-    String idUser, idStaff, idChecker;
+    String idUser, idStaff, idChecker, nama;
     String[] temp;
     Boolean state;
     PostCalculateTask postCalculateTask;
+    private Sqlite sqlite;
+    private Profile profile;
 
     public MedrecFragment() {
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_medrec, container, false);
-
+        this.sqlite = new Sqlite(this.getActivity());
         Bundle bundle = getArguments();
         if(bundle != null){
             this.idUser = bundle.getString("idUsr");
@@ -69,6 +72,8 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
                 this.idChecker = idStaff;
             }else{
                 this.idChecker = idUser;
+                this.profile = this.sqlite.getContact(Integer.parseInt(idUser));
+                this.nama = profile.getNamaUser();
             }
         }
 
@@ -88,7 +93,7 @@ public class MedrecFragment extends Fragment implements PostCalculateTask.IMainA
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 MainActivity main = (MainActivity) getActivity();
                 MedrecDetails currentMedrec = (MedrecDetails) adapter.getItem(position);
-                main.psMedrec(currentMedrec, idChecker);
+                main.psMedrec(currentMedrec, idChecker, nama);
             }
         });
 

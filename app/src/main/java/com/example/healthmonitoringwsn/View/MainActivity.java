@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
     String idUser = "";
     String idStaff = "";
     String idPsn = "";
+    String namaPsn = "";
     String buttonView;
 
     BottomNavigationView bottomNavigationView;
@@ -183,11 +184,12 @@ public class MainActivity extends AppCompatActivity implements FragmentListener,
         this.mainFragment.setArguments(bundle);
     }
 
-    public void psMedrec(MedrecDetails medrecDetails, String checkId) {
+    public void psMedrec(MedrecDetails medrecDetails, String checkId, String name) {
         this.ft = this.fragmentManager.beginTransaction();
         Bundle bundle = new Bundle();
         bundle.putParcelable("medrecDetails", medrecDetails);
         bundle.putString("checkId", checkId);
+        bundle.putString("namaPsn", name);
         this.medrecDetailsFragment.setArguments(bundle);
         changePage(5);
     }
