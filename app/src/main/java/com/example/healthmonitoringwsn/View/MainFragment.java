@@ -31,6 +31,8 @@ import com.example.healthmonitoringwsn.R;
 import org.json.JSONException;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainFragment extends Fragment implements PostCalculateTask.IMainActivityFindPsn, PostCalculateTask.IMainActivityAssignNode, PostCalculateTask.IMainActivity, PostCalculateTask.ILoginActivity, PostCalculateTask.ILoginActivityStaff, PostCalculateTask.IMainActivityPsn, PostCalculateTask.IMainActivityAddPsn, PostCalculateTask.IMainActivityEditPsn, PostCalculateTask.IMainActivityDelPsn {
     private FragmentManager fragmentManager;
@@ -113,6 +115,19 @@ public class MainFragment extends Fragment implements PostCalculateTask.IMainAct
                 }, 1000);
             }
         });
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask(){
+            @Override
+            public void run(){
+                try {
+                    postCalculateTask.callVolley(apicall);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Log.d("refresh", "refreshed");
+            }
+        }, 0, 5000);
 
         return view;
     }

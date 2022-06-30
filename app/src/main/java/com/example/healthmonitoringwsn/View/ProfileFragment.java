@@ -61,7 +61,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         this.profile = this.sqlite.getContact(Integer.parseInt(idUser));
         this.tvNIKUser.setText(String.valueOf(profile.getNIK()));
         this.tvNamaUser.setText(profile.getNamaUser());
-        this.tvUsiaUser.setText(profile.getUsiaUser());
+        this.tvUsiaUser.setText(profile.getUsiaUser() + " tahun");
         this.tvTanggalLahirUser.setText(profile.getTanggalLahirUser());
         this.tvNomorHPUser.setText(profile.getNomorHP());
         this.tvEmailUser.setText(profile.getEmail());
@@ -100,6 +100,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
                             Toast.makeText(getContext(), "anda berhasil keluar", Toast.LENGTH_SHORT).show();
                             MainActivity main = (MainActivity) getActivity();
                             main.bottomNavigationView.setSelectedItemId(R.id.home_icon);
+                            fragmentManager = getActivity().getSupportFragmentManager();
+                            for(int i = 0; i < fragmentManager.getBackStackEntryCount(); ++i) {
+                                fragmentManager.popBackStack();
+                            }
                             listener.changePage(1);
                         }
                     });

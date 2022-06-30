@@ -3,6 +3,7 @@ package com.example.healthmonitoringwsn.View;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,17 @@ public class LoginFragment extends Fragment implements View.OnClickListener, ILo
 //        navBar.setVisibility(View.GONE);
 
         View view = inflater.inflate(R.layout.fragment_login,container,false);
+
+        view.setFocusableInTouchMode(true);
+        view.requestFocus();
+        view.setOnKeyListener((view1, i, keyEvent) -> {
+            if (keyEvent.getAction() == KeyEvent.ACTION_DOWN){
+                if (i == KeyEvent.KEYCODE_BACK){
+                    return true;
+                }
+            }
+            return false;
+        });
 
         loginPresenter = new LoginPresenter(this, getContext());
 
